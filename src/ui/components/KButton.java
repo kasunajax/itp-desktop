@@ -10,7 +10,7 @@ public class KButton extends JButton {
 	
 	public KButton(String name) {
 		
-		super(name);
+		super(name); 
 	}
 
 }
