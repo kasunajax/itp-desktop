@@ -34,6 +34,7 @@ public class AddEmp extends KTab {
 	public AddEmp() {
 		super("Manage Employee Details");
 		
+		
 		JButton btnAddEmployee = new JButton("Add Employee");
 		btnAddEmployee.setBounds(91, 45, 112, 23);
 		getContentPane().add(btnAddEmployee);

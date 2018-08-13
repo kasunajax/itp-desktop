@@ -6,6 +6,7 @@ import ui.components.KFrame;
 import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
+import ui.employees.tabs.AddEmp;
 import ui.employees.tabs.AddEmployeeFrame;
 import ui.employees.tabs.ViewEmployees;
 
@@ -37,10 +38,10 @@ public class EmployeeFrame extends KFrame {
 	 */
 	public EmployeeFrame() {
 		
-		KTab[] tabs = new KTab[2];
+		KTab[] tabs = new KTab[3];
 		tabs[0] = new AddEmployeeFrame();
 		tabs[1] = new ViewEmployees();
-		
+		tabs[2] = new AddEmp(); 
 
 		new TabPanel(this, tabs, new TabNavPanel(this));
 
