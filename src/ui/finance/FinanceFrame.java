@@ -3,6 +3,10 @@ package ui.finance;
 import java.awt.EventQueue;
 
 import ui.components.KFrame;
+import ui.components.KTab;
+import ui.components.TabNavPanel;
+import ui.components.TabPanel;
+import ui.finance.tabs.CreateExpenses;
 
 public class FinanceFrame extends KFrame {
 
@@ -31,6 +35,12 @@ public class FinanceFrame extends KFrame {
 	 * Create the frame.
 	 */
 	public FinanceFrame() {
+		
+		KTab[] tabs  =  new KTab[1];
+		tabs[0] = new CreateExpenses();
+		
+		
+		new TabPanel(this, tabs, new TabNavPanel(this));
 
 	}
 
