@@ -13,4 +13,7 @@ public class KButton extends JButton {
 		super(name); 
 	}
 
+	public KButton() {
+		
+	}
 }
