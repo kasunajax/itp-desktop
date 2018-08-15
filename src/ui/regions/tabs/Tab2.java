@@ -50,7 +50,7 @@ public class Tab2 extends KTab {
 		textField = new JTextField();
 		textField.setBounds(417, 175, 170, 40);
 		getContentPane().add(textField);
-		textField.setColumns(10);
+		textField.setColumns(10); 
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(417, 98, 170, 40);

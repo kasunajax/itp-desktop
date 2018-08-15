@@ -40,7 +40,7 @@ public class Tab3 extends KTab {
 		btnBranchDetailes.setBounds(217, 221, 300, 50);
 		getContentPane().add(btnBranchDetailes);
 		
-		JButton btnSalesReport = new JButton("Sales Report");
+		JButton btnSalesReport = new JButton("Sales Report"); 
 		btnSalesReport.setBounds(217, 328, 300, 50);
 		getContentPane().add(btnSalesReport);
 		

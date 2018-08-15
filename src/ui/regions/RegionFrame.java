@@ -43,7 +43,7 @@ public class RegionFrame extends KFrame {
 		tabs[0] = new Tab1();
 		tabs[1] = new Tab2();
 		tabs[2] = new Tab3();
-		
+		 
 
 		new TabPanel(this, tabs, new TabNavPanel(this));
 	}

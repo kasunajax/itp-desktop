@@ -42,7 +42,7 @@ public class Tab1 extends KTab {
 		super("Tab 1");
 		
 		textField = new JTextField();
-		textField.setBounds(410, 94, 170, 40);
+		textField.setBounds(410, 94, 170, 40); 
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
