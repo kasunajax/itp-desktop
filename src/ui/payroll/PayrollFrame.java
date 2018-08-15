@@ -3,6 +3,13 @@ package ui.payroll;
 import java.awt.EventQueue;
 
 import ui.components.KFrame;
+import ui.components.KTab;
+import ui.components.TabNavPanel;
+import ui.components.TabPanel;
+import ui.employees.tabs.AddEmp;
+import ui.employees.tabs.AddEmployeeFrame;
+import ui.employees.tabs.ViewEmployees;
+import ui.payroll.tabs.NewEmployeeSalary;
 
 public class PayrollFrame extends KFrame {
 
@@ -31,6 +38,13 @@ public class PayrollFrame extends KFrame {
 	 * Create the frame.
 	 */
 	public PayrollFrame() {
+		
+		KTab[] tabs = new KTab[1]; //increase the number depending on the number of tabs
+		
+		tabs[0] = new NewEmployeeSalary(); 
+		
+		new TabPanel(this, tabs, new TabNavPanel(this));
+
 
 	}
 
