@@ -24,23 +24,26 @@ public class TabPanel extends JPanel {
 		
 		int i = 0;
 		for(KTab tab: tabs){
-			TabNavButton btn = new TabNavButton(tab.getTitle());
+			TabNavButton btn = new TabNavButton(tab.getTitle(), i, nav);
 			btn.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					add(tab);
+					btn.clicked();
 				}
 				
 			});
-			nav.add(btn, i);
+			nav.add(btn);
+			if(i == 0) {
+				btn.clicked();
+			}
 			i++;
 		}
 		
-		
 	}
 	
-	
+
 	private void add(KTab tab) {
 		pane.remove(current);
 		pane.add(tab);
