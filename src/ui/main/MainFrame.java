@@ -23,7 +23,7 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		NavPanel navPanel = new NavPanel();
+		NavPanel navPanel = NavPanel.getInstance();
 		getContentPane().add(navPanel);
 		
 		MainPanel mainPanel = new MainPanel();
