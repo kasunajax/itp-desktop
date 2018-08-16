@@ -6,10 +6,11 @@ import ui.components.KFrame;
 import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
-import ui.employees.tabs.AddEmp;
-import ui.employees.tabs.AddEmployeeFrame;
-import ui.employees.tabs.ViewEmployees;
+import ui.payroll.tabs.MonthlyPayroll;
 import ui.payroll.tabs.NewEmployeeSalary;
+import ui.payroll.tabs.PayrollReports;
+import ui.payroll.tabs.UpdateRemoveSalary;
+import ui.payroll.tabs.ViewPayslip;
 
 public class PayrollFrame extends KFrame {
 
@@ -39,9 +40,13 @@ public class PayrollFrame extends KFrame {
 	 */
 	public PayrollFrame() {
 		
-		KTab[] tabs = new KTab[1]; //increase the number depending on the number of tabs
+		KTab[] tabs = new KTab[5]; //increase the number depending on the number of tabs
 		
 		tabs[0] = new NewEmployeeSalary(); 
+		tabs[1] = new UpdateRemoveSalary();
+		tabs[2] = new MonthlyPayroll();
+		tabs[3] = new ViewPayslip();
+		tabs[4] = new PayrollReports();
 		
 		new TabPanel(this, tabs, new TabNavPanel(this));
 

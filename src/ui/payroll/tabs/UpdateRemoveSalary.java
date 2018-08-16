@@ -2,25 +2,24 @@ package ui.payroll.tabs;
 
 import java.awt.EventQueue;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 
 import ui.components.KTab;
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class NewEmployeeSalary extends KTab {
+public class UpdateRemoveSalary extends KTab {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-
 	/**
 	 * Launch the application.
 	 */
@@ -28,7 +27,7 @@ public class NewEmployeeSalary extends KTab {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewEmployeeSalary frame = new NewEmployeeSalary();
+					UpdateRemoveSalary frame = new UpdateRemoveSalary();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,11 +39,11 @@ public class NewEmployeeSalary extends KTab {
 	/**
 	 * Create the frame.
 	 */
-	public NewEmployeeSalary() {
-		super("New Employee Payroll");
+	public UpdateRemoveSalary() {
+		super("Update/Delete Payroll Information");
 		
-		JLabel lblNewLabel = new JLabel("New Employee Payroll");
-		lblNewLabel.setBounds(32, 26, 123, 14);
+		JLabel lblNewLabel = new JLabel("Update/Delete Payroll Information");
+		lblNewLabel.setBounds(32, 26, 185, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Employee ID");
@@ -60,7 +59,7 @@ public class NewEmployeeSalary extends KTab {
 		lblNewLabel_2.setBounds(32, 274, 86, 14);
 		getContentPane().add(lblNewLabel_2);
 		
-		JButton btnNewButton = new JButton("Validate");
+		JButton btnNewButton = new JButton("Search");
 		btnNewButton.setBounds(366, 107, 89, 23);
 		getContentPane().add(btnNewButton);
 		
@@ -99,16 +98,16 @@ public class NewEmployeeSalary extends KTab {
 		comboBox.setBounds(205, 512, 110, 22);
 		getContentPane().add(comboBox);
 		
-		JButton btnNewButton_1 = new JButton("Add");
-		btnNewButton_1.setBounds(269, 574, 89, 23);
+		JButton btnNewButton_1 = new JButton("Update");
+		btnNewButton_1.setBounds(205, 574, 89, 23);
 		getContentPane().add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Clear");
-		btnNewButton_2.setBounds(434, 574, 89, 23);
+		JButton btnNewButton_2 = new JButton("Delete");
+		btnNewButton_2.setBounds(339, 574, 89, 23);
 		getContentPane().add(btnNewButton_2);
 		
 		JTextPane txtpnFvhyugkkl = new JTextPane();
-		txtpnFvhyugkkl.setText("Add new employee payroll details below after validating the employee using employee ID");
+		txtpnFvhyugkkl.setText("Edit the existing payroll information of any employee after searching the employee payroll details");
 		txtpnFvhyugkkl.setBounds(32, 51, 536, 20);
 		getContentPane().add(txtpnFvhyugkkl);
 		
@@ -175,6 +174,10 @@ public class NewEmployeeSalary extends KTab {
 		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Sales");
 		rdbtnNewRadioButton_3.setBounds(346, 235, 109, 23);
 		getContentPane().add(rdbtnNewRadioButton_3);
+		
+		JButton btnNewButton_3 = new JButton("Cancel");
+		btnNewButton_3.setBounds(479, 574, 89, 23);
+		getContentPane().add(btnNewButton_3);
 
 	}
 }
