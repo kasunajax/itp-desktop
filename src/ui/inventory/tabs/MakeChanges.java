@@ -80,6 +80,7 @@ public class MakeChanges extends KTab {
 		dateChooser.setBounds(755, 358, 116, 22);
 		getContentPane().add(dateChooser);
 		
+		
 		JDateChooser dateChooser_1 = new JDateChooser();
 		dateChooser_1.setBounds(755, 389, 116, 22);
 		getContentPane().add(dateChooser_1);
