@@ -12,8 +12,8 @@ import javax.swing.table.TableModel;
 
 public class Database {
 	
-	private static final String URL = "jdbc:mysql://localhost:3306/inventory?useSSL=false";
-	private static final String USER = "root";
+	private static final String URL = "jdbc:mysql://db4free.net:3306/dms_cell_world?useSSL=false";
+	private static final String USER = "user_cell_world";
 	private static final String PASS = "jkl@84MMy";
 	
 	public static Connection getConnection() {

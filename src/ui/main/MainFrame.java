@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -22,7 +24,7 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		
+		getRootPane().setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(0, 51, 153)));
 		NavPanel navPanel = NavPanel.getInstance();
 		getContentPane().add(navPanel);
 		
@@ -42,7 +44,7 @@ public class MainFrame extends JFrame {
 				dispose();
 			}
 		});
-		btnClosex.setBounds(948, 0, 32, 32);
+		btnClosex.setBounds(938, 0, 32, 32);
 		mainPanel.add(btnClosex);
 		
 		JButton button = new JButton("");
@@ -57,14 +59,14 @@ public class MainFrame extends JFrame {
 		button.setBorderPainted(false);
 		button.setBorder(null);
 		button.setBackground(Color.WHITE);
-		button.setBounds(916, 0, 32, 32);
+		button.setBounds(905, 0, 32, 32);
 		mainPanel.add(button);
 		
 		JLabel lblDistributionManagementSystem = new JLabel("DISTRIBUTION MANAGEMENT SYSTEM OF CELL WORLD (PVT) LTD");
 		lblDistributionManagementSystem.setForeground(new Color(102, 153, 255));
 		lblDistributionManagementSystem.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblDistributionManagementSystem.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDistributionManagementSystem.setBounds(0, 0, 916, 32);
+		lblDistributionManagementSystem.setBounds(0, 0, 906, 32);
 		mainPanel.add(lblDistributionManagementSystem);
 
 
