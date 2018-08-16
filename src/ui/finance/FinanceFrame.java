@@ -7,6 +7,7 @@ import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
 import ui.finance.tabs.CreateExpenses;
+import ui.finance.tabs.UpdateExpenses;
 
 public class FinanceFrame extends KFrame {
 
@@ -36,8 +37,9 @@ public class FinanceFrame extends KFrame {
 	 */
 	public FinanceFrame() {
 		
-		KTab[] tabs  =  new KTab[1];
+		KTab[] tabs  =  new KTab[2];
 		tabs[0] = new CreateExpenses();
+		tabs[1] = new UpdateExpenses();
 		
 		
 		new TabPanel(this, tabs, new TabNavPanel(this));

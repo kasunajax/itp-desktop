@@ -37,11 +37,26 @@ public class NavButton extends JButton {
 	
 	
 	private void changeState() {
+		resetAll();
 		setBackground(new Color(0, 51, 102));
 		Rectangle r = this.getBounds();
 		r.width = 300;
 		r.x = 0;
 		setBounds(r);
+	}
+	public void reset() {
+		setForeground(Color.WHITE);
+		setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		setFocusable(false);
+		setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 153)));
+		setBackground(new Color(0, 51, 153));
+	}
+	
+	public void resetAll() {
+		NavButton[] btns = NavPanel.getInstance().getNavButtons();
+		for(NavButton btn: btns) {
+			btn.reset();
+		}
 	}
 	
 }
