@@ -35,24 +35,24 @@ public class ConfirmSales extends KTab {
 		super("Confirm Sales");
 		
 		textField = new JTextField();
-		textField.setBounds(148, 147, 96, 19);
+		textField.setBounds(96, 148, 400, 40);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Browse");
-		btnNewButton.setBounds(685, 146, 85, 21);
+		btnNewButton.setBounds(646, 147, 125, 40);
 		getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Add Dialog Sales Confirmation Report");
-		lblNewLabel.setBounds(173, 106, 45, 13);
+		lblNewLabel.setBounds(96, 80, 350, 40);
 		getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton_1 = new JButton("Add Report");
-		btnNewButton_1.setBounds(446, 254, 85, 21);
+		btnNewButton_1.setBounds(425, 253, 125, 40);
 		getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Confirm Sales");
-		btnNewButton_2.setBounds(446, 460, 85, 21);
+		btnNewButton_2.setBounds(425, 416, 125, 40);
 		getContentPane().add(btnNewButton_2);
 
 	}
