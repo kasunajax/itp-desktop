@@ -18,8 +18,19 @@ import ui.components.KTab;
 
 public class InventoryMain extends KTab {
 	
-	private JTextField textField, textField_1, textField_2, textField_3, textField_4, textField_5, textField_6, textField_7, textField_8, textField_9, textField_10;
-	private JTable table_1, table;
+    private JTable table;
+    private JTextField textField;
+    private JTextField textField_1;
+    private JTextField textField_2;
+    private JTextField textField_3;
+    private JTextField textField_4;
+    private JTextField textField_5;
+    private JTextField textField_6;
+    private JTable table_1;
+    private JTextField textField_7;
+    private JTextField textField_8;
+    private JTextField textField_9;
+    private JTextField textField_10;
 
 	/**
 	 * Launch the application.
@@ -48,47 +59,6 @@ public class InventoryMain extends KTab {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 0, 700, 155);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblInventoryManagementSystem = new JLabel("Inventory Management System");
-		lblInventoryManagementSystem.setBounds(210, 24, 327, 27);
-		panel_1.add(lblInventoryManagementSystem);
-		
-		JButton btnHome = new JButton("Home");
-		btnHome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnHome.setBounds(28, 95, 99, 25);
-		panel_1.add(btnHome);
-		
-		JButton btnMakeChanges = new JButton("Make Changes");
-		btnMakeChanges.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnMakeChanges.setBounds(168, 95, 117, 25);
-		panel_1.add(btnMakeChanges);
-		
-		JButton btnForcasting = new JButton("Forcasting");
-		btnForcasting.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnForcasting.setBounds(311, 95, 117, 25);
-		panel_1.add(btnForcasting);
-		
-		JButton btnCostCalculation = new JButton("Cost Calculation");
-		btnCostCalculation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnCostCalculation.setBounds(480, 95, 133, 25);
-		panel_1.add(btnCostCalculation);
-		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(0, 156, 700, 565);
 		panel.add(panel_2);
@@ -96,8 +66,9 @@ public class InventoryMain extends KTab {
 		
 		JPanel changes = new JPanel();
 		changes.setLayout(null);
-		changes.setBounds(618, 0, 82, 70);
+		changes.setBounds(0, 0, 700, 552);
 		panel_2.add(changes);
+		
 		
 		JLabel lblMakeChangesTo = new JLabel("Make changes to Inventory");
 		lblMakeChangesTo.setBounds(12, 13, 327, 27);
@@ -160,21 +131,21 @@ public class InventoryMain extends KTab {
 		table_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int r = table_1.getSelectedRow();
-		        
-		        String id = table_1.getValueAt(r, 0).toString();
-		        String name = table_1.getValueAt(r, 1).toString();
-		        String c =  table_1.getValueAt(r, 2).toString();
-		        String ex = table_1.getValueAt(r, 3).toString();
-		        String br = table_1.getValueAt(r, 4).toString();
-		        Date pd = (Date) table_1.getValueAt(r, 5);
-		        Date sd = (Date) table_1.getValueAt(r, 6);
-		        
-		        textField_2.setText(id);
-		        textField_3.setText(name);
-		        textField_4.setText(c);
-		        textField_5.setText(ex);
-		        textField_6.setText(br);
+//				int r = table_1.getSelectedRow();
+//		        
+//		        String id = table_1.getValueAt(r, 0).toString();
+//		        String name = table_1.getValueAt(r, 1).toString();
+//		        String c =  table_1.getValueAt(r, 2).toString();
+//		        String ex = table_1.getValueAt(r, 3).toString();
+//		        String br = table_1.getValueAt(r, 4).toString();
+//		        Date pd = (Date) table_1.getValueAt(r, 5);
+//		        Date sd = (Date) table_1.getValueAt(r, 6);
+//		        
+//		        textField_2.setText(id);
+//		        textField_3.setText(name);
+//		        textField_4.setText(c);
+//		        textField_5.setText(ex);
+//		        textField_6.setText(br);
 		        
 		        
 		        
@@ -195,19 +166,17 @@ public class InventoryMain extends KTab {
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				 	textField_2.setText(null);
-			        textField_3.setText(null);
-			        textField_4.setText(null);
-			        textField_5.setText(null);
-			        textField_6.setText(null);
+//				 	textField_2.setText(null);
+//			        textField_3.setText(null);
+//			        textField_4.setText(null);
+//			        textField_5.setText(null);
+//			        textField_6.setText(null);
 //			        dateChooser.setDate(null);
 //			        dateChooser_1.setDate(null);
 			}
 		});
 		btnReset.setBounds(12, 502, 99, 25);
 		changes.add(btnReset);
-		
-		
 		
 		JButton btnAddEntry = new JButton("Add Entry");
 		btnAddEntry.addActionListener(new ActionListener() {
@@ -231,7 +200,8 @@ public class InventoryMain extends KTab {
 //		            String ssdate = null;
 //		            if(sd != null)
 //		                ssdate = df.format(sd);
-// 		            if(sd == null)
+//
+//		            if(sd == null)
 //		                q = "insert into items values( '"+id+"','"+name+"','"+cc+"','"+ex+"','"+br+"','"+ppdate+"',null)";
 //		            else
 //		                q = "insert into items values( '"+id+"','"+name+"','"+cc+"','"+ex+"','"+br+"','"+ppdate+"','"+ssdate+"')";
@@ -258,8 +228,6 @@ public class InventoryMain extends KTab {
 		});
 		btnAddEntry.setBounds(142, 502, 99, 25);
 		changes.add(btnAddEntry);
-		
-		
 		
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
@@ -315,8 +283,6 @@ public class InventoryMain extends KTab {
 		btnUpdate.setBounds(280, 502, 99, 25);
 		changes.add(btnUpdate);
 		
-		
-		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -349,7 +315,6 @@ public class InventoryMain extends KTab {
 		});
 		btnDelete.setBounds(411, 502, 99, 25);
 		changes.add(btnDelete);
-		
 		
 		JPanel forcast = new JPanel();
 		forcast.setLayout(null);
@@ -404,8 +369,6 @@ public class InventoryMain extends KTab {
 		textField_10.setBounds(168, 384, 116, 22);
 		forcast.add(textField_10);
 		
-		
-		
 		JButton btnGetForcast = new JButton("Get Forcast");
 		btnGetForcast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -443,12 +406,12 @@ public class InventoryMain extends KTab {
 		
 		JPanel cost = new JPanel();
 		cost.setLayout(null);
-		cost.setBounds(624, 0, 76, 70);
+		cost.setBounds(0, 0, 700, 552);
 		panel_2.add(cost);
 		
 		JPanel home = new JPanel();
 		home.setLayout(null);
-		home.setBounds(618, 0, 82, 70);
+		home.setBounds(0, 0, 700, 552);
 		panel_2.add(home);
 		
 		table = new JTable();
@@ -477,7 +440,8 @@ public class InventoryMain extends KTab {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				String text = textField.getText();
-// 		        
+//
+//		        
 //		            String sql = "select * from items where Branch = '"+ text +"'";
 //		            try {
 //						pst = conn.prepareStatement(sql);
@@ -491,8 +455,10 @@ public class InventoryMain extends KTab {
 //						// TODO Auto-generated catch block
 //						e1.printStackTrace();
 //					}
-// 		            table.setModel(DbUtils.resultSetToTableModel(rs));
- 		       
+//
+//		            table.setModel(DbUtils.resultSetToTableModel(rs));
+
+		       
 			}
 		});
 		button_1.setBounds(157, 273, 99, 25);
@@ -511,7 +477,8 @@ public class InventoryMain extends KTab {
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				String text = textField_1.getText();
-// 		        
+//
+//		        
 //	            String sql = "select * from items where Executive = '"+ text +"'";
 //	            try {
 //					pst = conn.prepareStatement(sql);
@@ -525,7 +492,8 @@ public class InventoryMain extends KTab {
 //					// TODO Auto-generated catch block
 //					e1.printStackTrace();
 //				}
-// 	            table.setModel(DbUtils.resultSetToTableModel(rs));
+//
+//	            table.setModel(DbUtils.resultSetToTableModel(rs));
 			}
 		});
 		button_2.setBounds(157, 354, 99, 25);
@@ -558,6 +526,83 @@ public class InventoryMain extends KTab {
 		JLabel label_8 = new JLabel("Sold_Date");
 		label_8.setBounds(470, 21, 76, 16);
 		home.add(label_8);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBounds(0, 0, 700, 155);
+		panel.add(panel_1);
+		
+		JLabel label_11 = new JLabel("Inventory Management System");
+		label_11.setBounds(210, 24, 327, 27);
+		panel_1.add(label_11);
+		
+		JButton button_4 = new JButton("Home");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_2.removeAll();
+				panel_2.repaint();
+				panel_2.revalidate();
+				
+				panel_2.add(home);
+				panel_2.repaint();
+				panel_2.revalidate();
+			}
+		});
+		button_4.setBounds(28, 95, 99, 25);
+		panel_1.add(button_4);
+		
+		JButton button_5 = new JButton("Make Changes");
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_2.removeAll();
+				panel_2.repaint();
+				panel_2.revalidate();
+				
+				panel_2.add(changes);
+				panel_2.repaint();
+				panel_2.revalidate();
+			}
+		});
+		button_5.setBounds(168, 95, 117, 25);
+		panel_1.add(button_5);
+		
+		JButton button_6 = new JButton("Forcasting");
+		button_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_2.removeAll();
+				panel_2.repaint();
+				panel_2.revalidate();
+				
+				panel_2.add(forcast);
+				panel_2.repaint();
+				panel_2.revalidate();
+			}
+		});
+		button_6.setBounds(311, 95, 117, 25);
+		panel_1.add(button_6);
+		
+		JButton button_7 = new JButton("Cost Calculation");
+		button_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_2.removeAll();
+				panel_2.repaint();
+				panel_2.revalidate();
+				
+				panel_2.add(cost);
+				panel_2.repaint();
+				panel_2.revalidate();
+			}
+		});
+		button_7.setBounds(480, 95, 133, 25);
+		panel_1.add(button_7);
+		
+		panel_2.removeAll();
+		panel_2.repaint();
+		panel_2.revalidate();
+		
+		panel_2.add(home);
+		panel_2.repaint();
+		panel_2.revalidate();
 	}
 
 }
