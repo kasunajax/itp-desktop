@@ -9,7 +9,6 @@ import ui.components.TabPanel;
 import ui.inventory.tabs.Cost;
 import ui.inventory.tabs.Forcast;
 import ui.inventory.tabs.Home;
-import ui.inventory.tabs.InventoryMain;
 import ui.inventory.tabs.MakeChanges;
 import ui.regions.tabs.Tab1;
 import ui.regions.tabs.Tab2;
