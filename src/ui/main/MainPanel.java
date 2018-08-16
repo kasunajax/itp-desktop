@@ -14,5 +14,6 @@ public class MainPanel extends JPanel {
 		DesktopPane desktopPane = DesktopPane.getInstance();
 		desktopPane.setBounds(0, 150, 980, 650);
 		add(desktopPane);
+		
 	}
 }

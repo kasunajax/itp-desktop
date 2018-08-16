@@ -32,6 +32,7 @@ public class DesktopPane extends JDesktopPane{
 		frames[7] = new InventoryFrame();
 		currentFrame = frames[0];
 		add(currentFrame);
+		
 	}
 	
 	public static DesktopPane getInstance() {

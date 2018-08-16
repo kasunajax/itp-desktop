@@ -50,6 +50,11 @@ public class NavButton extends JButton {
 		setFocusable(false);
 		setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 153)));
 		setBackground(new Color(0, 51, 153));
+		
+		Rectangle r = this.getBounds();
+		r.width = 256;
+		r.x = 22;
+		setBounds(r);
 	}
 	
 	public void resetAll() {
