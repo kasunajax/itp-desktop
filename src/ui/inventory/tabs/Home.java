@@ -19,7 +19,7 @@ import utils.common.database.Database;
 
 import javax.swing.JScrollPane;
 
-public class Home extends KTab {
+public class Home extends KTab { 
 
 	private JTable table;
     private JTextField textField;
