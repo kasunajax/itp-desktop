@@ -2,8 +2,15 @@ package ui.orders.tabs;
 
 import java.awt.EventQueue;
 
+import ui.components.KButton;
 import ui.components.KTab;
 import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.sql.DriverManager;
+
+import javax.swing.border.LineBorder;
 
 public class ViewOrders extends KTab {
 
@@ -34,10 +41,14 @@ public class ViewOrders extends KTab {
 	public ViewOrders() {
 		super("View Orders");
 		
-		JButton btnViewOrders = new JButton("View orders");
-		btnViewOrders.setBounds(251, 168, 89, 23);
+		KButton btnViewOrders = new KButton("VIEW ORDERS");
+		btnViewOrders.setBounds(new Rectangle(188, 201, 102, 40));
 		getContentPane().add(btnViewOrders);
+		
+		KButton btnHelloWorld = new KButton("Hello World ");
+		btnHelloWorld.setBounds(329, 159, 89, 23);
+		getContentPane().add(btnHelloWorld);
+		
 
 	}
-
 }
