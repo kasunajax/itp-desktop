@@ -86,7 +86,7 @@ public class MakeChanges extends KTab {
 		getContentPane().add(dateChooser_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(110, 188, 434, 228);
+		scrollPane.setBounds(84, 188, 460, 228);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
