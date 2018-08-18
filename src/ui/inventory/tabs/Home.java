@@ -117,12 +117,12 @@ public class Home extends KTab {
 		getContentPane().add(button_1);
 		
 		JLabel label_1 = new JLabel("To view Executive vise details enter Executive Code");
-		label_1.setBounds(430, 315, 265, 16);
+		label_1.setBounds(163, 421, 265, 16);
 		getContentPane().add(label_1);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(431, 346, 116, 22);
+		textField_1.setBounds(163, 474, 116, 22);
 		getContentPane().add(textField_1);
 		
 		JButton button_2 = new JButton("View");
@@ -140,7 +140,7 @@ public class Home extends KTab {
 				
 			}
 		});
-		button_2.setBounds(596, 342, 99, 25);
+		button_2.setBounds(308, 472, 99, 25);
 		getContentPane().add(button_2);
 		
 		JLabel label_2 = new JLabel("Item Id");
