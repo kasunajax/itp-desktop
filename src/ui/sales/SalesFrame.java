@@ -6,9 +6,13 @@ import ui.components.KFrame;
 import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
+import ui.components.TabStruct;
 import ui.employees.tabs.AddEmp;
 import ui.employees.tabs.AddEmployeeFrame;
 import ui.employees.tabs.ViewEmployees;
+import ui.regions.tabs.Tab1;
+import ui.regions.tabs.Tab2;
+import ui.regions.tabs.Tab3;
 import ui.sales.tabs.ConfirmSales;
 import ui.sales.tabs.ViewReports;
 
@@ -40,11 +44,19 @@ public class SalesFrame extends KFrame {
 	 * Create the frame.
 	 */
 	public SalesFrame() {
-		KTab[] tabs = new KTab[2];
-		tabs[0] = new ConfirmSales();
-		tabs[1] = new ViewReports();
-				
-		new TabPanel(this, tabs, new TabNavPanel(this));
+		
+		TabStruct[] ts = {
+				new TabStruct(ConfirmSales.class, "CONFIRM SALES"),
+				new TabStruct(ViewReports.class, "VIEW REPORTS")
+		};
+		
+		setStruct(ts);
+		
+//		KTab[] tabs = new KTab[2];
+//		tabs[0] = new ConfirmSales();
+//		tabs[1] = new ViewReports();
+//				
+//		new TabPanel(this, tabs, new TabNavPanel(this));
 	}
 
 }

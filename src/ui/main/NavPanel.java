@@ -4,11 +4,13 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
+import ui.components.KProgressBar;
 import ui.components.NavButton;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JProgressBar;
 
 
 public class NavPanel extends JPanel {
@@ -66,6 +68,15 @@ public class NavPanel extends JPanel {
 		navButtons[6].setBounds(22, 650, 256, 50);
 		
 		navButtons[7] = new NavButton("Inventory", this, 7);
+		
+		KProgressBar progressBar = KProgressBar.getInstance();
+		progressBar.setVisible(false);
+		progressBar.setBorderPainted(false);
+		progressBar.setValue(50);
+		progressBar.setForeground(new Color(255, 255, 255));
+		progressBar.setBackground(new Color(51, 153, 255));
+		progressBar.setBounds(22, 306, 256, 14);
+		add(progressBar);
 		navButtons[7].setBounds(22, 700, 256, 50);
 
 		

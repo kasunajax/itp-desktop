@@ -6,6 +6,10 @@ import ui.components.KFrame;
 import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
+import ui.components.TabStruct;
+import ui.employees.tabs.AddEmp;
+import ui.employees.tabs.AddEmployeeFrame;
+import ui.employees.tabs.ViewEmployees;
 import ui.finance.tabs.CreateExpenses;
 import ui.finance.tabs.UpdateExpenses;
 
@@ -37,12 +41,19 @@ public class FinanceFrame extends KFrame {
 	 */
 	public FinanceFrame() {
 		
-		KTab[] tabs  =  new KTab[2];
-		tabs[0] = new CreateExpenses();
-		tabs[1] = new UpdateExpenses();
+		TabStruct[] ts = {
+				new TabStruct(CreateExpenses.class, "CREATE"),
+				new TabStruct(UpdateExpenses.class, "UPDATE")
+		};
 		
+		setStruct(ts);
 		
-		new TabPanel(this, tabs, new TabNavPanel(this));
+//		KTab[] tabs  =  new KTab[2];
+//		tabs[0] = new CreateExpenses();
+//		tabs[1] = new UpdateExpenses();
+//		
+//		
+//		new TabPanel(this, tabs, new TabNavPanel(this));
 
 	}
 
