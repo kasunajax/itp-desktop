@@ -28,8 +28,15 @@ public class NavButton extends JButton {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DesktopPane.getInstance().add(id);
+				DesktopPane.getInstance().init(id);
 				changeState();
+				
+//				
+//				if(id == 0) {
+//					DesktopPane.getInstance().init(id);
+//					//DesktopPane.getInstance().add(id);
+//					//changeState();
+//				}
 			}
 			
 		});

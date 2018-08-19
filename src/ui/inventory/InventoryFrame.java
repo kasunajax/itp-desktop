@@ -6,10 +6,14 @@ import ui.components.KFrame;
 import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
+import ui.components.TabStruct;
 import ui.inventory.tabs.Cost;
 import ui.inventory.tabs.Forcast;
 import ui.inventory.tabs.Home;
 import ui.inventory.tabs.MakeChanges;
+import ui.orders.tabs.PlaceOrder;
+import ui.orders.tabs.ProcessOrders;
+import ui.orders.tabs.ViewOrders;
 
 public class InventoryFrame extends KFrame {
 
@@ -38,14 +42,23 @@ public class InventoryFrame extends KFrame {
 	 * Create the frame.
 	 */
 	public InventoryFrame() {
-		KTab[] tabs = new KTab[4];
-		tabs[0] = new Home();
-		tabs[1] = new MakeChanges();
-		tabs[2] = new Forcast();
-		tabs[3] = new Cost();
-		 
-
-		new TabPanel(this, tabs, new TabNavPanel(this));
+		TabStruct[] ts = {
+				new TabStruct(Home.class, "HOME"),
+				new TabStruct(MakeChanges.class, "CHANGES"),
+				new TabStruct(Forcast.class, "FORCARSTS"),
+				new TabStruct(Cost.class, "COSTS")
+		};
+		
+		setStruct(ts);
+		
+//		KTab[] tabs = new KTab[4];
+//		tabs[0] = new Home();
+//		tabs[1] = new MakeChanges();
+//		tabs[2] = new Forcast();
+//		tabs[3] = new Cost();
+//		 
+//
+//		new TabPanel(this, tabs, new TabNavPanel(this));
 	}
 
 }

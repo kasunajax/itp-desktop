@@ -22,6 +22,14 @@ public class TabNavPanel extends JPanel {
 		frame.add(this);
 		
 	}
+	public TabNavPanel() {
+		tabButtons = new ArrayList<>();
+		setBackground(new Color(0, 51, 153));
+		setBounds(0, 50, 980, 50);
+		setLayout(null);
+		//frame.add(this);
+		
+	}
 
 	public void add(TabNavButton btn) {
 		
