@@ -85,7 +85,7 @@ public class UpdateExpenses extends KTab {
 	 */
 	public UpdateExpenses() {
 		
-		super("Update Expenses");
+		super("Update Expenses ");
 		
 		JLabel lblNewLabel = new JLabel("Search by Type");
 		lblNewLabel.setBounds(160, 69, 114, 14);

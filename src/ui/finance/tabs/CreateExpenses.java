@@ -82,7 +82,7 @@ public void tableLoad(){
 	 * Create the frame.
 	 */
 	public CreateExpenses() {
-		super("Create Expenses");
+		super("Create Expenses ");
 		
 		t1 = new JTextField();
 		t1.setBounds(255, 98, 183, 32);
