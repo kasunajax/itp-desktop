@@ -23,6 +23,7 @@ import java.awt.ScrollPane;
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.table.DefaultTableModel;
 
 public class UpdateExpenses extends KTab {
 	private JTextField search;
@@ -227,6 +228,19 @@ public class UpdateExpenses extends KTab {
 		getContentPane().add(scrollPane);
 		
 		jtable1 = new JTable();
+		jtable1.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Expense Id", "Description", "Date", "Net Expenses", "Type", "Employee Id"
+			}
+		));
+		jtable1.getColumnModel().getColumn(0).setPreferredWidth(90);
+		jtable1.getColumnModel().getColumn(1).setPreferredWidth(90);
+		jtable1.getColumnModel().getColumn(2).setPreferredWidth(90);
+		jtable1.getColumnModel().getColumn(3).setPreferredWidth(90);
+		jtable1.getColumnModel().getColumn(4).setPreferredWidth(90);
+		jtable1.getColumnModel().getColumn(5).setPreferredWidth(90);
 		jtable1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

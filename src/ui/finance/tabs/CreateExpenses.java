@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Choice;
 import java.awt.ScrollPane;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class CreateExpenses extends KTab {
 	private JTextField t1;
@@ -177,6 +178,13 @@ public void tableLoad(){
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Expense Id", "Description", "Date", "Net Expenses", "Type", "Employee ID"
+			}
+		));
 		scrollPane.setViewportView(table);
 		
 
