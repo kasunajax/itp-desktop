@@ -88,11 +88,11 @@ public class UpdateExpenses extends KTab {
 		super("Update Expenses ");
 		
 		JLabel lblNewLabel = new JLabel("Search by Type");
-		lblNewLabel.setBounds(160, 69, 114, 14);
+		lblNewLabel.setBounds(166, 38, 114, 14);
 		getContentPane().add(lblNewLabel);
 		
 		search = new JTextField();
-		search.setBounds(327, 59, 138, 34);
+		search.setBounds(327, 34, 138, 23);
 		getContentPane().add(search);
 		search.setColumns(10);
 		
@@ -117,35 +117,31 @@ public class UpdateExpenses extends KTab {
 				
 			}
 		});
-		btnNewButton.setBounds(542, 65, 89, 23);
+		btnNewButton.setBounds(543, 34, 89, 23);
 		getContentPane().add(btnNewButton);
 		
-		JLabel lblNewLabel_1 = new JLabel("Manage Expenses");
-		lblNewLabel_1.setBounds(45, 25, 114, 28);
-		getContentPane().add(lblNewLabel_1);
-		
 		JLabel lblNewLabel_2 = new JLabel("Expenses Id");
-		lblNewLabel_2.setBounds(95, 409, 89, 14);
+		lblNewLabel_2.setBounds(95, 351, 89, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblDescription = new JLabel("Description ");
-		lblDescription.setBounds(95, 466, 89, 14);
+		lblDescription.setBounds(95, 407, 89, 14);
 		getContentPane().add(lblDescription);
 		
 		JLabel lblDates = new JLabel("Date");
-		lblDates.setBounds(95, 519, 74, 14);
+		lblDates.setBounds(95, 464, 74, 14);
 		getContentPane().add(lblDates);
 		
 		JLabel lblSalesAndDistribution = new JLabel("Net Epenses");
-		lblSalesAndDistribution.setBounds(95, 574, 89, 14);
+		lblSalesAndDistribution.setBounds(95, 521, 89, 14);
 		getContentPane().add(lblSalesAndDistribution);
 		
 		JLabel lblAdministrativeExpenses = new JLabel("Types");
-		lblAdministrativeExpenses.setBounds(494, 409, 56, 14);
+		lblAdministrativeExpenses.setBounds(488, 351, 56, 14);
 		getContentPane().add(lblAdministrativeExpenses);
 		
 		t1 = new JTextField();
-		t1.setBounds(250, 399, 147, 34);
+		t1.setBounds(250, 346, 147, 24);
 		getContentPane().add(t1);
 		t1.setColumns(10);
 		
@@ -188,11 +184,11 @@ public class UpdateExpenses extends KTab {
 				
 			}
 		});
-		btnNewButton_1.setBounds(443, 554, 107, 34);
+		btnNewButton_1.setBounds(488, 511, 107, 34);
 		getContentPane().add(btnNewButton_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Employee Id");
-		lblNewLabel_3.setBounds(494, 466, 86, 14);
+		lblNewLabel_3.setBounds(494, 407, 86, 14);
 		getContentPane().add(lblNewLabel_3);
 		
 		JButton btnDelete = new JButton("Delete");
@@ -220,11 +216,11 @@ public class UpdateExpenses extends KTab {
 				
 			}
 		});
-		btnDelete.setBounds(629, 554, 107, 34);
+		btnDelete.setBounds(655, 511, 107, 34);
 		getContentPane().add(btnDelete);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 126, 960, 258);
+		scrollPane.setBounds(10, 73, 960, 247);
 		getContentPane().add(scrollPane);
 		
 		jtable1 = new JTable();
@@ -279,32 +275,32 @@ int r = jtable1.getSelectedRow();
 				
 			}
 		});
-		btnReset.setBounds(799, 554, 107, 34);
+		btnReset.setBounds(821, 511, 107, 34);
 		getContentPane().add(btnReset);
 		
 		t2 = new JTextField();
 		t2.setColumns(10);
-		t2.setBounds(250, 456, 147, 34);
+		t2.setBounds(250, 402, 147, 24);
 		getContentPane().add(t2);
 		
 		t3 = new JTextField();
 		t3.setColumns(10);
-		t3.setBounds(250, 509, 147, 34);
+		t3.setBounds(250, 460, 147, 23);
 		getContentPane().add(t3);
 		
 		t4 = new JTextField();
 		t4.setColumns(10);
-		t4.setBounds(250, 571, 147, 34);
+		t4.setBounds(250, 517, 147, 23);
 		getContentPane().add(t4);
 		
 		t5 = new JTextField();
 		t5.setColumns(10);
-		t5.setBounds(602, 399, 147, 34);
+		t5.setBounds(602, 346, 147, 23);
 		getContentPane().add(t5);
 		
 		t6 = new JTextField();
 		t6.setColumns(10);
-		t6.setBounds(602, 456, 147, 34);
+		t6.setBounds(602, 403, 147, 23);
 		getContentPane().add(t6);
 
 	}

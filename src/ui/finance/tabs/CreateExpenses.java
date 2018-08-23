@@ -85,48 +85,48 @@ public void tableLoad(){
 		super("Create Expenses ");
 		
 		t1 = new JTextField();
-		t1.setBounds(255, 98, 183, 32);
+		t1.setBounds(255, 80, 183, 32);
 		getContentPane().add(t1);
 		t1.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Expense Id");
-		lblNewLabel.setBounds(78, 107, 97, 14);
+		lblNewLabel.setBounds(78, 89, 97, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Description ");
-		lblNewLabel_1.setBounds(78, 188, 97, 14);
+		lblNewLabel_1.setBounds(78, 165, 97, 14);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblDate = new JLabel("Date");
-		lblDate.setBounds(78, 278, 69, 14);
+		lblDate.setBounds(78, 248, 69, 14);
 		getContentPane().add(lblDate);
 		
 		JLabel lblNewLabel_2 = new JLabel("NetAmount");
-		lblNewLabel_2.setBounds(78, 356, 97, 14);
+		lblNewLabel_2.setBounds(78, 330, 97, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Type");
-		lblNewLabel_3.setBounds(78, 440, 69, 14);
+		lblNewLabel_3.setBounds(78, 418, 69, 14);
 		getContentPane().add(lblNewLabel_3);
 		
 		t2 = new JTextField();
 		t2.setColumns(10);
-		t2.setBounds(255, 179, 183, 32);
+		t2.setBounds(255, 156, 183, 32);
 		getContentPane().add(t2);
 		
 		t3 = new JTextField();
 		t3.setColumns(10);
-		t3.setBounds(255, 269, 183, 32);
+		t3.setBounds(255, 239, 183, 32);
 		getContentPane().add(t3);
 		
 		t4 = new JTextField();
 		t4.setColumns(10);
-		t4.setBounds(255, 347, 183, 32);
+		t4.setBounds(255, 321, 183, 32);
 		getContentPane().add(t4);
 		
 		t5 = new JTextField();
 		t5.setColumns(10);
-		t5.setBounds(255, 431, 183, 32);
+		t5.setBounds(255, 409, 183, 32);
 		getContentPane().add(t5);
 		
 		JButton btnNewButton_1 = new JButton("Save");
@@ -157,24 +157,24 @@ public void tableLoad(){
 				
 			}
 		});
-		btnNewButton_1.setBounds(711, 515, 117, 32);
+		btnNewButton_1.setBounds(686, 494, 117, 32);
 		getContentPane().add(btnNewButton_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("Create Expenses");
-		lblNewLabel_4.setBounds(43, 33, 117, 14);
+		lblNewLabel_4.setBounds(43, 38, 117, 14);
 		getContentPane().add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Employee Id");
-		lblNewLabel_5.setBounds(78, 524, 82, 14);
+		lblNewLabel_5.setBounds(78, 503, 82, 14);
 		getContentPane().add(lblNewLabel_5);
 		
 		t6 = new JTextField();
-		t6.setBounds(255, 515, 183, 32);
+		t6.setBounds(255, 494, 183, 32);
 		getContentPane().add(t6);
 		t6.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(461, 106, 509, 277);
+		scrollPane.setBounds(461, 80, 509, 303);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
