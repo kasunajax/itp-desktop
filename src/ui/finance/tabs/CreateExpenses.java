@@ -21,6 +21,7 @@ import java.awt.Choice;
 import java.awt.ScrollPane;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Font;
 
 public class CreateExpenses extends KTab {
 	private JTextField t1;
@@ -86,7 +87,7 @@ public void tableLoad(){
 		super("Create Expenses ");
 		
 		t1 = new JTextField();
-		t1.setBounds(255, 80, 183, 32);
+		t1.setBounds(221, 80, 183, 32);
 		getContentPane().add(t1);
 		t1.setColumns(10);
 		
@@ -112,22 +113,22 @@ public void tableLoad(){
 		
 		t2 = new JTextField();
 		t2.setColumns(10);
-		t2.setBounds(255, 156, 183, 32);
+		t2.setBounds(221, 156, 183, 32);
 		getContentPane().add(t2);
 		
 		t3 = new JTextField();
 		t3.setColumns(10);
-		t3.setBounds(255, 239, 183, 32);
+		t3.setBounds(221, 239, 183, 32);
 		getContentPane().add(t3);
 		
 		t4 = new JTextField();
 		t4.setColumns(10);
-		t4.setBounds(255, 321, 183, 32);
+		t4.setBounds(221, 321, 183, 32);
 		getContentPane().add(t4);
 		
 		t5 = new JTextField();
 		t5.setColumns(10);
-		t5.setBounds(255, 409, 183, 32);
+		t5.setBounds(221, 409, 183, 32);
 		getContentPane().add(t5);
 		
 		JButton btnNewButton_1 = new JButton("Save");
@@ -136,8 +137,8 @@ public void tableLoad(){
 				
 				String expensId = t1.getText();
 				String dscrp = t2.getText();
-				String date = t3.getText();
-				String NetExpenses = t4.getText();
+				String dat = t3.getText();
+				String Netexpens = t4.getText();
 				String Types = t5.getText();
 				String empid = t6.getText();
 				
@@ -146,7 +147,7 @@ public void tableLoad(){
 						JOptionPane.showMessageDialog(null,"Please Enter the values for all the fields");
 				}else {
 				
-					String sql = "INSERT INTO expenses(ExpenseID,NetExpense,Date,Description,EmployeeID,Type) Values ('"+expensId+"','"+NetExpenses+"','"+date+"','"+dscrp+"','"+empid+"','"+Types+"')";
+					String sql = "INSERT INTO expenses(ExpenseID,NetExpense,Date,Description,EmployeeID,Type) Values ('"+expensId+"','"+Netexpens+"','"+dat+"','"+dscrp+"','"+empid+"','"+Types+"')";
 					
 				try {
 					
@@ -170,7 +171,8 @@ public void tableLoad(){
 		getContentPane().add(btnNewButton_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("Create Expenses");
-		lblNewLabel_4.setBounds(43, 38, 117, 14);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_4.setBounds(43, 38, 150, 20);
 		getContentPane().add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Employee Id");
@@ -178,12 +180,12 @@ public void tableLoad(){
 		getContentPane().add(lblNewLabel_5);
 		
 		t6 = new JTextField();
-		t6.setBounds(255, 494, 183, 32);
+		t6.setBounds(221, 494, 183, 32);
 		getContentPane().add(t6);
 		t6.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(461, 80, 509, 303);
+		scrollPane.setBounds(431, 80, 509, 303);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();

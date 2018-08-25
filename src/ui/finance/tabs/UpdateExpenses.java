@@ -245,14 +245,14 @@ int r = jtable1.getSelectedRow();
 		        
 		        String expensid = jtable1.getValueAt(r, 0).toString();
 		        String dscrp = jtable1.getValueAt(r, 1).toString();
-		        String date =  jtable1.getValueAt(r, 2).toString();
+		        String dat =  jtable1.getValueAt(r, 2).toString();
 		        String NetExpens = jtable1.getValueAt(r, 3).toString();
 		        String typ = jtable1.getValueAt(r, 4).toString();
 		        String empid = jtable1.getValueAt(r, 5).toString();
 		        
 		        t1.setText(expensid);
 		        t2.setText(dscrp);
-		        t3.setText(date);
+		        t3.setText(dat);
 		        t4.setText(NetExpens);
 		        t5.setText(typ);
 		        t6.setText(empid);
