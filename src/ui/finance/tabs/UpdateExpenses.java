@@ -49,6 +49,7 @@ public class UpdateExpenses extends KTab {
 					UpdateExpenses frame = new UpdateExpenses();
 					frame.setVisible(true);
 				} catch (Exception e) {
+				
 					e.printStackTrace();
 				}
 			}

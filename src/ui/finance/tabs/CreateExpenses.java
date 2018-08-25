@@ -154,7 +154,7 @@ public void tableLoad(){
 				PreparedStatement ps = Database.getConnection().prepareStatement(sql);
 				ps.executeUpdate();
 					
-					
+					 
 				
 				}catch(Exception e1) {
 					
