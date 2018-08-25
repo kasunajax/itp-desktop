@@ -35,7 +35,7 @@ public class UpdateExpenses extends KTab {
 	private JTextField t5;
 	private JTextField t6;
 	
-	 Connection con = null;
+
      PreparedStatement ps = null;
      ResultSet rs = null;
 
@@ -61,7 +61,7 @@ public class UpdateExpenses extends KTab {
 	    
         try{
            
-            String sql = "SELECT * from Expenses";
+            String sql = "SELECT * from expenses";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
@@ -103,9 +103,9 @@ public class UpdateExpenses extends KTab {
 				String name = search.getText();
 		        
 		        try{
-		            String sql = "Select ExpensesID,Description,Date,NetExpenses,EmployeeId  from Expenses where Type like '%"+name+"%' ";
+		            String sql = "Select ExpensesID,Description,Date,NetExpense,EmployeeID  from Expenses where Type like '%"+name+"%' ";
 		            
-		            ps = con.prepareStatement(sql);
+		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
 		            rs = ps.executeQuery();
 		            
 		            
@@ -162,14 +162,12 @@ public class UpdateExpenses extends KTab {
 						
 						try {
 							
-							String sql = "Update Expenses set Description='"+dscrp+"',EmployeeID='"+empid+"',Date='"+date+"',NetExpenses='"+NetExpens+"',Types='"+typ+"'where ExpensId='"+expensId+"'";
+							String sql = "Update expenses set Description='"+dscrp+"',EmployeeID='"+empid+"',Date='"+date+"',NetExpense='"+NetExpens+"',Type='"+typ+"'where ExpensID='"+expensId+"'";
 							
 					
 							
-						ps = con.prepareStatement(sql);
-				        
-			                
-			            ps.execute();
+							PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+							ps.executeUpdate();
 			            
 			            tableLoad();
 			                
@@ -203,10 +201,10 @@ public class UpdateExpenses extends KTab {
 		            
 		            try{
 		                
-		                String sql = "Delete from students where StudentID='"+expensid+"'";
+		                String sql = "Delete from expenses where ExpenseID='"+expensid+"'";
 		                
-		                ps = con.prepareStatement(sql);
-		                ps.execute();
+		                PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+						ps.executeUpdate();
 		                
 		                tableLoad();
 		            }catch(Exception e1){
@@ -245,14 +243,14 @@ int r = jtable1.getSelectedRow();
 		        
 		        String expensid = jtable1.getValueAt(r, 0).toString();
 		        String dscrp = jtable1.getValueAt(r, 1).toString();
-		        String date =  jtable1.getValueAt(r, 2).toString();
+		        String dat =  jtable1.getValueAt(r, 2).toString();
 		        String NetExpens = jtable1.getValueAt(r, 3).toString();
 		        String typ = jtable1.getValueAt(r, 4).toString();
 		        String empid = jtable1.getValueAt(r, 5).toString();
 		        
 		        t1.setText(expensid);
 		        t2.setText(dscrp);
-		        t3.setText(date);
+		        t3.setText(dat);
 		        t4.setText(NetExpens);
 		        t5.setText(typ);
 		        t6.setText(empid);
