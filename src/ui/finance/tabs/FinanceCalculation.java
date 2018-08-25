@@ -60,12 +60,12 @@ public class FinanceCalculation extends KTab {
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(202, 132, 86, 20);
+		textField_1.setBounds(732, 76, 86, 20);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(202, 288, 86, 20);
+		textField_2.setBounds(732, 215, 86, 20);
 		getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
@@ -120,22 +120,38 @@ public class FinanceCalculation extends KTab {
 		
 		textField_8 = new JTextField();
 		textField_8.setColumns(10);
-		textField_8.setBounds(202, 442, 86, 20);
+		textField_8.setBounds(732, 390, 86, 20);
 		getContentPane().add(textField_8);
 		
 		JLabel lblNewLabel_4 = new JLabel("Calculate the finance report ");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_4.setBounds(343, 11, 278, 20);
+		lblNewLabel_4.setBounds(266, 11, 355, 20);
 		getContentPane().add(lblNewLabel_4);
 		
 		JButton btnNewButton_1 = new JButton("Calculation");
-		btnNewButton_1.setBounds(103, 530, 89, 23);
+		btnNewButton_1.setBounds(652, 535, 89, 23);
 		getContentPane().add(btnNewButton_1);
 		
 		textField_9 = new JTextField();
 		textField_9.setBounds(357, 531, 217, 30);
 		getContentPane().add(textField_9);
 		textField_9.setColumns(10);
+		
+		JLabel label_2 = new JLabel("paid Salaries");
+		label_2.setBounds(582, 385, 75, 30);
+		getContentPane().add(label_2);
+		
+		JLabel label_3 = new JLabel("Total income");
+		label_3.setBounds(578, 210, 98, 30);
+		getContentPane().add(label_3);
+		
+		JLabel label_4 = new JLabel("Total Expenses");
+		label_4.setBounds(578, 71, 136, 30);
+		getContentPane().add(label_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Profit or Lost");
+		lblNewLabel_5.setBounds(148, 539, 98, 14);
+		getContentPane().add(lblNewLabel_5);
 
 	}
 

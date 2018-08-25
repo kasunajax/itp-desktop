@@ -35,7 +35,7 @@ public class UpdateExpenses extends KTab {
 	private JTextField t5;
 	private JTextField t6;
 	
-	 Connection con = null;
+
      PreparedStatement ps = null;
      ResultSet rs = null;
 
@@ -105,7 +105,7 @@ public class UpdateExpenses extends KTab {
 		        try{
 		            String sql = "Select ExpensesID,Description,Date,NetExpense,EmployeeID  from Expenses where Type like '%"+name+"%' ";
 		            
-		            ps = con.prepareStatement(sql);
+		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
 		            rs = ps.executeQuery();
 		            
 		            
@@ -166,10 +166,8 @@ public class UpdateExpenses extends KTab {
 							
 					
 							
-						ps = con.prepareStatement(sql);
-				        
-			                
-			            ps.execute();
+							PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+							ps.executeUpdate();
 			            
 			            tableLoad();
 			                
@@ -205,8 +203,8 @@ public class UpdateExpenses extends KTab {
 		                
 		                String sql = "Delete from expenses where ExpenseID='"+expensid+"'";
 		                
-		                ps = con.prepareStatement(sql);
-		                ps.execute();
+		                PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+						ps.executeUpdate();
 		                
 		                tableLoad();
 		            }catch(Exception e1){

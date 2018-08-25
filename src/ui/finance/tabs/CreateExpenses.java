@@ -32,7 +32,7 @@ public class CreateExpenses extends KTab {
 	private JTextField t6;
 	private JTable table;
 	
-	Connection con = null;
+	
     PreparedStatement ps = null;
     ResultSet rs = null;
 
@@ -151,17 +151,16 @@ public void tableLoad(){
 					
 				try {
 					
-				
-					ps = con.prepareStatement(sql);
-					ps.execute();
+				PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+				ps.executeUpdate();
 					
 					
-					tableLoad();
 				
 				}catch(Exception e1) {
 					
 					e1.printStackTrace();
 				
+					tableLoad();
 				}
 				
 				}

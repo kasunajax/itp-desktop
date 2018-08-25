@@ -25,7 +25,7 @@ public class ExpensesDetails extends KTab {
 	private JTextField t3;
 	
 	
-	Connection con = null;
+	
     PreparedStatement ps = null;
     ResultSet rs = null;
 
@@ -70,8 +70,8 @@ public class ExpensesDetails extends KTab {
 		        try{
 		            String sql = "Select ExpensesID,Description,Date,NetExpense,EmployeeID  from Expenses where Type like '%"+name+"%' ";
 		            
-		            ps = con.prepareStatement(sql);
-		            rs = ps.executeQuery();
+		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+					rs = ps.executeQuery();
 		            
 		            
 		            table.setModel(Database.resultSetToTableModel(rs));
@@ -105,7 +105,7 @@ public class ExpensesDetails extends KTab {
 				try{
 		            String sql = "Select ExpensesID,Description,NetExpense,EmployeeID,Type  from expenses where Date Between '"+stDate+"' and '"+ltDate+"' ";
 		            
-		            ps = con.prepareStatement(sql);
+		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
 		            rs = ps.executeQuery();
 		            
 		            
