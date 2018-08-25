@@ -61,7 +61,7 @@ public class UpdateExpenses extends KTab {
 	    
         try{
            
-            String sql = "SELECT * from Expenses";
+            String sql = "SELECT * from expenses";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
@@ -103,7 +103,7 @@ public class UpdateExpenses extends KTab {
 				String name = search.getText();
 		        
 		        try{
-		            String sql = "Select ExpensesID,Description,Date,NetExpenses,EmployeeId  from Expenses where Type like '%"+name+"%' ";
+		            String sql = "Select ExpensesID,Description,Date,NetExpense,EmployeeID  from Expenses where Type like '%"+name+"%' ";
 		            
 		            ps = con.prepareStatement(sql);
 		            rs = ps.executeQuery();
@@ -162,7 +162,7 @@ public class UpdateExpenses extends KTab {
 						
 						try {
 							
-							String sql = "Update Expenses set Description='"+dscrp+"',EmployeeID='"+empid+"',Date='"+date+"',NetExpenses='"+NetExpens+"',Types='"+typ+"'where ExpensId='"+expensId+"'";
+							String sql = "Update expenses set Description='"+dscrp+"',EmployeeID='"+empid+"',Date='"+date+"',NetExpense='"+NetExpens+"',Type='"+typ+"'where ExpensID='"+expensId+"'";
 							
 					
 							
@@ -203,7 +203,7 @@ public class UpdateExpenses extends KTab {
 		            
 		            try{
 		                
-		                String sql = "Delete from students where StudentID='"+expensid+"'";
+		                String sql = "Delete from expenses where ExpenseID='"+expensid+"'";
 		                
 		                ps = con.prepareStatement(sql);
 		                ps.execute();

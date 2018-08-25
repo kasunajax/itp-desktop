@@ -9,6 +9,7 @@ import utils.common.database.Database;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -56,7 +57,7 @@ public void tableLoad(){
 	    
         try{
            
-            String sql = "SELECT * from Expenses";
+            String sql = "SELECT * from expenses";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
@@ -140,9 +141,15 @@ public void tableLoad(){
 				String Types = t5.getText();
 				String empid = t6.getText();
 				
+				if(t1.getText()==null||t2.getText()==null||t3.getText()==null||t4.getText()==null||t5.getText()==null||t6.getText()==null) {
+					
+						JOptionPane.showMessageDialog(null,"Please Enter the values for all the fields");
+				}else {
 				
+					String sql = "INSERT INTO expenses(ExpenseID,NetExpense,Date,Description,EmployeeID,Type) Values ('"+expensId+"','"+NetExpenses+"','"+date+"','"+dscrp+"','"+empid+"','"+Types+"')";
+					
 				try {
-					String sql = "INSERT INTO Expenses(ExpensesId,Description,Date,NetExpenses,Type,EmployeeId) Values ('"+expensId+"','"+dscrp+"','"+date+"','"+NetExpenses+"','"+Types+"','"+empid+"')";
+					
 				
 					ps = con.prepareStatement(sql);
 					ps.execute();
@@ -153,8 +160,10 @@ public void tableLoad(){
 				}catch(Exception e1) {
 					
 					e1.printStackTrace();
+				
 				}
 				
+				}
 			}
 		});
 		btnNewButton_1.setBounds(686, 494, 117, 32);
