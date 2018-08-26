@@ -11,6 +11,8 @@ import ui.employees.tabs.AddEmp;
 import ui.employees.tabs.AddEmployeeFrame;
 import ui.employees.tabs.ViewEmployees;
 import ui.finance.tabs.CreateExpenses;
+import ui.finance.tabs.ExpensesDetails;
+import ui.finance.tabs.FinanceCalculation;
 import ui.finance.tabs.UpdateExpenses;
 
 public class FinanceFrame extends KFrame {
@@ -43,7 +45,9 @@ public class FinanceFrame extends KFrame {
 		
 		TabStruct[] ts = {
 				new TabStruct(CreateExpenses.class, "CREATE"),
-				new TabStruct(UpdateExpenses.class, "UPDATE")
+				new TabStruct(UpdateExpenses.class, "UPDATE"),
+				new TabStruct(ExpensesDetails.class, "View"),
+				new TabStruct(FinanceCalculation.class,"Calculation")
 		};
 		
 		setStruct(ts);
