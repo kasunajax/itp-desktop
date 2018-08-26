@@ -229,7 +229,9 @@ public class MakeChanges extends KTab {
 					try {
 						PreparedStatement stmt = Database.getConnection().prepareStatement(q);
 						stmt.execute();
-					} catch (SQLException e) {}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 		           
 		            tableLoad();
 		            
