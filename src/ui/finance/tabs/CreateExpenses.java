@@ -33,8 +33,7 @@ public class CreateExpenses extends KTab {
 	private JTable table;
 	
 	
-    PreparedStatement ps = null;
-    ResultSet rs = null;
+   
 
 	/**
 	 * Launch the application.
@@ -54,18 +53,15 @@ public class CreateExpenses extends KTab {
 	
 	
 	
-public void tableLoad(){
+	public void tableLoad(){
 	    
         try{
            
-            String sql = "SELECT * from expenses";
+            String sql = "select * from expenses";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            
-                
-            
             table.setModel(Database.resultSetToTableModel(rs));
             
             
@@ -85,6 +81,9 @@ public void tableLoad(){
 	 */
 	public CreateExpenses() {
 		super("Create Expenses ");
+		
+		
+		
 		
 		t1 = new JTextField();
 		t1.setBounds(221, 80, 183, 32);
@@ -154,18 +153,21 @@ public void tableLoad(){
 				PreparedStatement ps = Database.getConnection().prepareStatement(sql);
 				ps.executeUpdate();
 					
-					 
+				tableLoad(); 
 				
 				}catch(Exception e1) {
 					
 					e1.printStackTrace();
 				
-					tableLoad();
+					
 				}
 				
 				}
 			}
 		});
+		
+		
+		
 		btnNewButton_1.setBounds(686, 494, 117, 32);
 		getContentPane().add(btnNewButton_1);
 		

@@ -81,12 +81,16 @@ public class UpdateExpenses extends KTab {
     }
 	
 	
+	
+	
 	/**
 	 * Create the frame.
 	 */
 	public UpdateExpenses() {
 		
 		super("Update Expenses ");
+		
+	
 		
 		JLabel lblNewLabel = new JLabel("Search by Type");
 		lblNewLabel.setBounds(166, 38, 114, 14);
@@ -104,7 +108,7 @@ public class UpdateExpenses extends KTab {
 				String name = search.getText();
 		        
 		        try{
-		            String sql = "Select ExpensesID,Description,Date,NetExpense,EmployeeID  from Expenses where Type like '%"+name+"%' ";
+		            String sql = "Select ExpenseID,Description,Date,NetExpense,Type,EmployeeID from expenses where Type like '%"+name+"%' ";
 		            
 		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
 		            rs = ps.executeQuery();
@@ -163,7 +167,7 @@ public class UpdateExpenses extends KTab {
 						
 						try {
 							
-							String sql = "Update expenses set Description='"+dscrp+"',EmployeeID='"+empid+"',Date='"+date+"',NetExpense='"+NetExpens+"',Type='"+typ+"'where ExpensID='"+expensId+"'";
+							String sql = "Update expenses set Description='"+dscrp+"',EmployeeID='"+empid+"',Date='"+date+"',NetExpense='"+NetExpens+"',Type='"+typ+"'where ExpenseID='"+expensId+"'";
 							
 					
 							
@@ -187,7 +191,7 @@ public class UpdateExpenses extends KTab {
 		getContentPane().add(btnNewButton_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Employee Id");
-		lblNewLabel_3.setBounds(494, 407, 86, 14);
+		lblNewLabel_3.setBounds(485, 407, 86, 14);
 		getContentPane().add(lblNewLabel_3);
 		
 		JButton btnDelete = new JButton("Delete");
@@ -219,7 +223,7 @@ public class UpdateExpenses extends KTab {
 		getContentPane().add(btnDelete);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 73, 960, 247);
+		scrollPane.setBounds(42, 73, 886, 247);
 		getContentPane().add(scrollPane);
 		
 		jtable1 = new JTable();
@@ -237,10 +241,11 @@ public class UpdateExpenses extends KTab {
 		jtable1.getColumnModel().getColumn(4).setPreferredWidth(90);
 		jtable1.getColumnModel().getColumn(5).setPreferredWidth(90);
 		jtable1.addMouseListener(new MouseAdapter() {
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-int r = jtable1.getSelectedRow();
+				int r = jtable1.getSelectedRow();
 		        
 		        String expensid = jtable1.getValueAt(r, 0).toString();
 		        String dscrp = jtable1.getValueAt(r, 1).toString();

@@ -30,6 +30,7 @@ public class FinanceCalculation extends KTab {
 					FinanceCalculation frame = new FinanceCalculation();
 					frame.setVisible(true);
 				} catch (Exception e) {
+					
 					e.printStackTrace();
 					
 				}

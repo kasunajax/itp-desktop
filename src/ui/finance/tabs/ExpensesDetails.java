@@ -26,8 +26,6 @@ public class ExpensesDetails extends KTab {
 	
 	
 	
-    PreparedStatement ps = null;
-    ResultSet rs = null;
 
 	/**
 	 * Launch the application.
@@ -44,6 +42,29 @@ public class ExpensesDetails extends KTab {
 			}
 		});
 	}
+	
+	
+public void tableLoad(){
+	    
+        try{
+           
+            String sql = "SELECT * from expenses";
+          
+            
+            PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+                
+            
+            table.setModel(Database.resultSetToTableModel(rs));
+            
+            
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    
+    }
 
 	/**
 	 * Create the frame.
@@ -68,10 +89,10 @@ public class ExpensesDetails extends KTab {
 				String name = t1.getText();
 		        
 		        try{
-		            String sql = "Select ExpensesID,Description,Date,NetExpense,EmployeeID  from Expenses where Type like '%"+name+"%' ";
+		            String sql = "Select ExpenseID,Description,Date,NetExpense,EmployeeID  from expenses where Type like '%"+name+"%' ";
 		            
 		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
-					rs = ps.executeQuery();
+					ResultSet rs = ps.executeQuery();
 		            
 		            
 		            table.setModel(Database.resultSetToTableModel(rs));
@@ -103,10 +124,10 @@ public class ExpensesDetails extends KTab {
 				String ltDate = t3.getText();
 				
 				try{
-		            String sql = "Select ExpensesID,Description,NetExpense,EmployeeID,Type  from expenses where Date Between '"+stDate+"' and '"+ltDate+"' ";
+		            String sql = "Select ExpenseID,Description,NetExpense,EmployeeID,Type  from expenses where Date Between '"+stDate+"' and '"+ltDate+"' ";
 		            
 		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
-		            rs = ps.executeQuery();
+		            ResultSet rs = ps.executeQuery();
 		            
 		            
 		            table.setModel(Database.resultSetToTableModel(rs));
@@ -125,11 +146,12 @@ public class ExpensesDetails extends KTab {
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		table.setModel(new DefaultTableModel( 
 			new Object[][] {
 			},
 			new String[] {
-				"Expense Id", "Description", "Date", "Net Expenses", "Type", "Employee Id"
+			
+					"Expense Id", "Description", "Date", "Net Expenses", "Type", "Employee Id"
 			}
 		));
 		scrollPane.setViewportView(table);
