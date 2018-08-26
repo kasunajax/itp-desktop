@@ -41,6 +41,7 @@ public class FinanceCalculation extends KTab {
 	/**
 	 * Create the frame.
 	 */
+	
 	public FinanceCalculation() {
 		super("Finance Calculation");
 		

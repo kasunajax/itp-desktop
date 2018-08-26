@@ -57,7 +57,7 @@ public class CreateExpenses extends KTab {
 	    
         try{
            
-            String sql = "select * from expenses";
+        	String sql = "select * from expenses";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
@@ -165,6 +165,7 @@ public class CreateExpenses extends KTab {
 				}
 			}
 		});
+		
 		
 		
 		

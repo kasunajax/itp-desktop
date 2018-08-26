@@ -62,7 +62,7 @@ public class UpdateExpenses extends KTab {
 	    
         try{
            
-            String sql = "SELECT * from expenses";
+        	String sql = "select * from expenses";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
