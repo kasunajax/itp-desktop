@@ -23,6 +23,7 @@ public class FinanceCalculation extends KTab {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -34,6 +35,7 @@ public class FinanceCalculation extends KTab {
 					e.printStackTrace();
 					
 				}
+			
 			}
 		});
 	}

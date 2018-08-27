@@ -7,6 +7,10 @@ import javax.swing.JInternalFrame;
 import ui.components.KTab;
 import utils.common.database.Database;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -25,19 +29,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JDateChooser;
+
 public class UpdateExpenses extends KTab {
 	private JTextField search;
 	private JTextField t1;
 	private JTable jtable1;
 	private JTextField t2;
-	private JTextField t3;
 	private JTextField t4;
 	private JTextField t5;
 	private JTextField t6;
 	
 
-     PreparedStatement ps = null;
-     ResultSet rs = null;
+    
+    
+	ResultSet rs = null;
 
 	/**
 	 * Launch the application.
@@ -58,11 +64,12 @@ public class UpdateExpenses extends KTab {
 
 	
 	
+	
 	public void tableLoad(){
 	    
         try{
            
-        	String sql = "select * from expenses";
+        	String sql = "select ExpenseID,Description,Date,NetExpense,Type,EmployeeID from expenses";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
@@ -91,6 +98,10 @@ public class UpdateExpenses extends KTab {
 		super("Update Expenses ");
 		
 	
+		JDateChooser t3 = new JDateChooser();
+		t3.setBounds(250, 454, 147, 24);
+		getContentPane().add(t3);
+		
 		
 		JLabel lblNewLabel = new JLabel("Search by Type");
 		lblNewLabel.setBounds(166, 38, 114, 14);
@@ -160,14 +171,35 @@ public class UpdateExpenses extends KTab {
 					 
 					 	String expensId = t1.getText();
 						String dscrp = t2.getText();
-						String date = t3.getText();
+						Date dat = t3.getDate();
 						String NetExpens = t4.getText();
 						String typ = t5.getText();
 						String empid = t6.getText();
 						
+						DateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+	                    String updat = format.format(dat);
+	                    
+	                    
+	                if(expensId.equals("")) {
+	    					
+							JOptionPane.showMessageDialog(null,"Please Enter the Expenses Id");
+							
+					}else if(dscrp.equals("")){
+						JOptionPane.showMessageDialog(null,"Please Enter the Description");
+					}else if(NetExpens.equals("")){
+						JOptionPane.showMessageDialog(null,"Please Enter the Net Expenses");
+					}else if(typ.equals("")){
+						JOptionPane.showMessageDialog(null,"Please Enter the Types");
+					}else if(empid.equals("")){
+						JOptionPane.showMessageDialog(null,"Please Enter the Employee Id");
+						
+					}else {
+						
+					
+						
 						try {
 							
-							String sql = "Update expenses set Description='"+dscrp+"',EmployeeID='"+empid+"',Date='"+date+"',NetExpense='"+NetExpens+"',Type='"+typ+"'where ExpenseID='"+expensId+"'";
+							String sql = "Update expenses set Description='"+dscrp+"',EmployeeID='"+empid+"',Date='"+updat+"',NetExpense='"+NetExpens+"',Type='"+typ+"'where ExpenseID='"+expensId+"'";
 							
 					
 							
@@ -182,7 +214,7 @@ public class UpdateExpenses extends KTab {
 							
 							e1.printStackTrace();
 						}
-					 
+					}
 				 }
 				
 			}
@@ -249,14 +281,14 @@ public class UpdateExpenses extends KTab {
 		        
 		        String expensid = jtable1.getValueAt(r, 0).toString();
 		        String dscrp = jtable1.getValueAt(r, 1).toString();
-		        String dat =  jtable1.getValueAt(r, 2).toString();
+		        Date dat =  (Date) jtable1.getValueAt(r, 2);
 		        String NetExpens = jtable1.getValueAt(r, 3).toString();
 		        String typ = jtable1.getValueAt(r, 4).toString();
 		        String empid = jtable1.getValueAt(r, 5).toString();
 		        
 		        t1.setText(expensid);
 		        t2.setText(dscrp);
-		        t3.setText(dat);
+		        t3.setDate(dat);
 		        t4.setText(NetExpens);
 		        t5.setText(typ);
 		        t6.setText(empid);
@@ -265,6 +297,7 @@ public class UpdateExpenses extends KTab {
 			}
 		});
 		scrollPane.setViewportView(jtable1);
+		tableLoad();
 		
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
@@ -272,7 +305,7 @@ public class UpdateExpenses extends KTab {
 				
 				t1.setText(null);
 				t2.setText(null);
-				t3.setText(null);
+				t3.setDate(null);
 				t4.setText(null);
 				t5.setText(null);
 				t6.setText(null);
@@ -286,11 +319,6 @@ public class UpdateExpenses extends KTab {
 		t2.setColumns(10);
 		t2.setBounds(250, 402, 147, 24);
 		getContentPane().add(t2);
-		
-		t3 = new JTextField();
-		t3.setColumns(10);
-		t3.setBounds(250, 460, 147, 23);
-		getContentPane().add(t3);
 		
 		t4 = new JTextField();
 		t4.setColumns(10);

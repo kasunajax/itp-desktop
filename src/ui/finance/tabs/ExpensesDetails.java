@@ -11,6 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.toedter.calendar.JDateChooser;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -20,9 +26,7 @@ import java.awt.event.ActionEvent;
 
 public class ExpensesDetails extends KTab {
 	private JTextField t1;
-	private JTextField t2;
 	private JTable table;
-	private JTextField t3;
 	
 	
 	
@@ -72,6 +76,16 @@ public void tableLoad(){
 	public ExpensesDetails() {
 		super("Expenses Details");
 		
+		
+		JDateChooser d1 = new JDateChooser();
+		d1.setBounds(170, 179, 116, 22);
+		getContentPane().add(d1);
+		
+		JDateChooser d2 = new JDateChooser();
+		d2.setBounds(355, 179, 116, 22);
+		getContentPane().add(d2);
+		
+		
 		JLabel lblNewLabel = new JLabel("Search by Type");
 		lblNewLabel.setBounds(59, 102, 89, 14);
 		getContentPane().add(lblNewLabel);
@@ -111,17 +125,17 @@ public void tableLoad(){
 		lblSearchByDate.setBounds(59, 179, 89, 23);
 		getContentPane().add(lblSearchByDate);
 		
-		t2 = new JTextField();
-		t2.setColumns(10);
-		t2.setBounds(170, 176, 118, 23);
-		getContentPane().add(t2);
 		
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String stDate = t2.getText();
-				String ltDate = t3.getText();
+				Date Date1 = d1.getDate();
+				Date Date2 = d2.getDate();
+				
+	            DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+	            String stDate = df.format(Date1);
+	            String ltDate = df.format(Date2);
 				
 				try{
 		            String sql = "Select ExpenseID,Description,NetExpense,EmployeeID,Type  from expenses where Date Between '"+stDate+"' and '"+ltDate+"' ";
@@ -155,11 +169,7 @@ public void tableLoad(){
 			}
 		));
 		scrollPane.setViewportView(table);
-		
-		t3 = new JTextField();
-		t3.setColumns(10);
-		t3.setBounds(355, 177, 118, 23);
-		getContentPane().add(t3);
+		tableLoad();
 		
 		JLabel lblTo = new JLabel("to");
 		lblTo.setBounds(316, 179, 29, 23);
@@ -169,7 +179,8 @@ public void tableLoad(){
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1.setBounds(39, 41, 170, 23);
 		getContentPane().add(lblNewLabel_1);
+		
+	
 
 	}
-
 }
