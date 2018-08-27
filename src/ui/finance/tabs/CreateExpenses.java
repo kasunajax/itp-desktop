@@ -7,12 +7,21 @@ import javax.swing.JInternalFrame;
 import ui.components.KTab;
 import utils.common.database.Database;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
@@ -21,18 +30,20 @@ import java.awt.ScrollPane;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JDateChooser;
+
+import java.awt.Font;
+
 public class CreateExpenses extends KTab {
 	private JTextField t1;
 	private JTextField t2;
-	private JTextField t3;
 	private JTextField t4;
 	private JTextField t5;
 	private JTextField t6;
 	private JTable table;
 	
-	Connection con = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
+	
+   
 
 	/**
 	 * Launch the application.
@@ -52,18 +63,15 @@ public class CreateExpenses extends KTab {
 	
 	
 	
-public void tableLoad(){
+	public void tableLoad(){
 	    
         try{
            
-            String sql = "SELECT * from Expenses";
+        	String sql = "select * from expenses";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            
-                
-            
             table.setModel(Database.resultSetToTableModel(rs));
             
             
@@ -84,8 +92,15 @@ public void tableLoad(){
 	public CreateExpenses() {
 		super("Create Expenses ");
 		
+		
+		JDateChooser t3 = new JDateChooser();
+		t3.setBounds(221, 240, 183, 32);
+		getContentPane().add(t3);
+		
+
+		
 		t1 = new JTextField();
-		t1.setBounds(255, 80, 183, 32);
+		t1.setBounds(221, 80, 183, 32);
 		getContentPane().add(t1);
 		t1.setColumns(10);
 		
@@ -111,22 +126,17 @@ public void tableLoad(){
 		
 		t2 = new JTextField();
 		t2.setColumns(10);
-		t2.setBounds(255, 156, 183, 32);
+		t2.setBounds(221, 156, 183, 32);
 		getContentPane().add(t2);
-		
-		t3 = new JTextField();
-		t3.setColumns(10);
-		t3.setBounds(255, 239, 183, 32);
-		getContentPane().add(t3);
 		
 		t4 = new JTextField();
 		t4.setColumns(10);
-		t4.setBounds(255, 321, 183, 32);
+		t4.setBounds(221, 321, 183, 32);
 		getContentPane().add(t4);
 		
 		t5 = new JTextField();
 		t5.setColumns(10);
-		t5.setBounds(255, 409, 183, 32);
+		t5.setBounds(221, 409, 183, 32);
 		getContentPane().add(t5);
 		
 		JButton btnNewButton_1 = new JButton("Save");
@@ -135,33 +145,108 @@ public void tableLoad(){
 				
 				String expensId = t1.getText();
 				String dscrp = t2.getText();
-				String date = t3.getText();
-				String NetExpenses = t4.getText();
+				Date dat = t3.getDate();
+				String Netexpens = t4.getText();
 				String Types = t5.getText();
 				String empid = t6.getText();
 				
+				DateFormat fmt = new SimpleDateFormat("YYYY-MM-dd");
+	            String expdate = fmt.format(dat);
 				
+	            
+	           
+	            
+	             
+								
+						Pattern patrn = Pattern.compile("\\d{5}||\\d{4}||\\d{3}");
+						Matcher matc = patrn.matcher(expensId);
+				if(matc.matches()) {
+							
+						}else {
+							JOptionPane.showMessageDialog(null,"Please enter a valid ExpensId");
+						}
+						
+				
+					
+					 Pattern patrn1 = Pattern.compile("\\w+");
+					 Matcher matc1 = patrn1.matcher(dscrp);
+					 
+				 if(matc1.matches()) {
+						 
+					 }else {
+						 JOptionPane.showMessageDialog(null,"Please Enter a valid Description");
+					 }
+					
+				
+					Pattern patrn11 = Pattern.compile("\\d+.*");
+					 Matcher matc11 = patrn11.matcher(Netexpens);
+					
+				if(matc11.matches()) {
+						
+					}else {
+						JOptionPane.showMessageDialog(null,"Please Enter a valid Net Expenses");
+					}
+					
+	
+					 Pattern patrn111 = Pattern.compile("\\w+");
+					 Matcher matc111 = patrn111.matcher(Types);
+					
+				if(matc111.matches()) {
+					 }else {
+						 JOptionPane.showMessageDialog(null,"Please Enter valid Types");
+					 }
+				
+				
+					
+					Pattern patrn1111 = Pattern.compile("\\d");
+					 Matcher matc1111 = patrn1111.matcher(empid);
+					 
+				 if(matc1111.matches()) {
+						 
+					 }else {
+						 JOptionPane.showMessageDialog(null,"Please Enter valid Employee Id");
+					 }
+				 if(t3.equals("")) {
+					JOptionPane.showMessageDialog(null,"Plaease select the date");
+				}else{
+					
+					
+					String sql = "INSERT INTO expenses(ExpenseID,NetExpense,Date,Description,EmployeeID,Type) Values ('"+expensId+"','"+Netexpens+"','"+expdate+"','"+dscrp+"','"+empid+"','"+Types+"')";
+					
 				try {
-					String sql = "INSERT INTO Expenses(ExpensesId,Description,Date,NetExpenses,Type,EmployeeId) Values ('"+expensId+"','"+dscrp+"','"+date+"','"+NetExpenses+"','"+Types+"','"+empid+"')";
+					
+				PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+				ps.executeUpdate();
+					
+				tableLoad(); 
 				
-					ps = con.prepareStatement(sql);
-					ps.execute();
-					
-					
-					tableLoad();
+				t1.setText(null);
+				t2.setText(null);
+				t3.setDate(null);
+				t4.setText(null);
+				t5.setText(null);
+				t6.setText(null);
 				
 				}catch(Exception e1) {
 					
 					e1.printStackTrace();
+				
+					
 				}
 				
+				}
 			}
 		});
+		
+		
+		
+		
 		btnNewButton_1.setBounds(686, 494, 117, 32);
 		getContentPane().add(btnNewButton_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("Create Expenses");
-		lblNewLabel_4.setBounds(43, 38, 117, 14);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_4.setBounds(43, 38, 150, 20);
 		getContentPane().add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Employee Id");
@@ -169,12 +254,12 @@ public void tableLoad(){
 		getContentPane().add(lblNewLabel_5);
 		
 		t6 = new JTextField();
-		t6.setBounds(255, 494, 183, 32);
+		t6.setBounds(221, 494, 183, 32);
 		getContentPane().add(t6);
 		t6.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(461, 80, 509, 303);
+		scrollPane.setBounds(431, 80, 509, 303);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -186,7 +271,7 @@ public void tableLoad(){
 			}
 		));
 		scrollPane.setViewportView(table);
-		
+		tableLoad();
 
 	}
 }
