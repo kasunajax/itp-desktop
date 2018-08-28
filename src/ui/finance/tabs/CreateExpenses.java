@@ -150,66 +150,47 @@ public class CreateExpenses extends KTab {
 				String Types = t5.getText();
 				String empid = t6.getText();
 				
-				DateFormat fmt = new SimpleDateFormat("YYYY-MM-dd");
-	            String expdate = fmt.format(dat);
-				
-	            
-	           
-	            
-	             
-								
-						Pattern patrn = Pattern.compile("\\d{5}||\\d{4}||\\d{3}");
-						Matcher matc = patrn.matcher(expensId);
-				if(matc.matches()) {
 							
-						}else {
-							JOptionPane.showMessageDialog(null,"Please enter a valid ExpensId");
-						}
-						
+
+				Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{3}||d{4}");
+				Matcher matc1111 = patrn1111.matcher(empid);
+	            
+				 Pattern patrn = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
+				Matcher matc = patrn.matcher(expensId);
+	            
+				 Pattern patrn1 = Pattern.compile("\\w+");
+				 Matcher matc1 = patrn1.matcher(dscrp);
+								
+					
+				 Pattern patrn11 = Pattern.compile("\\d+.*");
+				 Matcher matc11 = patrn11.matcher(Netexpens);
 				
-					
-					 Pattern patrn1 = Pattern.compile("\\w+");
-					 Matcher matc1 = patrn1.matcher(dscrp);
-					 
-				 if(matc1.matches()) {
-						 
-					 }else {
-						 JOptionPane.showMessageDialog(null,"Please Enter a valid Description");
-					 }
-					
+				 Pattern patrn111 = Pattern.compile("\\w+");
+				 Matcher matc111 = patrn111.matcher(Types);
+				 
 				
-					Pattern patrn11 = Pattern.compile("\\d+.*");
-					 Matcher matc11 = patrn11.matcher(Netexpens);
-					
-				if(matc11.matches()) {
-						
-					}else {
-						JOptionPane.showMessageDialog(null,"Please Enter a valid Net Expenses");
-					}
-					
-	
-					 Pattern patrn111 = Pattern.compile("\\w+");
-					 Matcher matc111 = patrn111.matcher(Types);
-					
-				if(matc111.matches()) {
-					 }else {
-						 JOptionPane.showMessageDialog(null,"Please Enter valid Types");
-					 }
+				 
+				if(!matc.matches()||expensId.equals("")) {
+					JOptionPane.showMessageDialog(null,"Please enter a valid ExpensId");
+				}else if(!matc1.matches()) {
+					 JOptionPane.showMessageDialog(null,"Please Enter a valid Description");
+				}else if(dat==null) {
+					JOptionPane.showMessageDialog(null,"Date field is empty");
+				}else if(!matc11.matches()) {
+					JOptionPane.showMessageDialog(null,"Please Enter a valid Net Expenses");
+				}else if(!matc111.matches()) {
+					JOptionPane.showMessageDialog(null,"Please Enter valid Types");
+				}else if(!matc1111.matches()||empid.equals("")) {
+					 JOptionPane.showMessageDialog(null,"Please Enter valid Employee Id");
+				}
 				
 				
-					
-					Pattern patrn1111 = Pattern.compile("\\d");
-					 Matcher matc1111 = patrn1111.matcher(empid);
-					 
-				 if(matc1111.matches()) {
-						 
-					 }else {
-						 JOptionPane.showMessageDialog(null,"Please Enter valid Employee Id");
-					 }
-				 if(t3.equals("")) {
-					JOptionPane.showMessageDialog(null,"Plaease select the date");
-				}else{
-					
+				 	
+				
+				else {	
+				
+					DateFormat fmt = new SimpleDateFormat("YYYY-MM-dd");
+		            String expdate = fmt.format(dat);
 					
 					String sql = "INSERT INTO expenses(ExpenseID,NetExpense,Date,Description,EmployeeID,Type) Values ('"+expensId+"','"+Netexpens+"','"+expdate+"','"+dscrp+"','"+empid+"','"+Types+"')";
 					
@@ -233,8 +214,8 @@ public class CreateExpenses extends KTab {
 				
 					
 				}
-				
 				}
+				
 			}
 		});
 		

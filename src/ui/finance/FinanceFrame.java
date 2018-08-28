@@ -15,6 +15,7 @@ import ui.finance.tabs.ExpensesDetails;
 import ui.finance.tabs.FinanceCalculation;
 import ui.finance.tabs.UpdateExpenses;
 
+
 public class FinanceFrame extends KFrame {
 
 	/**
@@ -44,10 +45,11 @@ public class FinanceFrame extends KFrame {
 	public FinanceFrame() {
 		
 		TabStruct[] ts = {
-				new TabStruct(CreateExpenses.class, "CREATE"),
-				new TabStruct(UpdateExpenses.class, "UPDATE"),
+				new TabStruct(CreateExpenses.class, "Create"),
+				new TabStruct(UpdateExpenses.class, "Manage Expenses"),
 				new TabStruct(ExpensesDetails.class, "View"),
 				new TabStruct(FinanceCalculation.class,"Calculation")
+				
 		};
 		
 		setStruct(ts);

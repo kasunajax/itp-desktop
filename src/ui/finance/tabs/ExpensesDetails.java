@@ -147,7 +147,8 @@ public void tableLoad(){
 		            table.setModel(Database.resultSetToTableModel(rs));
 		            
 		        }catch(Exception e1){
-		            e1.printStackTrace();
+		          
+		        	e1.printStackTrace();
 		        }
 				
 			}
