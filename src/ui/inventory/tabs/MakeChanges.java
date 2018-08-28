@@ -63,7 +63,7 @@ public class MakeChanges extends KTab {
 	
 	public void tableLoad(){
         try{
-            String sql = "select * from items";
+            String sql = "select ItemID,Serial_Number,Name,Cost,Added_Date,Sold_Date,Status,Executive from items";
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
@@ -72,6 +72,86 @@ public class MakeChanges extends KTab {
         
         }catch(Exception e){}
     }
+	
+	public boolean isEmpty(String id,String name,String serial,String cost,String ex,String status,Date pd) {
+		if(id.equals("")||name.equals("")||serial.equals("")||cost.equals("")||ex.equals("")||status.equals("")||pd == null||status.equals("Select a Status")) {
+			JOptionPane.showMessageDialog(null, "One or more Required fields are empty!!");
+			return false;
+		}
+		else
+			return true;
+	}
+	
+	public boolean isSerial(String num) {
+		String patternNum = "\\d+";
+		
+		if(num.matches(patternNum))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isFloat(String num) {
+		String patternNum = "([+-]?\\d*\\.\\d+)(?![-+0-9\\.])";
+		
+		if(num.matches(patternNum))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isId(String id) {
+		String patternId = "[A-Z][A-Z][A-Z]\\d\\d\\d";
+		
+		if(id.matches(patternId))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isVarchar(String text) {
+		String patternTxt = "\\w+";
+		
+		if(text.matches(patternTxt))
+			return true;
+		else {
+			return false;
+		}
+	}
+	
+	public boolean validation(String id,String name,String serial,String cost,String ex,String status,Date pd) {
+		
+		if(isEmpty(id,name,serial,cost,ex,status,pd))
+			if(isId(id))
+				if(isVarchar(name))
+					if(isSerial(serial))
+						if(isFloat(cost))
+							if(isId(ex))
+								return true;
+							else {
+								JOptionPane.showMessageDialog(null, "Enter valid Executive ID!!");
+								return false;
+							}
+						else {
+							JOptionPane.showMessageDialog(null, "Enter valid Cost!!");
+							return false;
+						}
+					else {
+						JOptionPane.showMessageDialog(null, "Enter valid Serial Number!!");
+						return false;
+					}
+				else {
+					JOptionPane.showMessageDialog(null, "Enter valid Name!!");
+					return false;
+				}
+			else {
+				JOptionPane.showMessageDialog(null, "Enter valid Item ID!!");
+				return false;
+			}
+		else
+			return false;
+
+	}
 
 	/**
 	 * Create the frame.
@@ -80,7 +160,7 @@ public class MakeChanges extends KTab {
 		super("Changes");
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Select an Status", "Initial", "Sold"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Select a Status", "Initial", "Sold"}));
 		comboBox.setBounds(477, 409, 116, 21);
 		getContentPane().add(comboBox);
 		
@@ -107,11 +187,11 @@ public class MakeChanges extends KTab {
 		        String id = table.getValueAt(r, 0).toString();
 		        String se = table.getValueAt(r, 1).toString(); 
 		        String name = table.getValueAt(r, 2).toString();
-		        String c =  table.getValueAt(r, 9).toString();
-		        String status =  table.getValueAt(r, 5).toString();
-		        String ex = table.getValueAt(r, 6).toString();
-		        Date pd = (Date) table.getValueAt(r, 3);
-		        Date sd = (Date) table.getValueAt(r, 4);
+		        String c =  table.getValueAt(r, 3).toString();
+		        String status =  table.getValueAt(r, 6).toString();
+		        String ex = table.getValueAt(r, 7).toString();
+		        Date pd = (Date) table.getValueAt(r, 4);
+		        Date sd = (Date) table.getValueAt(r, 5);
 		        
 		        textField_2.setText(id);
 		        textField_6.setText(se);
@@ -200,6 +280,7 @@ public class MakeChanges extends KTab {
 				String q;
 				int se;
 				float cc = 0;
+				int count = 0;
 				String id = textField_2.getText();
 				String name = textField_3.getText();
 				String serial = textField_6.getText();
@@ -209,9 +290,7 @@ public class MakeChanges extends KTab {
 				Date pd = dateChooser.getDate();
 				Date sd = dateChooser_1.getDate();
 				
-				if(id == null||name == null||ex == null||pd == null||c == null||serial == null||status == "Select an Status")
-		            JOptionPane.showMessageDialog(null, "One or more Required fields are empty!!");
-				else{
+				if(validation(id,name,serial,c,ex,status,pd)) {
 		            cc = Float.valueOf(c);
 		            se = Integer.parseInt(serial);
 		            DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
@@ -219,21 +298,37 @@ public class MakeChanges extends KTab {
 		            String ssdate = null;
 		            if(sd != null)
 		                ssdate = df.format(sd);
-
-		            if(sd == null)
-		                q = "insert into items(ItemID,Serial_Number,Name,Added_Date,Sold_Date,Status,Executive,cost) values( '"+id+"','"+se+"','"+name+"','"+ppdate+"',null,'"+status+"','"+ex+"','"+cc+"')";    
-		            else
-		            	q = "insert into items(ItemID,Serial_Number,Name,Added_Date,Sold_Date,Status,Executive,cost) values( '"+id+"','"+se+"','"+name+"','"+ppdate+"','"+ssdate+"','"+status+"','"+ex+"','"+cc+"')";
 		            
-		            
-					try {
+		            q = "select count(*) from items where ItemID = '"+id+"'";
+                    
+                    try {
 						PreparedStatement stmt = Database.getConnection().prepareStatement(q);
-						stmt.execute();
-					} catch (SQLException e) {
-						e.printStackTrace();
+						ResultSet rs = stmt.executeQuery();
+						if(rs.next())
+							count = rs.getInt(1);
+					} catch (SQLException exp) {
+						exp.printStackTrace();
 					}
+                    
+                    if(count == 1)
+                    	JOptionPane.showMessageDialog(null, "Item Id '"+id+"' already exist!!");
+                    else {
+                    	if(sd == null)
+                    		q = "insert into items(ItemID,Serial_Number,Name,Added_Date,Sold_Date,Status,Executive,cost) values( '"+id+"','"+se+"','"+name+"','"+ppdate+"',null,'"+status+"','"+ex+"','"+cc+"')";    
+                    	else
+                    		q = "insert into items(ItemID,Serial_Number,Name,Added_Date,Sold_Date,Status,Executive,cost) values( '"+id+"','"+se+"','"+name+"','"+ppdate+"','"+ssdate+"','"+status+"','"+ex+"','"+cc+"')";
+		            
+		            
+                    	try {
+                    		PreparedStatement stmt = Database.getConnection().prepareStatement(q);
+                    		stmt.execute();
+                    	} catch (SQLException e) {
+                    		e.printStackTrace();
+                    	}
 		           
-		            tableLoad();
+                    	tableLoad();
+                    }
+                    	
 		            
 		        }
 				
@@ -257,9 +352,7 @@ public class MakeChanges extends KTab {
 				Date pd = dateChooser.getDate();
 				Date sd = dateChooser_1.getDate();
 				
-				if(id == null||name == null||ex == null||pd == null||c == null||serial == null||status == "Select an Status")
-		            JOptionPane.showMessageDialog(null, "One or more Required fields are empty!!");
-				else{
+				if(validation(id,name,serial,c,ex,status,pd)) {
 	                int x = JOptionPane.showConfirmDialog(null, "Do you really want to Update?");
 	                if(x == 0){
 	                	cc = Float.valueOf( textField_4.getText());
@@ -277,7 +370,9 @@ public class MakeChanges extends KTab {
 						try {
 							PreparedStatement stmt = Database.getConnection().prepareStatement(q);
 							stmt.execute();
-						} catch (SQLException exp) {}
+						} catch (SQLException exp) {
+							exp.printStackTrace();
+						}
 	                    tableLoad();
 	                }
 	              } 
