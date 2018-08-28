@@ -87,16 +87,21 @@ public class Cost extends KTab {
 		getContentPane().add(lblMonth);
 		
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setBounds(377, 143, 593, 33);
-		getContentPane().add(lblNewLabel);
-		
-
 		JPanel panel = new JPanel();
-		panel.setBounds(23, 260, 947, 341);
+		panel.setBounds(23, 260, 947, 326);
 		getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.ORANGE);
+		panel_1.setBounds(325, 106, 495, 79);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(10, 36, 469, 26);
+		panel_1.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		
 		JComboBox comboBox = new JComboBox();
