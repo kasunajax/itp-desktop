@@ -26,7 +26,9 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
@@ -39,8 +41,11 @@ import com.toedter.calendar.JDateChooser;
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.SpringLayout;
 import java.awt.Color;
+import java.awt.Desktop;
+
 import javax.swing.JTextPane;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -52,6 +57,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JProgressBar;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class ManageOrders extends KTab {
@@ -71,6 +79,7 @@ public class ManageOrders extends KTab {
 	private JButton btnAdd, btnRemove, btnRefresh, btnSave, btnFilterDate, btnFilterStatus;
 	private JButton btnSetPackage;
 	private JButton btnSetStatus;
+	private JButton btnExportExcel;
 
 	/**
 	 * Launch the application.
@@ -503,6 +512,30 @@ public class ManageOrders extends KTab {
 		lblPStatus.setBounds(64, 11, 680, 28);
 		panel.add(lblPStatus);
 		
+		btnExportExcel = new JButton("Export EXCEL");
+		btnExportExcel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(table.getRowCount() == 0) {
+					
+					JOptionPane.showInternalMessageDialog(ManageOrders.this, "There're no rows to be exported");
+					
+					return;
+					
+				}
+
+				JFileChooser c = new JFileChooser();
+				c.setSelectedFile(new File("CW_"+new SimpleDateFormat("ddMMyyyyHHmmss").format(new java.util.Date()) + ".xls"));
+			    int rVal = c.showSaveDialog(ManageOrders.this);
+			    if (rVal == JFileChooser.APPROVE_OPTION) {
+			    	toExcel(table, c.getSelectedFile());
+			    }
+				
+			}
+		});
+		btnExportExcel.setBounds(796, 60, 120, 23);
+		getContentPane().add(btnExportExcel);
+		
 		tableListener = new ListSelectionListener() {
 
 			@Override
@@ -521,6 +554,9 @@ public class ManageOrders extends KTab {
 			}
 			
 		};
+		
+		
+
 		
 		
 		
@@ -558,9 +594,12 @@ public class ManageOrders extends KTab {
 		progressBar.setIndeterminate(false);
 		progressBar.setVisible(false);
 		table.getSelectionModel().addListSelectionListener(tableListener);
-		table.setRowSelectionInterval(0, 0);
+		
+		if(table.getRowCount() > 0)
+			table.setRowSelectionInterval(0, 0);
 	}
 	
+
 	public void updateRow(JButton btn) {
 		
 		
@@ -637,7 +676,9 @@ public class ManageOrders extends KTab {
 			
 			@Override
 			protected void done() {
+				
 				hideProgress(btn);
+
 				lblPStatus.setText("Status: Ready at " + LocalDateTime.now().toString());
 			}
 			
@@ -804,6 +845,7 @@ public class ManageOrders extends KTab {
 
 					table.setModel(Database.resultSetToTableModel(stmt.executeQuery()));
 					
+					
 				} catch (SQLException ex) {}
 				lblPStatus.setText("Status: Initializing rows ...");
 				
@@ -812,12 +854,49 @@ public class ManageOrders extends KTab {
 			
 			@Override
 			protected void done() {
+	
 				hideProgress(btn);
+
 				lblPStatus.setText("Status: Ready at " + LocalDateTime.now().toString());
 			}
 			
 		}.execute();
 				
 		
+	}
+
+	
+	public void toExcel(JTable table, File file){
+		
+		
+	    try{
+	        TableModel model = table.getModel();
+	        FileWriter excel = new FileWriter(file);
+
+	        for(int i = 0; i < model.getColumnCount(); i++){
+	            excel.write(model.getColumnName(i) + "\t");
+	        }
+
+	        excel.write("\n");
+
+	        for(int i=0; i< model.getRowCount(); i++) {
+	            for(int j=0; j < model.getColumnCount(); j++) {
+	                excel.write(model.getValueAt(i,j).toString()+"\t");
+	            }
+	            excel.write("\n");
+	        }
+
+	        excel.close();
+	        
+	        if(!Desktop.isDesktopSupported()){
+	            return;
+	        }
+	        
+	        Desktop desktop = Desktop.getDesktop();
+	        if(file.exists()) 
+	        	desktop.open(file);
+	
+
+	    }catch(IOException e){  }
 	}
 }
