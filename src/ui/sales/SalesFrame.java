@@ -10,9 +10,6 @@ import ui.components.TabStruct;
 import ui.employees.tabs.AddEmp;
 import ui.employees.tabs.AddEmployeeFrame;
 import ui.employees.tabs.ViewEmployees;
-import ui.regions.tabs.Tab1;
-import ui.regions.tabs.Tab2;
-import ui.regions.tabs.Tab3;
 import ui.sales.tabs.ConfirmSales;
 import ui.sales.tabs.ViewReports;
 
