@@ -7,9 +7,10 @@ import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
 import ui.components.TabStruct;
-import ui.employees.tabs.AddEmp;
-import ui.employees.tabs.AddEmployeeFrame;
-import ui.employees.tabs.ViewEmployees;
+import ui.employees.tabs.Attendance;
+import ui.employees.tabs.DealerInfo;
+import ui.employees.tabs.ManageEmployees;
+import ui.employees.tabs.StaffInfo;
 import ui.orders.tabs.PlaceOrder;
 import ui.orders.tabs.ProcessOrders;
 import ui.orders.tabs.ViewOrders;
@@ -43,9 +44,10 @@ public class EmployeeFrame extends KFrame {
 	public EmployeeFrame() {
 		
 		TabStruct[] ts = {
-				new TabStruct(AddEmployeeFrame.class, "ADD EMP"),
-				new TabStruct(ViewEmployees.class, "VIEW EMPLOYEE"),
-				new TabStruct(AddEmp.class, "ADD EMPLOYEE")
+				new TabStruct(ManageEmployees.class, "Employees"),
+				new TabStruct(StaffInfo.class, "StaffInfo"),
+				new TabStruct(DealerInfo.class, "DealerInfo"),
+				new TabStruct(Attendance.class, "Attendance"),
 		};
 		
 		setStruct(ts);
@@ -54,6 +56,7 @@ public class EmployeeFrame extends KFrame {
 //		tabs[0] = new AddEmployeeFrame();
 //		tabs[1] = new ViewEmployees();
 //		tabs[2] = new AddEmp(); 
+		
 //
 //		new TabPanel(this, tabs, new TabNavPanel(this));
 
