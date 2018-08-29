@@ -6,6 +6,7 @@ import ui.components.KFrame;
 import ui.components.KTab;
 import ui.components.TabPanel;
 import ui.components.TabStruct;
+import ui.orders.tabs.ManageOrders;
 import ui.orders.tabs.PlaceOrder;
 import ui.orders.tabs.ProcessOrders;
 import ui.orders.tabs.ViewOrders;
@@ -62,6 +63,7 @@ public class OrdersFrame extends KFrame {
 //		};
 //		
 		TabStruct[] ts = {
+				new TabStruct(ManageOrders.class, "MANAGE ORDERS"),
 				new TabStruct(ViewOrders.class, "VIEW ORDERS"),
 				new TabStruct(PlaceOrder.class, "PLACE ORDER"),
 				new TabStruct(ProcessOrders.class, "PROCESS ORDERS")
