@@ -176,15 +176,14 @@ public class UpdateExpenses extends KTab {
 						String typ = t5.getText();
 						String empid = t6.getText();
 						
-						DateFormat format = new SimpleDateFormat("YYYY-MM-dd");
-	                    String updat = format.format(dat);
-	                    
-	                    
+				
 	                if(expensId.equals("")) {
 	    					
 							JOptionPane.showMessageDialog(null,"Please Enter the Expenses Id");
 							
-					}else if(dscrp.equals("")){
+					}else if(dat == null) {
+						JOptionPane.showMessageDialog(null,"Please enter the date");
+				 	}else if(dscrp.equals("")){
 						JOptionPane.showMessageDialog(null,"Please Enter the Description");
 					}else if(NetExpens.equals("")){
 						JOptionPane.showMessageDialog(null,"Please Enter the Net Expenses");
@@ -195,7 +194,8 @@ public class UpdateExpenses extends KTab {
 						
 					}else {
 						
-					
+						DateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+	                    String updat = format.format(dat);
 						
 						try {
 							
@@ -236,6 +236,10 @@ public class UpdateExpenses extends KTab {
 		            
 		            String expensid = t1.getText();
 		            
+		            if(expensid.equals("")) {
+		            	JOptionPane.showMessageDialog(null,"Please enter the Expense ID");
+		            }else {
+		            
 		            try{
 		                
 		                String sql = "Delete from expenses where ExpenseID='"+expensid+"'";
@@ -244,11 +248,13 @@ public class UpdateExpenses extends KTab {
 						ps.executeUpdate();
 		                
 		                tableLoad();
+		                
+		            	
 		            }catch(Exception e1){
 		                e1.printStackTrace();
 		            }
 		        }
-				
+		        }
 			}
 		});
 		btnDelete.setBounds(655, 511, 107, 34);
