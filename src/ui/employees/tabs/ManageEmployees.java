@@ -230,6 +230,8 @@ public class ManageEmployees extends KTab {
 		        String type = table.getValueAt(r, 9).toString(); 
 		        String sdate = table.getValueAt(r, 10).toString();
 		        String edate = null;
+		        
+		        
 		        if(table.getValueAt(r, 11) != null)
 		        	 edate =  table.getValueAt(r, 11).toString();
 		        
@@ -276,7 +278,6 @@ public class ManageEmployees extends KTab {
 		JButton btnInsert = new JButton("Insert");
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				
 				
 				String sql = "INSERT INTO employees (`EmployeeID`, `FirstName`, `LastName`, `MiddleName`, `Designation`, `Address`, `Username`, `Password`, `DOB`, `Type`, `StartDate`, `EndDate`, `SalaryProfileID`, `OfficeID`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?, ?)";	

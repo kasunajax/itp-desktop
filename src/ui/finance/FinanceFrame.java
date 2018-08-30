@@ -7,9 +7,6 @@ import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
 import ui.components.TabStruct;
-import ui.employees.tabs.AddEmp;
-import ui.employees.tabs.AddEmployeeFrame;
-import ui.employees.tabs.ViewEmployees;
 import ui.finance.tabs.CreateExpenses;
 import ui.finance.tabs.UpdateExpenses;
 

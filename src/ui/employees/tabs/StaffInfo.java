@@ -1,57 +1,67 @@
 package ui.employees.tabs;
 
 import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import ui.components.KTab;
+import utils.common.database.Database;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class StaffInfo extends KTab {
 	private JTable table;
-	private JLabel label_12;
-	private JTextField textField_9;
-	private JLabel label_13;
-	private JTextField textField_10;
-	private JLabel label_14;
-	private JTextField textField_11;
-	private JLabel label_15;
-	private JTextField textField_12;
-	private JLabel label_16;
-	private JTextField textField_13;
-	private JLabel label_17;
-	private JTextField textField_14;
-	private JLabel label_6;
-	private JTextField textField_4;
-	private JLabel label_7;
-	private JTextField textField_5;
-	private JLabel label_8;
-	private JTextField textField_6;
-	private JLabel label_9;
-	private JTextField textField_7;
-	private JLabel label_10;
-	private JTextField textField_8;
-	private JLabel label_11;
-	private JComboBox comboBox_2;
-	private JLabel label;
-	private JTextField textField;
-	private JLabel label_1;
-	private JTextField textField_1;
-	private JLabel label_2;
-	private JTextField textField_2;
-	private JLabel label_3;
-	private JComboBox comboBox;
-	private JLabel label_4;
-	private JComboBox comboBox_1;
-	private JLabel label_5;
-	private JTextField textField_3;
+	private JLabel lblEmployeeID;
+	private JTextField txtEmpID;
+	private JLabel lblIVRNo;
+	private JTextField txtIVRNo;
+	private JLabel lblStartDate;
+	private JTextField txtStartDate;
+	private JLabel lblEndDate;
+	private JTextField txtEndDate;
+	private JLabel lblOfficeID;
+	private JTextField txtOfficeID;
+	private JLabel lblPayrollID;
+	private JTextField txtPayrollID;
+	private JLabel lblFixedLine;
+	private JTextField txtFixedL;
+	private JLabel lblAddress;
+	private JTextField txtAddress;
+	private JLabel lblUserName;
+	private JTextField txtUserName;
+	private JLabel lblPassword;
+	private JTextField txtPassword;
+	private JLabel lblDesignation;
+	private JTextField txtDesignation;
+	private JLabel lblType;
+	private JComboBox cmbType;
+	private JLabel lblFirstName;
+	private JTextField txtFName;
+	private JLabel lblMiddleName;
+	private JTextField txtMName;
+	private JLabel lblLastName;
+	private JTextField txtLName;
+	private JLabel lblGender;
+	private JComboBox txtGender;
+	private JLabel lblDOB;
+	private JComboBox cmbDOB;
+	private JLabel lblMobile;
+	private JTextField txtMobNo;
 	private JButton button;
 	private JButton button_1;
 	private JButton button_2;
@@ -72,7 +82,24 @@ public class StaffInfo extends KTab {
 			}
 		});
 	}
+//Here we are assigning all the values from the table employees and assigning it to object rs
+	//Then we are calling a method of the table object and setting the result..method of the database object to it while passing the info through the captured object rs previously
+   public void loads() {
+		
+		try {
+			ResultSet rs = Database.getConnection().prepareStatement("SELECT * FROM employees").executeQuery();
+			
+			
+			table.setModel(Database.resultSetToTableModel(rs));
+			
 
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();}
+		}
+
+	
 	/**
 	 * Create the frame.
 	 */
@@ -84,172 +111,190 @@ public class StaffInfo extends KTab {
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
+
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"First Name", "Middle Name", "Last Name", "Gender", "D.O.B", "Mobile No.", "Fixed Line", "Address", "User Name", "Password", "Designation", "Type", "EmployeeID", "IVR No.", "Start Date", "OfficeID", "PayrollID"
+				}
+				));
+		
 		scrollPane.setViewportView(table);
 		
-		label_12 = new JLabel("EmployeeID    :");
-		label_12.setBounds(481, 44, 89, 20);
-		getContentPane().add(label_12);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(571, 44, 110, 20);
-		getContentPane().add(textField_9);
 		
-		label_13 = new JLabel("IVR No            :");
-		label_13.setBounds(481, 75, 89, 20);
-		getContentPane().add(label_13);
+		lblEmployeeID = new JLabel("EmployeeID    :");
+		lblEmployeeID.setBounds(481, 44, 89, 20);
+		getContentPane().add(lblEmployeeID);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(571, 75, 110, 20);
-		getContentPane().add(textField_10);
+		txtEmpID = new JTextField();
+		txtEmpID.setColumns(10);
+		txtEmpID.setBounds(571, 44, 110, 20);
+		getContentPane().add(txtEmpID);
 		
-		label_14 = new JLabel("Start Date      :");
-		label_14.setBounds(481, 106, 89, 20);
-		getContentPane().add(label_14);
+		lblIVRNo = new JLabel("IVR No            :");
+		lblIVRNo.setBounds(481, 75, 89, 20);
+		getContentPane().add(lblIVRNo);
 		
-		textField_11 = new JTextField();
-		textField_11.setColumns(10);
-		textField_11.setBounds(571, 106, 110, 20);
-		getContentPane().add(textField_11);
+		txtIVRNo = new JTextField();
+		txtIVRNo.setColumns(10);
+		txtIVRNo.setBounds(571, 75, 110, 20);
+		getContentPane().add(txtIVRNo);
 		
-		label_15 = new JLabel("End Date        :");
-		label_15.setBounds(481, 137, 89, 20);
-		getContentPane().add(label_15);
+		lblStartDate = new JLabel("Start Date      :");
+		lblStartDate.setBounds(481, 106, 89, 20);
+		getContentPane().add(lblStartDate);
 		
-		textField_12 = new JTextField();
-		textField_12.setColumns(10);
-		textField_12.setBounds(571, 137, 110, 20);
-		getContentPane().add(textField_12);
+		txtStartDate = new JTextField();
+		txtStartDate.setColumns(10);
+		txtStartDate.setBounds(571, 106, 110, 20);
+		getContentPane().add(txtStartDate);
 		
-		label_16 = new JLabel(" OfficeID        :");
-		label_16.setBounds(481, 168, 89, 20);
-		getContentPane().add(label_16);
+		lblEndDate = new JLabel("End Date        :");
+		lblEndDate.setBounds(481, 137, 89, 20);
+		getContentPane().add(lblEndDate);
 		
-		textField_13 = new JTextField();
-		textField_13.setColumns(10);
-		textField_13.setBounds(571, 168, 110, 20);
-		getContentPane().add(textField_13);
+		txtEndDate = new JTextField();
+		txtEndDate.setColumns(10);
+		txtEndDate.setBounds(571, 137, 110, 20);
+		getContentPane().add(txtEndDate);
 		
-		label_17 = new JLabel("PayrollID        :");
-		label_17.setBounds(481, 199, 89, 20);
-		getContentPane().add(label_17);
+		lblOfficeID = new JLabel(" OfficeID        :");
+		lblOfficeID.setBounds(481, 168, 89, 20);
+		getContentPane().add(lblOfficeID);
 		
-		textField_14 = new JTextField();
-		textField_14.setColumns(10);
-		textField_14.setBounds(571, 199, 110, 20);
-		getContentPane().add(textField_14);
+		txtOfficeID = new JTextField();
+		txtOfficeID.setColumns(10);
+		txtOfficeID.setBounds(571, 168, 110, 20);
+		getContentPane().add(txtOfficeID);
 		
-		label_6 = new JLabel("Fixed Line       :");
-		label_6.setBounds(253, 44, 89, 20);
-		getContentPane().add(label_6);
+		lblPayrollID = new JLabel("PayrollID        :");
+		lblPayrollID.setBounds(481, 199, 89, 20);
+		getContentPane().add(lblPayrollID);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(343, 44, 110, 20);
-		getContentPane().add(textField_4);
+		txtPayrollID = new JTextField();
+		txtPayrollID.setColumns(10);
+		txtPayrollID.setBounds(571, 199, 110, 20);
+		getContentPane().add(txtPayrollID);
 		
-		label_7 = new JLabel("Address          :");
-		label_7.setBounds(253, 75, 89, 20);
-		getContentPane().add(label_7);
+		lblFixedLine = new JLabel("Fixed Line       :");
+		lblFixedLine.setBounds(253, 44, 89, 20);
+		getContentPane().add(lblFixedLine);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(343, 75, 110, 20);
-		getContentPane().add(textField_5);
+		txtFixedL = new JTextField();
+		txtFixedL.setColumns(10);
+		txtFixedL.setBounds(343, 44, 110, 20);
+		getContentPane().add(txtFixedL);
 		
-		label_8 = new JLabel("User Name      :");
-		label_8.setBounds(253, 106, 89, 20);
-		getContentPane().add(label_8);
+		lblAddress = new JLabel("Address          :");
+		lblAddress.setBounds(253, 75, 89, 20);
+		getContentPane().add(lblAddress);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(343, 106, 110, 20);
-		getContentPane().add(textField_6);
+		txtAddress = new JTextField();
+		txtAddress.setColumns(10);
+		txtAddress.setBounds(343, 75, 110, 20);
+		getContentPane().add(txtAddress);
 		
-		label_9 = new JLabel("Password        :");
-		label_9.setBounds(253, 137, 89, 20);
-		getContentPane().add(label_9);
+		lblUserName = new JLabel("User Name      :");
+		lblUserName.setBounds(253, 106, 89, 20);
+		getContentPane().add(lblUserName);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(343, 137, 110, 20);
-		getContentPane().add(textField_7);
+		txtUserName = new JTextField();
+		txtUserName.setColumns(10);
+		txtUserName.setBounds(343, 106, 110, 20);
+		getContentPane().add(txtUserName);
 		
-		label_10 = new JLabel("Designation    :");
-		label_10.setBounds(253, 168, 89, 20);
-		getContentPane().add(label_10);
+		lblPassword = new JLabel("Password        :");
+		lblPassword.setBounds(253, 137, 89, 20);
+		getContentPane().add(lblPassword);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(343, 168, 110, 20);
-		getContentPane().add(textField_8);
+		txtPassword = new JTextField();
+		txtPassword.setColumns(10);
+		txtPassword.setBounds(343, 137, 110, 20);
+		getContentPane().add(txtPassword);
 		
-		label_11 = new JLabel("Type               :");
-		label_11.setBounds(253, 199, 89, 20);
-		getContentPane().add(label_11);
+		lblDesignation = new JLabel("Designation    :");
+		lblDesignation.setBounds(253, 168, 89, 20);
+		getContentPane().add(lblDesignation);
 		
-		comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(343, 199, 110, 20);
-		getContentPane().add(comboBox_2);
+		txtDesignation = new JTextField();
+		txtDesignation.setColumns(10);
+		txtDesignation.setBounds(343, 168, 110, 20);
+		getContentPane().add(txtDesignation);
 		
-		label = new JLabel("First Name      :");
-		label.setBounds(26, 44, 89, 20);
-		getContentPane().add(label);
+		lblType = new JLabel("Type               :");
+		lblType.setBounds(253, 199, 89, 20);
+		getContentPane().add(lblType);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(116, 44, 110, 20);
-		getContentPane().add(textField);
+		cmbType = new JComboBox();
+		cmbType.setModel(new DefaultComboBoxModel(new String[] {"DEPARTMENT_EMPLOYEE", "DEPARTMENT_MANAGER", "REGIONAL_MANAGER", "REGIONAL_STAFF", "COORDINATOR", "SALES_EXECUTIVE"}));
+		cmbType.setBounds(343, 199, 110, 20);
+		getContentPane().add(cmbType);
 		
-		label_1 = new JLabel("Middle Name   :");
-		label_1.setBounds(26, 75, 89, 20);
-		getContentPane().add(label_1);
+		lblFirstName = new JLabel("First Name      :");
+		lblFirstName.setBounds(26, 44, 89, 20);
+		getContentPane().add(lblFirstName);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(116, 75, 110, 20);
-		getContentPane().add(textField_1);
+		txtFName = new JTextField();
+		txtFName.setColumns(10);
+		txtFName.setBounds(116, 44, 110, 20);
+		getContentPane().add(txtFName);
 		
-		label_2 = new JLabel("Last Name       :");
-		label_2.setBounds(26, 106, 89, 20);
-		getContentPane().add(label_2);
+		lblMiddleName = new JLabel("Middle Name   :");
+		lblMiddleName.setBounds(26, 75, 89, 20);
+		getContentPane().add(lblMiddleName);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(116, 106, 110, 20);
-		getContentPane().add(textField_2);
+		txtMName = new JTextField();
+		txtMName.setColumns(10);
+		txtMName.setBounds(116, 75, 110, 20);
+		getContentPane().add(txtMName);
 		
-		label_3 = new JLabel("Gender            :");
-		label_3.setBounds(26, 137, 89, 20);
-		getContentPane().add(label_3);
+		lblLastName = new JLabel("Last Name       :");
+		lblLastName.setBounds(26, 106, 89, 20);
+		getContentPane().add(lblLastName);
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(116, 137, 110, 20);
-		getContentPane().add(comboBox);
+		txtLName = new JTextField();
+		txtLName.setColumns(10);
+		txtLName.setBounds(116, 106, 110, 20);
+		getContentPane().add(txtLName);
 		
-		label_4 = new JLabel("D.O.B              :");
-		label_4.setBounds(26, 168, 89, 20);
-		getContentPane().add(label_4);
+		lblGender = new JLabel("Gender            :");
+		lblGender.setBounds(26, 137, 89, 20);
+		getContentPane().add(lblGender);
 		
-		comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(116, 167, 110, 20);
-		getContentPane().add(comboBox_1);
+		txtGender = new JComboBox();
+		txtGender.setModel(new DefaultComboBoxModel(new String[] {"MALE", "FEMALE"}));
+		txtGender.setBounds(116, 137, 110, 20);
+		getContentPane().add(txtGender);
 		
-		label_5 = new JLabel("Mobile No        :");
-		label_5.setBounds(26, 199, 89, 20);
-		getContentPane().add(label_5);
+		lblDOB = new JLabel("D.O.B              :");
+		lblDOB.setBounds(26, 168, 89, 20);
+		getContentPane().add(lblDOB);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(116, 199, 110, 20);
-		getContentPane().add(textField_3);
+		cmbDOB = new JComboBox();
+		cmbDOB.setBounds(116, 167, 110, 20);
+		getContentPane().add(cmbDOB);
+		
+		lblMobile = new JLabel("Mobile No        :");
+		lblMobile.setBounds(26, 199, 89, 20);
+		getContentPane().add(lblMobile);
+		
+		txtMobNo = new JTextField();
+		txtMobNo.setColumns(10);
+		txtMobNo.setBounds(116, 199, 110, 20);
+		getContentPane().add(txtMobNo);
 		
 		button = new JButton("Create");
 		button.setBounds(855, 44, 89, 31);
 		getContentPane().add(button);
 		
 		button_1 = new JButton("Update");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				update();
+			}
+		});
 		button_1.setBounds(855, 85, 89, 31);
 		getContentPane().add(button_1);
 		
@@ -260,6 +305,193 @@ public class StaffInfo extends KTab {
 		button_3 = new JButton("Report");
 		button_3.setBounds(855, 172, 89, 31);
 		getContentPane().add(button_3);
+		
+		
+		
+		table.addMouseListener(new MouseAdapter() {
+			
+			public void mouseClicked(MouseEvent e) {
+//				int r = table.getSelectedRow();
+//				
+//				
+//				String FName = table.getValueAt(r, 0).toString();
+//				String MName = table.getValueAt(r, 2).toString();
+//				String LName = table.getValueAt(r, 3).toString();
+//				String Gender = table.getValueAt(r, 3).toString();
+//				String DOB = table.getValueAt(r, 4).toString();
+//				String MobNo = table.getValueAt(r, 5).toString();
+//				String FixedNo = table.getValueAt(r, 6).toString();
+//				String Address = table.getValueAt(r, 7).toString();
+//				String UName = table.getValueAt(r, 8).toString();
+//				String PWord = table.getValueAt(r, 9).toString();
+//				String Designation = table.getValueAt(r, 10).toString();
+//				String Type = table.getValueAt(r, 11).toString();
+//				String EmpID = table.getValueAt(r, 12).toString();
+//				String IVRNo = table.getValueAt(r, 13).toString();
+//				String SDate = table.getValueAt(r, 14).toString();
+//				String EDate = table.getValueAt(r, 15).toString();
+				
+				
+//				String OfficeID = table.getValueAt(r, 16).toString();
+//				String PayrollID = table.getValueAt(r, 17).toString();
+				
+				
+				int r = table.getSelectedRow();
+		        
+		        String empID = table.getValueAt(r, 0).toString();
+		        String fn = table.getValueAt(r, 1).toString(); 
+		        String ln = table.getValueAt(r, 2).toString();
+		        String mn =  table.getValueAt(r, 3).toString();
+		        String desig =  table.getValueAt(r, 4).toString();
+		        String add = table.getValueAt(r, 5).toString();
+		        String un = table.getValueAt(r, 6).toString();
+		        String pw =  table.getValueAt(r, 7).toString();
+		        
+		        //String dob = table.getValueAt(r, 8).toString();
+		        String type = table.getValueAt(r, 10).toString(); 
+		        String sdate = table.getValueAt(r, 11).toString();
+		        String edate = null;
+		        
+		        
+		        if(table.getValueAt(r, 12) != null)
+		        	 edate =  table.getValueAt(r, 12).toString();
+		        
+		        String sid = null;
+		        if(table.getValueAt(r, 13) != null)
+		        	 sid =  table.getValueAt(r, 13).toString();
+		        
+		        String ofc = null;
+		        if(table.getValueAt(r, 14) != null)
+		        	 ofc =  table.getValueAt(r, 14).toString();
+		        
+		        
+		        
+		        txtEmpID.setText(empID);
+		        txtFName.setText(fn);
+		        txtLName.setText(ln);
+		        txtMName.setText(mn);
+		        txtDesignation.setText(desig);
+		        txtAddress.setText(add);
+		        txtUserName.setText(un);
+		        txtPassword.setText(pw);
+		        cmbType.setSelectedItem(type.toString());
+		        txtStartDate.setText(sdate);
+		        
+		        
+		        if(edate != null)
+		        	txtEndDate.setText(edate);
+		        
+		        if(sid != null)
+		        	txtPayrollID.setText(sid);
+		        
+		        if(ofc != null) 
+		        	txtOfficeID.setText(ofc);
+				
+				
+				
+				
+				
+				
+				}
+			
+			
+			
+			
+		});
+		
+	
+	
+	
+			
+			
+		loads();	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+		
+		
+		
 
 	}
+	
+	public void update(){
+		String sql = "UPDATE `employees` SET `FirstName` = ?, `LastName` = ?, `MiddleName` = ?, `Designation` = ?, `Address` = ?, `Username` = ?, `Password` = ?, `DOB` = ?, `Type` = ?, `StartDate` = ?, `EndDate` = ?, `SalaryProfileID` = ?, `OfficeID` = ?, `Gender` = ? WHERE `EmployeeID` = ?";
+
+		try {
+			PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+			stmt.setString(15, txtEmpID.getText());
+			stmt.setString(1, txtFName.getText());
+			stmt.setString(2, txtLName.getText());
+			stmt.setString(3, txtMName.getText());
+			stmt.setString(4, txtDesignation.getText());
+			stmt.setString(5, txtAddress.getText());
+			stmt.setString(6, txtUserName.getText());
+			stmt.setString(7, txtPassword.getText());
+			stmt.setString(8, "1993-02-12");
+			stmt.setString(9, cmbType.getSelectedItem().toString());
+			stmt.setString(10, txtStartDate.getText());
+			stmt.setString(11, txtEndDate.getText());
+			stmt.setString(12, txtPayrollID.getText());
+			stmt.setString(13, txtOfficeID.getText());
+			stmt.setString(14, txtGender.getSelectedItem().toString());
+			
+			if(txtEndDate.getText().equals("")) {
+				stmt.setString(12, null);
+			}
+			
+			if(txtPayrollID.getText().equals("")) {
+				stmt.setString(13, null);
+			}
+			
+			if(txtOfficeID.getText().equals("")) {
+				stmt.setString(14, null);
+			}
+			
+			
+			stmt.execute();
+			
+			loads();
+			
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 }
+
+}
+	
+
+	
