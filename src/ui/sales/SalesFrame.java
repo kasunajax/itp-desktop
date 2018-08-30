@@ -10,7 +10,10 @@ import ui.employees.tabs.AddEmp;
 import ui.employees.tabs.AddEmployeeFrame;
 import ui.employees.tabs.ViewEmployees;
 import ui.sales.tabs.ConfirmSales;
-import ui.sales.tabs.ViewReports;
+import ui.sales.tabs.ConfirmedSales;
+import ui.sales.tabs.PendingSales;
+import ui.sales.tabs.UnconfirmedSales;
+
 
 
 public class SalesFrame extends KFrame {
@@ -40,9 +43,11 @@ public class SalesFrame extends KFrame {
 	 * Create the frame.
 	 */
 	public SalesFrame() {
-		KTab[] tabs = new KTab[2];
+		KTab[] tabs = new KTab[4];
 		tabs[0] = new ConfirmSales();
-		tabs[1] = new ViewReports();
+		tabs[1] = new ConfirmedSales();
+		tabs[2] = new UnconfirmedSales();
+		tabs[3] = new PendingSales();
 				
 		new TabPanel(this, tabs, new TabNavPanel(this));
 	}
