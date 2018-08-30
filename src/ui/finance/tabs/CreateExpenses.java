@@ -33,12 +33,13 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.Font;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class CreateExpenses extends KTab {
 	private JTextField t1;
 	private JTextField t2;
 	private JTextField t4;
-	private JTextField t5;
 	private JTextField t6;
 	private JTable table;
 	
@@ -67,7 +68,7 @@ public class CreateExpenses extends KTab {
 	    
         try{
            
-        	String sql = "select * from expenses";
+        	String sql = "select * from expenses order by ExpenseID";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
@@ -97,6 +98,11 @@ public class CreateExpenses extends KTab {
 		t3.setBounds(221, 240, 183, 32);
 		getContentPane().add(t3);
 		
+		
+		JComboBox t5 = new JComboBox();
+		t5.setModel(new DefaultComboBoxModel(new String[] {"Select the Type", "", "Administration", "Financial", "Sales and Distribution", "Others"}));
+		t5.setBounds(221, 408, 183, 32);
+		getContentPane().add(t5);
 
 		
 		t1 = new JTextField();
@@ -134,11 +140,6 @@ public class CreateExpenses extends KTab {
 		t4.setBounds(221, 321, 183, 32);
 		getContentPane().add(t4);
 		
-		t5 = new JTextField();
-		t5.setColumns(10);
-		t5.setBounds(221, 409, 183, 32);
-		getContentPane().add(t5);
-		
 		JButton btnNewButton_1 = new JButton("Save");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -147,39 +148,36 @@ public class CreateExpenses extends KTab {
 				String dscrp = t2.getText();
 				Date dat = t3.getDate();
 				String Netexpens = t4.getText();
-				String Types = t5.getText();
+				String Types = t5.getSelectedItem().toString();
 				String empid = t6.getText();
 				
 							
 
-				Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{3}||d{4}");
+				Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{4}||d{5}");
 				Matcher matc1111 = patrn1111.matcher(empid);
 	            
-				 Pattern patrn = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
+				 Pattern patrn = Pattern.compile("\\d{2}||\\d{3}||\\d{4}||\\d{5}");
 				Matcher matc = patrn.matcher(expensId);
 	            
-				 Pattern patrn1 = Pattern.compile("\\w+");
-				 Matcher matc1 = patrn1.matcher(dscrp);
-								
+										
 					
 				 Pattern patrn11 = Pattern.compile("\\d+.*");
 				 Matcher matc11 = patrn11.matcher(Netexpens);
 				
-				 Pattern patrn111 = Pattern.compile("\\w+");
-				 Matcher matc111 = patrn111.matcher(Types);
+				
 				 
 				
 				 
 				if(!matc.matches()||expensId.equals("")) {
 					JOptionPane.showMessageDialog(null,"Please enter a valid ExpensId");
-				}else if(!matc1.matches()) {
+				}else if(dscrp.equals("")) {
 					 JOptionPane.showMessageDialog(null,"Please Enter a valid Description");
 				}else if(dat==null) {
 					JOptionPane.showMessageDialog(null,"Date field is empty");
 				}else if(!matc11.matches()) {
 					JOptionPane.showMessageDialog(null,"Please Enter a valid Net Expenses");
-				}else if(!matc111.matches()) {
-					JOptionPane.showMessageDialog(null,"Please Enter valid Types");
+				}else if(Types == "Select the Type") {
+					JOptionPane.showMessageDialog(null,"Please Select a valid Type");
 				}else if(!matc1111.matches()||empid.equals("")) {
 					 JOptionPane.showMessageDialog(null,"Please Enter valid Employee Id");
 				}
@@ -205,7 +203,7 @@ public class CreateExpenses extends KTab {
 				t2.setText(null);
 				t3.setDate(null);
 				t4.setText(null);
-				t5.setText(null);
+				t5.setSelectedItem("Select the Type");
 				t6.setText(null);
 				
 				}catch(Exception e1) {
@@ -252,6 +250,8 @@ public class CreateExpenses extends KTab {
 			}
 		));
 		scrollPane.setViewportView(table);
+		
+		
 		tableLoad();
 
 	}

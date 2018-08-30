@@ -52,7 +52,7 @@ public void tableLoad(){
 	    
         try{
            
-            String sql = "select * from expenses";
+            String sql = "select * from expenses ORDER BY ExpenseID";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
@@ -103,7 +103,7 @@ public void tableLoad(){
 				String name = t1.getText();
 		        
 		        try{
-		            String sql = "Select ExpenseID,Description,Date,NetExpense,EmployeeID  from expenses where Type like '%"+name+"%' ";
+		            String sql = "Select ExpenseID,NetExpense,Date,Description,EmployeeID,Type  from expenses where Type like '%"+name+"%' ";
 		            
 		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
 					ResultSet rs = ps.executeQuery();
@@ -138,7 +138,7 @@ public void tableLoad(){
 	            String ltDate = df.format(Date2);
 				
 				try{
-		            String sql = "Select ExpenseID,Description,NetExpense,EmployeeID,Type  from expenses where Date Between '"+stDate+"' and '"+ltDate+"' ";
+		            String sql = "Select ExpenseID,NetExpense,Date,Description,EmployeeID,Type  from expenses where Date Between '"+stDate+"' and '"+ltDate+"' ";
 		            
 		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
 		            ResultSet rs = ps.executeQuery();
