@@ -1,6 +1,8 @@
 package ui.employees;
 
 import java.awt.EventQueue;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import ui.components.KFrame;
 import ui.components.KTab;
@@ -14,6 +16,7 @@ import ui.employees.tabs.StaffInfo;
 import ui.orders.tabs.PlaceOrder;
 import ui.orders.tabs.ProcessOrders;
 import ui.orders.tabs.ViewOrders;
+import utils.common.database.Database;
 
 public class EmployeeFrame extends KFrame {
 
@@ -37,6 +40,9 @@ public class EmployeeFrame extends KFrame {
 			}
 		});
 	}
+
+	
+	
 
 	/**
 	 * Create the frame.

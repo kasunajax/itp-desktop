@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
 
 public class Attendance extends KTab {
 	private JTextField textField;
@@ -60,6 +61,7 @@ public class Attendance extends KTab {
 		getContentPane().add(lblEmployeeType);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Item1", "Item2"}));
 		comboBox.setBounds(131, 112, 110, 20);
 		getContentPane().add(comboBox);
 		
