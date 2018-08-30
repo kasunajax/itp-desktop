@@ -41,20 +41,8 @@ public class PayrollReports extends KTab {
 		getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("Generate Report");
-		btnNewButton.setBounds(355, 92, 130, 23);
+		btnNewButton.setBounds(330, 374, 130, 23);
 		getContentPane().add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Generate Report");
-		btnNewButton_1.setBounds(355, 153, 130, 23);
-		getContentPane().add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("Generate Report");
-		btnNewButton_2.setBounds(355, 219, 130, 23);
-		getContentPane().add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("Generate Report");
-		btnNewButton_3.setBounds(355, 283, 130, 23);
-		getContentPane().add(btnNewButton_3);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Monthly Payroll Report");
 		chckbxNewCheckBox.setBounds(28, 92, 138, 23);
