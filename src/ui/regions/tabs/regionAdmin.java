@@ -124,10 +124,6 @@ public class regionAdmin extends KTab {
 		areaAddress.setBounds(201, 243, 162, 66);
 		getContentPane().add(areaAddress);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(420, 126, 500, 226);
-		getContentPane().add(scrollPane);
-		
 		JComboBox comboRegionType = new JComboBox();
 		comboRegionType.setModel(new DefaultComboBoxModel(new String[] {"Selsct the type", "", "Head Office", "Region Office"}));
 		comboRegionType.setBounds(201, 332, 162, 20);
@@ -155,6 +151,8 @@ public class regionAdmin extends KTab {
 						String sql = "Delete from office where officeID = ?";
 						 try {
 							PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+							
+							ps.setString(1, officeId);
 							ps.executeUpdate();
 							
 							getTable();
@@ -213,7 +211,14 @@ public class regionAdmin extends KTab {
 						
 						try {
 							PreparedStatement ps = Database.getConnection().prepareStatement(sql);
-							ps.executeUpdate();
+							
+							ps.setString(1, address);
+							ps.setString(2, regionName);
+							ps.setString(3, regionType);
+							ps.setString(4, contact);
+							ps.setString(5, officeId);
+							
+							ps.execute();
 							
 							getTable();
 							
@@ -238,8 +243,6 @@ public class regionAdmin extends KTab {
 		getContentPane().add(lblNewLabel_4);
 		
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
 		
 		JLabel lblNewLabel_5 = new JLabel("Region Type : ");
 		lblNewLabel_5.setBounds(60, 332, 95, 20);
@@ -283,19 +286,23 @@ public class regionAdmin extends KTab {
 					
 					
 					
-					String sql = "INSERT INTO office(OfficeID, Address, Reigon_Name, Reigon_Type, Contact) VALUES (?, ?, ?, ?,?)";
+					//String sql = "INSERT INTO office(OfficeID, Address, Reigon_Name, Reigon_Type, Contact) VALUES (?, ?, ?, ?,?)";
+					
+					String sql1 = "INSERT INTO office(OfficeID, Address, Reigon_Name, Reigon_Type, Contact) VALUES (?,?,?,?,?)";
 					
 					try {
-						PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+						PreparedStatement ps = Database.getConnection().prepareStatement(sql1);
+						
+						ps.setString(1, officeId);
+						ps.setString(2, address);
+						ps.setString(3, regionName);
+						ps.setString(4, regionType);
+						ps.setString(5, contact);
+						
 						ps.executeUpdate();
 						
 						getTable();
 						
-						txtOfficeId.setText(null);
-				        areaAddress.setText(null);
-				        txtRegionName.setText(null);
-				        comboRegionType.setSelectedItem("Select the type");
-				        txtContact.setText(null);
 						
 					} catch (SQLException e1) {
 						
@@ -306,6 +313,48 @@ public class regionAdmin extends KTab {
 		});
 		btnInsert.setBounds(640, 500, 89, 23);
 		getContentPane().add(btnInsert);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(402, 126, 543, 226);
+		getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		
+		table.setModel(new DefaultTableModel(
+				new Object[][] {},
+				new String [] {
+						"Office Id" , "Address" , "Region Name" , "Region Type" , "Contact"
+				}
+				));
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+		table.getColumnModel().getColumn(1).setPreferredWidth(90);
+		table.getColumnModel().getColumn(2).setPreferredWidth(90);
+		table.getColumnModel().getColumn(3).setPreferredWidth(90);
+		table.getColumnModel().getColumn(4).setPreferredWidth(90);
+		table.addMouseListener(new MouseAdapter() {
+			
+			public void mouseClicked(MouseEvent e) {
+				
+				int r = table.getSelectedRow();
+		        
+			       String id = table.getValueAt(r, 0).toString();
+			       String address = table.getValueAt(r, 1).toString();
+			       String name = table.getValueAt(r, 2).toString();
+			       String type = table.getValueAt(r, 3).toString();
+			       String contact = table.getValueAt(r, 4).toString();
+			       
+			        txtOfficeId.setText(id);
+			        areaAddress.setText(address);
+			        txtRegionName.setText(name);
+			        comboRegionType.setSelectedItem(type);
+			        txtContact.setText(contact);
+			}
+		});
+		
+		
+		scrollPane.setViewportView(table);
+		getTable();
 		
 			
 	}
