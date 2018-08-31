@@ -82,6 +82,15 @@ public class MakeChanges extends KTab {
 			return true;
 	}
 	
+	public boolean isEmpty2(String id) {
+		if(id.equals("")) {
+			JOptionPane.showMessageDialog(null, "Item Id required!!");
+			return false;
+		}
+		else
+			return true;
+	}
+	
 	public boolean isSerial(String num) {
 		String patternNum = "\\d+";
 		
@@ -152,12 +161,25 @@ public class MakeChanges extends KTab {
 			return false;
 
 	}
+	
+	public boolean validation2(String id) {
+		if(isEmpty2(id))
+			if(isId(id))
+				return true;
+			else{
+				JOptionPane.showMessageDialog(null, "Enter valid Item Id!!");
+				return false;
+			}
+		else
+			return false;
+				
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public MakeChanges() {
-		super("Changes");
+		super("Make Changes");
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Select a Status", "Initial", "Sold"}));
@@ -386,21 +408,47 @@ public class MakeChanges extends KTab {
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int x = JOptionPane.showConfirmDialog(null, "Do you really want to Delete?");
-		        
-		        if(x == 0){
-		        
+				
+					int count = 0;
+					String sql;
 					String id = textField_2.getText();
-		        
-		            String sql = "delete from items where ItemID = '"+id+"'";
-		           
-					try {
-						PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-						stmt.execute();
-					} catch (SQLException exp) {}
 					
-		            tableLoad();
-		        }
+					if(validation2(id)) {
+						
+						int x = JOptionPane.showConfirmDialog(null, "Do you really want to Delete?");
+						
+						if(x == 0){
+						
+							sql = "select count(*) from items where ItemID = '"+id+"'";
+						
+							try {
+								PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+								ResultSet rs = stmt.executeQuery();
+				            
+								if(rs.next())
+									count = rs.getInt(1);
+							
+							} catch (SQLException exp) {
+								exp.printStackTrace();
+							}
+					
+							if(count == 1) {
+		        
+								sql = "delete from items where ItemID = '"+id+"'";
+							
+								try {
+									PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+								stmt.execute();
+								} catch (SQLException exp) {
+									exp.printStackTrace();
+								}
+							
+								tableLoad();
+							}
+							else
+								JOptionPane.showMessageDialog(null, "No Item Id exist like '"+id+"'!!");
+						}
+					}
 			}
 		});
 		btnDelete.setBounds(616, 555, 99, 25);

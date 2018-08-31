@@ -35,6 +35,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
 
 public class Cost extends KTab {
 	private JTextField textField;
@@ -59,7 +60,7 @@ public class Cost extends KTab {
 	 * Create the frame.
 	 */
 	public Cost() {
-		super("Costs");
+		super("Cost Calculating");
 		
 		JLabel lblCostCalculationOf = new JLabel("Cost Calculation of Products");
 		lblCostCalculationOf.setFont(new Font("Tahoma", Font.PLAIN, 23));
@@ -93,8 +94,8 @@ public class Cost extends KTab {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.ORANGE);
-		panel_1.setBounds(325, 106, 495, 79);
+		panel_1.setBackground(SystemColor.menu);
+		panel_1.setBounds(325, 118, 495, 67);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
