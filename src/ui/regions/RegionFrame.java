@@ -14,9 +14,8 @@ import ui.payroll.tabs.NewEmployeeSalary;
 import ui.payroll.tabs.PayrollReports;
 import ui.payroll.tabs.UpdateRemoveSalary;
 import ui.payroll.tabs.ViewPayslip;
-import ui.regions.tabs.Tab1;
-import ui.regions.tabs.Tab2;
-import ui.regions.tabs.Tab3;
+import ui.regions.tabs.regionAdmin;
+import ui.regions.tabs.regionReport;
 
 public class RegionFrame extends KFrame {
 
@@ -47,9 +46,8 @@ public class RegionFrame extends KFrame {
 	public RegionFrame() {
 		
 		TabStruct[] ts = {
-				new TabStruct(Tab1.class, "TAB 1"),
-				new TabStruct(Tab2.class, "TAB 2"),
-				new TabStruct(Tab3.class, "TAB 3")
+				new TabStruct(regionAdmin.class, "Admin"),
+				new TabStruct(regionReport.class, "Reports")
 		};
 		
 		setStruct(ts);
