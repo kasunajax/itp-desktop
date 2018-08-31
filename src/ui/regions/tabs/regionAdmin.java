@@ -88,6 +88,7 @@ public class regionAdmin extends KTab {
 	public regionAdmin() {
 		super("Admin");
 
+	
 		txtOfficeId = new JTextField();
 		txtOfficeId.setBounds(220, 131, 162, 20);
 		getContentPane().add(txtOfficeId);
