@@ -6,6 +6,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 
 import ui.components.KTab;
+import ui.orders.tabs.ManageOrders;
+import utils.common.database.Database;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -31,6 +34,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -66,8 +71,8 @@ public class regionAdmin extends KTab {
 		String sql = "select * from office";
 		
 		try {
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/itp", "root", "");
-			PreparedStatement stmt = con.prepareStatement(sql);
+			
+			 PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
 			ResultSet res = stmt.executeQuery();
 			
 			TableModel tm = resultSetToTableModel(res);
@@ -124,133 +129,43 @@ public class regionAdmin extends KTab {
 		getContentPane().add(scrollPane);
 		
 		JComboBox comboRegionType = new JComboBox();
-		comboRegionType.setModel(new DefaultComboBoxModel(new String[] {"Head Office", "Region Office"}));
+		comboRegionType.setModel(new DefaultComboBoxModel(new String[] {"Selsct the type", "", "Head Office", "Region Office"}));
 		comboRegionType.setBounds(201, 332, 162, 20);
 		getContentPane().add(comboRegionType);
 		
+	
 		
-		JButton btnNewButton = new JButton("Insert");
-		btnNewButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e) {
-
-				
-				String officeId = txtOfficeId.getText();
-				String address = areaAddress.getText();
-				String contact = txtContact.getText();
-				String regionName = txtRegionName.getText();
-				String regionType = (String) comboRegionType.getSelectedItem();
-				
-				officeId = "REG_" + officeId;
-				
-				
-				String sql = "INSERT INTO office(OfficeID, Address, Reigon_Name, Reigon_Type, Contact) VALUES (?, ?, ?, ?,?)";
-				
-				try {
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/itp", "root", "");
-					PreparedStatement stmt = con.prepareStatement(sql);
-					
-					stmt.setString(1, officeId);
-					stmt.setString(2, address);
-					stmt.setString(3, regionName);
-					stmt.setString(4, regionType);
-					stmt.setString(5, contact);
-					
-					
-				
-					stmt.execute();
-					
-			/*		long result = String.valueOf(contact).length();
-					boolean numeric = true;
-					
-					numeric = contact.matches("[0-9]");
-					
-			if(numeric) {
-					if(result == 10) {
-						stmt.execute();
-					}
-					else {
-						String st = "length is wrong";
-						JOptionPane.showMessageDialog(null, st);
-					}
-				}
-				else {
-					String st = "Enter only number";
-					JOptionPane.showMessageDialog(null, st);
-				}
-					
-				*/	getTable();
-					
-					table.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent arg0) {
-							int r = table.getSelectedRow();
-					        
-					       String id = table.getValueAt(r, 0).toString();
-					       String address = table.getValueAt(r, 1).toString();
-					       String name = table.getValueAt(r, 2).toString();
-					       String type = table.getValueAt(r, 3).toString();
-					       String contact = table.getValueAt(r, 4).toString();
-					       
-					       
-					        txtOfficeId.setText(id);
-					        areaAddress.setText(address);
-					        txtRegionName.setText(name);
-					        comboRegionType.setSelectedItem(type);
-					        txtContact.setText(contact);
-					        
-						}
-					});
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			}
-		});
-		btnNewButton.setBounds(642, 500, 89, 23);
-		getContentPane().add(btnNewButton);
+		
 		
 		JButton btnNewButton_1 = new JButton("Delete");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String officeId = txtOfficeId.getText();
-				String sql = "Delete from office where officeID = ?";
-		
-				try {
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/itp", "root", "");
-					PreparedStatement stmt = con.prepareStatement(sql);
-					stmt.setString(1, officeId);
-					stmt.execute();
+				int j = JOptionPane.showConfirmDialog(null,"Do you want to delete this");
+				
+				if(j == 0) {
 					
-					getTable();
+					String officeId = txtOfficeId.getText();
 					
-					table.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent arg0) {
-							int r = table.getSelectedRow();
-					        
-					       String id = table.getValueAt(r, 0).toString();
-					       String address = table.getValueAt(r, 1).toString();
-					       String name = table.getValueAt(r, 2).toString();
-					       String type = table.getValueAt(r, 3).toString();
-					       String contact = table.getValueAt(r, 4).toString();
-					        
-					        txtOfficeId.setText(id);
-					        areaAddress.setText(address);
-					        txtRegionName.setText(name);
-					        comboRegionType.setSelectedItem(type);
-					        txtContact.setText(contact);
-						}
-					});
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					if(officeId.equals("")) {
+		            	JOptionPane.showMessageDialog(null,"Please enter the office ID");
 				}
-			}
+					else {
+						
+						String sql = "Delete from office where officeID = ?";
+						 try {
+							PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+							ps.executeUpdate();
+							
+							getTable();
+							
+						} catch (SQLException e1) {
+							
+							e1.printStackTrace();
+						}
+					}
+				}
+			}	
 		});
 		btnNewButton_1.setBounds(750, 500, 89, 23);
 		getContentPane().add(btnNewButton_1);
@@ -258,51 +173,57 @@ public class regionAdmin extends KTab {
 		JButton btnNewButton_2 = new JButton("Update");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
+				int j = JOptionPane.showConfirmDialog(null,"Do you really want to update");
 				
-				String officeId = txtOfficeId.getText();
-				String address = areaAddress.getText();
-				String contact = txtContact.getText();
-				String regionName = txtRegionName.getText();
-				String regionType = (String) comboRegionType.getSelectedItem();
+				if(j == 0) {
+					
+					String officeId = txtOfficeId.getText();
+					String address = areaAddress.getText();
+					String contact = txtContact.getText();
+					String regionName = txtRegionName.getText();
+					String regionType = (String) comboRegionType.getSelectedItem();
 				
-				try {
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/itp", "root", "");
 					
-					String regionUpdate = "UPDATE office SET Address = ? , Reigon_Name = ?,Reigon_Type=?, Contact=?  WHERE OfficeID = ?";
-					PreparedStatement stmt = con.prepareStatement(regionUpdate);
+					Pattern pattern1 = Pattern.compile("\\d{3}");
+					Matcher match1 = pattern1.matcher(officeId);
+		            
+					Pattern pattern2 = Pattern.compile("\\d{3}-\\d{7}");
+					Matcher match2 = pattern2.matcher(contact);
 					
-					stmt.setString(1, address);
-					stmt.setString(2, regionName);
-					stmt.setString(3, regionType);
-					stmt.setString(4, contact);
-					stmt.setString(5, officeId);
+					if(officeId.equals("")) {
+						JOptionPane.showMessageDialog(null,"Please enter a valid office id");
+					}
+					else if(regionName.equals("")){
+						JOptionPane.showMessageDialog(null,"Region name field is empty");
+					}
+					else if(!match2.matches() && contact.equals("")) {
+						JOptionPane.showMessageDialog(null,"Please enter a valid contact no");
+					}
+					else if(address.equals("")) {
+						JOptionPane.showMessageDialog(null,"Address name field is empty");
+					}
+					else if(regionType == "Select the type") {
+						JOptionPane.showMessageDialog(null,"Please Select a valid Type");
+					}
 					
-					stmt.execute();
-	
-					getTable();
 					
-					table.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent arg0) {
-							int r = table.getSelectedRow();
-					        
-					       String id = table.getValueAt(r, 0).toString();
-					       String address = table.getValueAt(r, 1).toString();
-					       String name = table.getValueAt(r, 2).toString();
-					       String type = table.getValueAt(r, 3).toString();
-					       String contact = table.getValueAt(r, 4).toString();
-					       
-					        txtOfficeId.setText(id);
-					        areaAddress.setText(address);
-					        txtRegionName.setText(name);
-					        comboRegionType.setSelectedItem(type);
-					        txtContact.setText(contact);
+					else {
+						String sql = "UPDATE office SET Address = ? , Reigon_Name = ?,Reigon_Type=?, Contact=?  WHERE OfficeID = ?";
+						
+						try {
+							PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+							ps.executeUpdate();
+							
+							getTable();
+							
+						} catch (SQLException e1) {
+						
+							e1.printStackTrace();
 						}
-					});
+
+					}
 					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 			}
 		});
@@ -324,8 +245,73 @@ public class regionAdmin extends KTab {
 		lblNewLabel_5.setBounds(60, 332, 95, 20);
 		getContentPane().add(lblNewLabel_5);
 		
+		JButton btnInsert = new JButton("Insert");
+		btnInsert.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String officeId = txtOfficeId.getText();
+				String address = areaAddress.getText();
+				String contact = txtContact.getText();
+				String regionName = txtRegionName.getText();
+				String regionType = (String) comboRegionType.getSelectedItem();
+				
+				Pattern pattern1 = Pattern.compile("\\d{3}");
+				Matcher match1 = pattern1.matcher(officeId);
+	            
+				Pattern pattern2 = Pattern.compile("\\d{3}-\\d{7}");
+				Matcher match2 = pattern2.matcher(contact);
+				
+				if(officeId.equals("")) {
+					JOptionPane.showMessageDialog(null,"Please enter a valid office id");
+				}
+				else if(regionName.equals("")){
+					JOptionPane.showMessageDialog(null,"Region name field is empty");
+				}
+				else if(!match2.matches() || contact.equals("")) {
+					JOptionPane.showMessageDialog(null,"Please enter a valid contact no");
+				}
+				else if(address.equals("")) {
+					JOptionPane.showMessageDialog(null,"Address name field is empty");
+				}
+				else if(regionType == "Select the type") {
+					JOptionPane.showMessageDialog(null,"Please Select a valid Type");
+				}
+				
+		
+				else {
+					
+					
+					
+					
+					String sql = "INSERT INTO office(OfficeID, Address, Reigon_Name, Reigon_Type, Contact) VALUES (?, ?, ?, ?,?)";
+					
+					try {
+						PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+						ps.executeUpdate();
+						
+						getTable();
+						
+						txtOfficeId.setText(null);
+				        areaAddress.setText(null);
+				        txtRegionName.setText(null);
+				        comboRegionType.setSelectedItem("Select the type");
+				        txtContact.setText(null);
+						
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnInsert.setBounds(640, 500, 89, 23);
+		getContentPane().add(btnInsert);
+		
 			
 	}
+	
+	
+	
 	
 	public static TableModel resultSetToTableModel(ResultSet rs) {
         try {
