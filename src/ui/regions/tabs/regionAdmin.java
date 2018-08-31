@@ -89,7 +89,7 @@ public class regionAdmin extends KTab {
 		super("Admin");
 
 		txtOfficeId = new JTextField();
-		txtOfficeId.setBounds(201, 126, 162, 20);
+		txtOfficeId.setBounds(220, 131, 162, 20);
 		getContentPane().add(txtOfficeId);
 		txtOfficeId.setColumns(10);
 		
@@ -102,16 +102,16 @@ public class regionAdmin extends KTab {
 		getContentPane().add(lblNewLabel_1);
 		
 		txtRegionName = new JTextField();
-		txtRegionName.setBounds(201, 162, 162, 20);
+		txtRegionName.setBounds(220, 164, 162, 20);
 		getContentPane().add(txtRegionName);
 		txtRegionName.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Contact No : ");
-		lblNewLabel_2.setBounds(60, 199, 82, 25);
+		JLabel lblNewLabel_2 = new JLabel("Contact No  : ");
+		lblNewLabel_2.setBounds(60, 199, 162, 23);
 		getContentPane().add(lblNewLabel_2);
 		
 		txtContact = new JTextField();
-		txtContact.setBounds(201, 201, 162, 20);
+		txtContact.setBounds(220, 202, 162, 20);
 		getContentPane().add(txtContact);
 		txtContact.setColumns(10);
 		
@@ -121,12 +121,12 @@ public class regionAdmin extends KTab {
 		
 		JTextArea areaAddress = new JTextArea();
 		areaAddress.setBorder(new LineBorder(new Color(0, 0, 0)));
-		areaAddress.setBounds(201, 243, 162, 66);
+		areaAddress.setBounds(220, 243, 162, 66);
 		getContentPane().add(areaAddress);
 		
 		JComboBox comboRegionType = new JComboBox();
-		comboRegionType.setModel(new DefaultComboBoxModel(new String[] {"Selsct the type", "", "Head Office", "Region Office"}));
-		comboRegionType.setBounds(201, 332, 162, 20);
+		comboRegionType.setModel(new DefaultComboBoxModel(new String[] {"Select the type", "Head Office", "Region Office"}));
+		comboRegionType.setBounds(220, 332, 162, 20);
 		getContentPane().add(comboRegionType);
 		
 	
@@ -258,6 +258,8 @@ public class regionAdmin extends KTab {
 				String regionName = txtRegionName.getText();
 				String regionType = (String) comboRegionType.getSelectedItem();
 				
+				officeId = "REG_" + officeId;
+				
 				Pattern pattern1 = Pattern.compile("\\d{3}");
 				Matcher match1 = pattern1.matcher(officeId);
 	            
@@ -283,15 +285,12 @@ public class regionAdmin extends KTab {
 		
 				else {
 					
+				
 					
-					
-					
-					//String sql = "INSERT INTO office(OfficeID, Address, Reigon_Name, Reigon_Type, Contact) VALUES (?, ?, ?, ?,?)";
-					
-					String sql1 = "INSERT INTO office(OfficeID, Address, Reigon_Name, Reigon_Type, Contact) VALUES (?,?,?,?,?)";
+					String sql = "INSERT INTO office(OfficeID, Address, Reigon_Name, Reigon_Type, Contact) VALUES (?,?,?,?,?)";
 					
 					try {
-						PreparedStatement ps = Database.getConnection().prepareStatement(sql1);
+						PreparedStatement ps = Database.getConnection().prepareStatement(sql);
 						
 						ps.setString(1, officeId);
 						ps.setString(2, address);
@@ -315,7 +314,7 @@ public class regionAdmin extends KTab {
 		getContentPane().add(btnInsert);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(402, 126, 543, 226);
+		scrollPane.setBounds(422, 126, 523, 226);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -354,6 +353,10 @@ public class regionAdmin extends KTab {
 		
 		
 		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel_6 = new JLabel("(011-XXXXXXX)");
+		lblNewLabel_6.setBounds(60, 220, 107, 14);
+		getContentPane().add(lblNewLabel_6);
 		getTable();
 		
 			
