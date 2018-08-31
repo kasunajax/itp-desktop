@@ -71,8 +71,8 @@ public class CreateExpenses extends KTab {
         	String sql = "select * from expenses order by ExpenseID";
           
             
-            PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             table.setModel(Database.resultSetToTableModel(rs));
             
             
@@ -250,6 +250,16 @@ public class CreateExpenses extends KTab {
 			}
 		));
 		scrollPane.setViewportView(table);
+		
+		JButton r1 = new JButton("Refresh");
+		r1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				tableLoad();
+			}
+		});
+		r1.setBounds(505, 494, 117, 32);
+		getContentPane().add(r1);
 		
 		
 		tableLoad();

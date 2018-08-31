@@ -6,6 +6,7 @@ import ui.components.KTab;
 import utils.common.database.Database;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -55,8 +56,8 @@ public void tableLoad(){
             String sql = "select * from expenses ORDER BY ExpenseID";
           
             
-            PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             
                 
             
@@ -133,9 +134,15 @@ public void tableLoad(){
 				Date Date1 = d1.getDate();
 				Date Date2 = d2.getDate();
 				
+				if(Date1 == null||Date2==null) {
+	            	JOptionPane.showMessageDialog(null,"Please select the Date in both columns");
+	            }else {
+				
 	            DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
 	            String stDate = df.format(Date1);
 	            String ltDate = df.format(Date2);
+	            
+	            
 				
 				try{
 		            String sql = "Select ExpenseID,NetExpense,Date,Description,EmployeeID,Type  from expenses where Date Between '"+stDate+"' and '"+ltDate+"' ";
@@ -150,7 +157,7 @@ public void tableLoad(){
 		          
 		        	e1.printStackTrace();
 		        }
-				
+	            }
 			}
 		});
 		btnSearch.setBounds(511, 176, 89, 23);
