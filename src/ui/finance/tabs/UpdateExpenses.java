@@ -46,7 +46,7 @@ public class UpdateExpenses extends KTab {
 
     
     
-	ResultSet rs = null;
+	//ResultSet rs = null;
 
 	/**
 	 * Launch the application.
@@ -131,7 +131,7 @@ public class UpdateExpenses extends KTab {
 		            String sql = "Select ExpenseID,Description,Date,NetExpense,Type,EmployeeID from expenses where Type like '%"+name+"%' ";
 		            
 		            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
-		            rs = ps.executeQuery();
+		            ResultSet rs = ps.executeQuery();
 		            
 		            
 		            jtable1.setModel(Database.resultSetToTableModel(rs));
@@ -186,22 +186,7 @@ public class UpdateExpenses extends KTab {
 						String empid = t6.getText();
 						
 				
-	                /*if(expensId.equals("")) {
-	    					
-							JOptionPane.showMessageDialog(null,"Please Enter the Expenses Id");
-							
-					}else if(dat == null) {
-						JOptionPane.showMessageDialog(null,"Please enter the date");
-				 	}else if(dscrp.equals("")){
-						JOptionPane.showMessageDialog(null,"Please Enter the Description");
-					}else if(NetExpens.equals("")){
-						JOptionPane.showMessageDialog(null,"Please Enter the Net Expenses");
-					}else if(typ.equals("")){
-						JOptionPane.showMessageDialog(null,"Please Enter the Types");
-					}else if(empid.equals("")){
-						JOptionPane.showMessageDialog(null,"Please Enter the Employee Id");
-						
-					}*/
+	                
 						
 						
 
@@ -347,7 +332,7 @@ public class UpdateExpenses extends KTab {
 		scrollPane.setViewportView(jtable1);
 		tableLoad();
 		
-		JButton btnReset = new JButton("Reset");
+		JButton btnReset = new JButton("Reset/Refresh");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -357,6 +342,8 @@ public class UpdateExpenses extends KTab {
 				t4.setText(null);
 				t5.setSelectedItem("Select the Type");
 				t6.setText(null);
+				
+				tableLoad();
 				
 			}
 		});

@@ -112,7 +112,7 @@ public class FinanceCalculation extends KTab {
 				
 				int month = 0;
 			//	double income =0;
-				String typ = "confirm";
+				String typ = "Activated";
 
 				if(mon == "Select a Month") {
 					JOptionPane.showMessageDialog(null, "One or more Required fields are empty!!");

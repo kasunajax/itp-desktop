@@ -69,7 +69,7 @@ public class GraphicalViews extends KTab {
 		
 		JComboBox t1 = new JComboBox();
 		t1.setModel(new DefaultComboBoxModel(new String[] {"Select the Type", "", "Administration", "Financial", "Sales and Distribution", "Others"}));
-		t1.setBounds(165, 116, 139, 22);
+		t1.setBounds(181, 116, 139, 22);
 		getContentPane().add(t1);
 		
 		JPanel panel = new JPanel();
@@ -77,7 +77,7 @@ public class GraphicalViews extends KTab {
 		getContentPane().add(panel);
 		
 		JLabel lblNewLabel = new JLabel("Give the Type ");
-		lblNewLabel.setBounds(55, 120, 70, 14);
+		lblNewLabel.setBounds(55, 120, 96, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("View Graph");
@@ -101,8 +101,8 @@ public class GraphicalViews extends KTab {
 				int Month2 = localDate.getMonthValue();
 				
 				
-				for(int i=1;i<=Month2;++i) {
-					String query = "Select sum(NetExpense) from expenses where Type='"+typ+"' and Month(Date) ='"+i+"'";
+				for(int x=1;x<=Month2;++x) {
+					String query = "Select sum(NetExpense) from expenses where Type='"+typ+"' and Month(Date) ='"+x+"'";
 					
 					try {
 						
@@ -110,29 +110,29 @@ public class GraphicalViews extends KTab {
 						ResultSet rs=st.executeQuery(query);
 						
 						while(rs.next()) {
-							if(i == 1)
+							if(x == 1)
 								jan = rs.getInt(1);
-							else if(i == 2)
+							else if(x == 2)
 								feb = rs.getInt(1);
-							else if(i == 3)
+							else if(x == 3)
 								mar = rs.getInt(1);
-							else if(i == 4)
+							else if(x == 4)
 								apr = rs.getInt(1);
-							else if(i == 5)
+							else if(x == 5)
 								may = rs.getInt(1);
-							else if(i == 6)
+							else if(x == 6)
 								jun = rs.getInt(1);
-							else if(i == 7)
+							else if(x == 7)
 								jul = rs.getInt(1);
-							else if(i == 8)
+							else if(x == 8)
 								aug = rs.getInt(1);
-							else if(i == 9)
+							else if(x == 9)
 								sep = rs.getInt(1);
-							else if(i == 10)
+							else if(x == 10)
 								oct = rs.getInt(1);
-							else if(i == 11)
+							else if(x == 11)
 								nov = rs.getInt(1);
-							else if(i == 12)
+							else if(x == 12)
 								dec = rs.getInt(1);
 						}
 						
@@ -266,7 +266,7 @@ public class GraphicalViews extends KTab {
 				
 			}
 		});
-		btnNewButton.setBounds(380, 115, 89, 23);
+		btnNewButton.setBounds(380, 115, 133, 23);
 		getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel("Monthly Costs for the Selected Type");
