@@ -277,7 +277,7 @@ public class regionAdmin extends KTab {
 					JOptionPane.showMessageDialog(null,"Please Select a valid Type");
 				}
 				
-				
+		
 				else {
 					
 					
