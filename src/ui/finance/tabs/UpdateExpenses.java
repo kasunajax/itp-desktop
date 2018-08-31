@@ -10,6 +10,8 @@ import utils.common.database.Database;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,6 +32,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class UpdateExpenses extends KTab {
 	private JTextField search;
@@ -37,7 +41,6 @@ public class UpdateExpenses extends KTab {
 	private JTable jtable1;
 	private JTextField t2;
 	private JTextField t4;
-	private JTextField t5;
 	private JTextField t6;
 	
 
@@ -69,7 +72,7 @@ public class UpdateExpenses extends KTab {
 	    
         try{
            
-        	String sql = "select ExpenseID,Description,Date,NetExpense,Type,EmployeeID from expenses";
+        	String sql = "select ExpenseID,Description,Date,NetExpense,Type,EmployeeID from expenses ORDER BY ExpenseID";
           
             
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
@@ -101,6 +104,12 @@ public class UpdateExpenses extends KTab {
 		JDateChooser t3 = new JDateChooser();
 		t3.setBounds(250, 454, 147, 24);
 		getContentPane().add(t3);
+		
+		
+		JComboBox t5 = new JComboBox();
+		t5.setModel(new DefaultComboBoxModel(new String[] {"Select the Type", "", "Administration", "Financial", "Sales and Distribution", "Others"}));
+		t5.setBounds(602, 347, 147, 24);
+		getContentPane().add(t5);
 		
 		
 		JLabel lblNewLabel = new JLabel("Search by Type");
@@ -173,11 +182,11 @@ public class UpdateExpenses extends KTab {
 						String dscrp = t2.getText();
 						Date dat = t3.getDate();
 						String NetExpens = t4.getText();
-						String typ = t5.getText();
+						String typ = t5.getSelectedItem().toString();
 						String empid = t6.getText();
 						
 				
-	                if(expensId.equals("")) {
+	                /*if(expensId.equals("")) {
 	    					
 							JOptionPane.showMessageDialog(null,"Please Enter the Expenses Id");
 							
@@ -192,7 +201,40 @@ public class UpdateExpenses extends KTab {
 					}else if(empid.equals("")){
 						JOptionPane.showMessageDialog(null,"Please Enter the Employee Id");
 						
-					}else {
+					}*/
+						
+						
+
+			Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{4}||d{5}");
+			Matcher matc1111 = patrn1111.matcher(empid);
+            
+			 Pattern patrn = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
+			Matcher matc = patrn.matcher(expensId);
+            
+		
+				
+			 Pattern patrn11 = Pattern.compile("\\d+.*");
+			 Matcher matc11 = patrn11.matcher(NetExpens);
+			
+			
+			 
+			
+			 
+			if(!matc.matches()||expensId.equals("")) {
+				JOptionPane.showMessageDialog(null,"Please enter a valid ExpensId");
+			}else if(dscrp.equals("")) {
+				 JOptionPane.showMessageDialog(null,"Please Enter a valid Description");
+			}else if(dat==null) {
+				JOptionPane.showMessageDialog(null,"Date field is empty");
+			}else if(!matc11.matches()) {
+				JOptionPane.showMessageDialog(null,"Please Enter a valid Net Expenses");
+			}else if(typ == "Select the Type") {
+				JOptionPane.showMessageDialog(null,"Please Select a valid Type");
+			}else if(!matc1111.matches()||empid.equals("")) {
+				 JOptionPane.showMessageDialog(null,"Please Enter valid Employee Id");
+			}
+						
+						else {
 						
 						DateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 	                    String updat = format.format(dat);
@@ -296,7 +338,7 @@ public class UpdateExpenses extends KTab {
 		        t2.setText(dscrp);
 		        t3.setDate(dat);
 		        t4.setText(NetExpens);
-		        t5.setText(typ);
+		        t5.setSelectedItem(typ);
 		        t6.setText(empid);
 		     
 				
@@ -313,7 +355,7 @@ public class UpdateExpenses extends KTab {
 				t2.setText(null);
 				t3.setDate(null);
 				t4.setText(null);
-				t5.setText(null);
+				t5.setSelectedItem("Select the Type");
 				t6.setText(null);
 				
 			}
@@ -331,15 +373,12 @@ public class UpdateExpenses extends KTab {
 		t4.setBounds(250, 517, 147, 23);
 		getContentPane().add(t4);
 		
-		t5 = new JTextField();
-		t5.setColumns(10);
-		t5.setBounds(602, 346, 147, 23);
-		getContentPane().add(t5);
-		
 		t6 = new JTextField();
 		t6.setColumns(10);
 		t6.setBounds(602, 403, 147, 23);
 		getContentPane().add(t6);
+		
+		
 
 	}
 }
