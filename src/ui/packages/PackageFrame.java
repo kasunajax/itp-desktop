@@ -3,6 +3,14 @@ package ui.packages;
 import java.awt.EventQueue;
 
 import ui.components.KFrame;
+import ui.components.TabStruct;
+import ui.finance.tabs.CreateExpenses;
+import ui.finance.tabs.UpdateExpenses;
+import ui.packages.tabs.CustomerFeedBack;
+import ui.packages.tabs.ManagePackages;
+import ui.packages.tabs.ManagePromotions;
+import ui.packages.tabs.Packages;
+import ui.packages.tabs.Promotions;
 
 public class PackageFrame extends KFrame {
 
@@ -31,6 +39,17 @@ public class PackageFrame extends KFrame {
 	 * Create the frame.
 	 */
 	public PackageFrame() {
+		
+		
+		TabStruct[] ts = {
+				new TabStruct(CustomerFeedBack.class, "FEEDBACK"),
+				new TabStruct(Packages.class, "PACKAGES"),
+				new TabStruct(ManagePackages.class,"MANAGE PACKAGES"),
+				new TabStruct(Promotions.class,"PROMOTIONS"),
+				new TabStruct(ManagePromotions.class,"MANAGE PROMOTION")
+		};
+		
+		setStruct(ts);
 
 	}
 
