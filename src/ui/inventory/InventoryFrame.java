@@ -44,9 +44,9 @@ public class InventoryFrame extends KFrame {
 	public InventoryFrame() {
 		TabStruct[] ts = {
 				new TabStruct(Home.class, "HOME"),
-				new TabStruct(MakeChanges.class, "CHANGES"),
+				new TabStruct(MakeChanges.class, "MAKE CHANGES"),
 				new TabStruct(Forcast.class, "FORCARSTS"),
-				new TabStruct(Cost.class, "COSTS")
+				new TabStruct(Cost.class, "COST CALCULATION")
 		};
 		
 		setStruct(ts);
