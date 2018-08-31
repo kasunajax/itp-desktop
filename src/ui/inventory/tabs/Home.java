@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -55,7 +56,7 @@ public class Home extends KTab {
 	
 	public void tableLoad(){
         try{
-            String sql = "select * from items";
+        	String sql = "select ItemID,Serial_Number,Name,Cost,Added_Date,Sold_Date,Status,Executive from items";
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
@@ -64,6 +65,36 @@ public class Home extends KTab {
         
         }catch(Exception e){}
     }
+	
+	public boolean isEmpty(String txt,String warning) {
+		if(txt.equals("")) {
+			JOptionPane.showMessageDialog(null, warning);
+			return false;
+		}
+		else
+			return true;
+	}
+	
+	public boolean isId(String id,String warning) {
+		String patternId = "[A-Z][A-Z][A-Z]\\d\\d\\d";
+		
+		if(id.matches(patternId))
+			return true;
+		else {
+			JOptionPane.showMessageDialog(null, warning);
+			return false;
+		}	
+	}
+	
+	public boolean validated(String txt,String warning,String warning2) {
+		if(isEmpty(txt,warning))
+			if(isId(txt,warning2))
+				return true;
+			else 
+				return false;
+		else 
+			return false;
+	}
 	
 	
 	/**
@@ -89,9 +120,9 @@ public class Home extends KTab {
 		button.setBounds(860, 162, 99, 25);
 		getContentPane().add(button);
 		
-		JLabel label = new JLabel("To view Branch vise details enter Branch Code");
-		label.setBounds(44, 411, 369, 16);
-		getContentPane().add(label);
+		JLabel lblToViewBranch = new JLabel("To view Branch vise details enter Office Id");
+		lblToViewBranch.setBounds(44, 411, 369, 16);
+		getContentPane().add(lblToViewBranch);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
@@ -101,15 +132,38 @@ public class Home extends KTab {
 		JButton button_1 = new JButton("View");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				try {
-					String text = textField.getText();
-				 	String sql = "select items.ItemID,items.Serial_Number,items.Name,items.Added_Date,items.Sold_Date,items.Status,items.Executive,items.cost,office.OfficeID,office.Reigon_Name from items,sales_executives,office where items.Executive = sales_executives.EmployeeID and sales_executives.OfficeID = office.OfficeID and office.OfficeID = '"+text+"'";
-		            PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-		            ResultSet rs = stmt.executeQuery();
-		            table.setModel(Database.resultSetToTableModel(rs));
+				String sql;	
+				String text1 = textField.getText();
+				int count = 0;
+				
+				if(validated(text1,"Enter Office Id","Enter Valid Office Id!!")){
+					try {
+						
+						sql = "select count(*) from items,sales_executives,office where items.Executive = sales_executives.EmployeeID and sales_executives.OfficeID = office.OfficeID and office.OfficeID = '"+text1+"'";
+						PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+						ResultSet rs = stmt.executeQuery();
+						if(rs.next())
+							count = rs.getInt(1);
+					}
+					catch(SQLException ex) {
+						ex.printStackTrace();
+					}
+					if(count == 1) {
+						try {
+							
+							sql = "select items.ItemID,items.Serial_Number,items.Name,items.Added_Date,items.Sold_Date,items.Status,items.Executive,items.cost,office.OfficeID,office.Reigon_Name from items,sales_executives,office where items.Executive = sales_executives.EmployeeID and sales_executives.OfficeID = office.OfficeID and office.OfficeID = '"+text1+"'";
+							PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+							ResultSet rs = stmt.executeQuery();
+							table.setModel(Database.resultSetToTableModel(rs));
+						}
+						catch(SQLException ex) {
+							ex.printStackTrace();
+						}
+					}
+					else
+						JOptionPane.showMessageDialog(null, "No Office Id exist like '"+text1+"'");
 				}
-				catch(SQLException ex) {}
+				
 
 		       
 			}
@@ -117,9 +171,9 @@ public class Home extends KTab {
 		button_1.setBounds(201, 447, 99, 25);
 		getContentPane().add(button_1);
 		
-		JLabel label_1 = new JLabel("To view Executive vise details enter Executive Code");
-		label_1.setBounds(43, 494, 357, 16);
-		getContentPane().add(label_1);
+		JLabel lblToViewExecutive = new JLabel("To view Executive vise details enter Executive Id");
+		lblToViewExecutive.setBounds(43, 494, 357, 16);
+		getContentPane().add(lblToViewExecutive);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
@@ -129,15 +183,37 @@ public class Home extends KTab {
 		JButton button_2 = new JButton("View");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				try {
-					String text = textField_1.getText();
-				 	String sql = "select * from items where Executive = '"+ text +"'";
-		            PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-		            ResultSet rs = stmt.executeQuery();
-		            table.setModel(Database.resultSetToTableModel(rs));
+				String sql;	
+				String text = textField_1.getText();
+				int count = 0;
+				
+				if(validated(text,"Enter Executive Id","Enter Valid Executive Id!!")){
+					try {
+						
+						sql = "select count(*) from items where Executive = '"+ text +"'";
+						PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+						ResultSet rs = stmt.executeQuery();
+						if(rs.next())
+							count = rs.getInt(1);
+					}
+					catch(SQLException ex) {
+						ex.printStackTrace();
+					}
+					if(count == 1) {
+						try {
+							
+							sql = "select * from items where Executive = '"+ text +"'";
+							PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+							ResultSet rs = stmt.executeQuery();
+							table.setModel(Database.resultSetToTableModel(rs));
+						}
+						catch(SQLException ex) {
+							ex.printStackTrace();
+						}
+					}
+					else
+						JOptionPane.showMessageDialog(null, "No Executive Id exist like '"+text+"'");
 				}
-				catch(SQLException ex) {}
 				
 			}
 		});

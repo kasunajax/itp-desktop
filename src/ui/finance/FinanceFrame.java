@@ -7,11 +7,12 @@ import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
 import ui.components.TabStruct;
-import ui.employees.tabs.AddEmp;
-import ui.employees.tabs.AddEmployeeFrame;
-import ui.employees.tabs.ViewEmployees;
 import ui.finance.tabs.CreateExpenses;
+import ui.finance.tabs.ExpensesDetails;
+import ui.finance.tabs.FinanceCalculation;
+import ui.finance.tabs.GraphicalViews;
 import ui.finance.tabs.UpdateExpenses;
+
 
 public class FinanceFrame extends KFrame {
 
@@ -42,8 +43,12 @@ public class FinanceFrame extends KFrame {
 	public FinanceFrame() {
 		
 		TabStruct[] ts = {
-				new TabStruct(CreateExpenses.class, "CREATE"),
-				new TabStruct(UpdateExpenses.class, "UPDATE")
+				new TabStruct(CreateExpenses.class, "Create"),
+				new TabStruct(UpdateExpenses.class, "Manage Expenses"),
+				new TabStruct(ExpensesDetails.class, "View"),
+				new TabStruct(FinanceCalculation.class,"Calculation"),
+				new TabStruct(GraphicalViews.class,"Graphical View")
+				
 		};
 		
 		setStruct(ts);

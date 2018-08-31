@@ -81,7 +81,7 @@ public class Forcast extends KTab {
 		lblGetForcastOn.setBounds(10, 61, 306, 34);
 		getContentPane().add(lblGetForcastOn);
 		
-		JLabel lblEnterBranchCode = new JLabel("Enter Branch Code:");
+		JLabel lblEnterBranchCode = new JLabel("Enter Office Id:");
 		lblEnterBranchCode.setBounds(10, 105, 140, 23);
 		getContentPane().add(lblEnterBranchCode);
 		
@@ -104,7 +104,7 @@ public class Forcast extends KTab {
 		lblGetForcastOn_1.setBounds(552, 61, 306, 34);
 		getContentPane().add(lblGetForcastOn_1);
 		
-		JLabel lblEnterExecutiveCode = new JLabel("Enter Executive Code:");
+		JLabel lblEnterExecutiveCode = new JLabel("Enter Executive Id:");
 		lblEnterExecutiveCode.setBounds(552, 105, 140, 23);
 		getContentPane().add(lblEnterExecutiveCode);
 		
@@ -129,7 +129,7 @@ public class Forcast extends KTab {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblNewLabel.setBounds(10, 558, 905, 34);
 		getContentPane().add(lblNewLabel);
 		

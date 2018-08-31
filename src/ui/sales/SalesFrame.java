@@ -7,9 +7,15 @@ import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
 import ui.components.TabStruct;
+<<<<<<< HEAD
 import ui.employees.tabs.AddEmp;
 import ui.employees.tabs.AddEmployeeFrame;
 import ui.employees.tabs.ViewEmployees;
+=======
+import ui.regions.tabs.Tab1;
+import ui.regions.tabs.Tab2;
+import ui.regions.tabs.Tab3;
+>>>>>>> branch 'master' of https://github.com/kasunajax/itp-desktop.git
 import ui.sales.tabs.ConfirmSales;
 import ui.sales.tabs.ViewReports;
 
