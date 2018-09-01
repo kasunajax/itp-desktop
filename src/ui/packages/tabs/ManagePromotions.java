@@ -244,7 +244,7 @@ public class ManagePromotions extends KTab {
 				String provenue = Venue.getText();
 				String proptype = Package_Type.getText();
 				String prodtype = Devise_Type.getText();
-				int properiod = Integer.parseInt(Valid_Period.getText());
+				String properiod = Valid_Period.getText();
 				//int typ = Promotion_Id.getText();
 				
 				
@@ -274,8 +274,8 @@ public class ManagePromotions extends KTab {
 				else if(prodtype.equals("")){
 					JOptionPane.showMessageDialog(null,"Devise Type field is empty");
 				}
-				else if(String.valueOf(properiod).equals("")){
-					//JOptionPane.showMessageDialog(null,"Valid Period field is empty");
+				else if(properiod.equals("")){
+					JOptionPane.showMessageDialog(null,"Valid Period field is empty");
 				}
 				else {
 				//	String sql = "INSERT promotion SET Name = ? , Details = ?,Date=?, Venue=?,Package_Type=?,Devise_Type=?,Valid_Period=?  WHERE Promotion_Id = ?";
