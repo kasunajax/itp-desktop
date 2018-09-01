@@ -177,7 +177,7 @@ public class ConfirmSales extends KTab {
 				
 					String sql = "UPDATE order_confirmation o, items i SET o.Status='Confirmed', i.Status='Confirmed' WHERE o.Serial_Number=i.Serial_Number";
 					PreparedStatement stmt = Database.getConnection().prepareStatement(sql);	 
-			        stmt.executeQuery();
+			        stmt.execute();
 			        
 				   
 			        

@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import javafx.scene.control.ComboBox;
+
 public class ConfirmedSales extends KTab {
 	private JTable table;
 	JDateChooser dateChooserFrom;
@@ -59,7 +61,7 @@ public class ConfirmedSales extends KTab {
 		dateChooserTo.setBounds(547, 115, 116, 22);
 		getContentPane().add(dateChooserTo);
 		
-		JComboBox<Object> comboBox = new JComboBox<Object>();
+		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(65, 115, 123, 21);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Test", "Test1"}));
 		getContentPane().add(comboBox);
@@ -102,8 +104,9 @@ public class ConfirmedSales extends KTab {
 	}
 	
 	public void tableLoad(){
+		
         try{
-            String sql = "select * from items where status = 'confirmed'";
+            String sql = "select * from items WHERE Status='Confirmed'";
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             

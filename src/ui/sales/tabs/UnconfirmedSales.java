@@ -94,22 +94,19 @@ public class UnconfirmedSales extends KTab {
 				String dateFrom = dateChooserFrom.getDateFormatString();
 				String dateTo = dateChooserTo.getDateFormatString();
 				String EmpId = textField.getText();
-				//System.out.println("Branch " + branch);
+			try {	
+				String sql = "SELECT * FROM items WHERE Sold_Date BETWEEN '"+dateFrom+"' AND '"+dateTo+"' AND Executive = '"+EmpId+"'";
 				
-				try {
-					String sql = "SELECT * FROM items";
-							
-					/*WHERE EmployeeID = '+EmpId' AND 	ProcessedDate BETWEEN 'dateFrom' AND 'dateTo' AND Status = 'Unconfirmed'";*/
-					PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-					ResultSet rs = stmt.executeQuery();
-					
-					table.setModel(Database.resultSetToTableModel(rs));
-					
+				PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery();
 				
-				}catch(Exception e1) {
-					
-					e1.printStackTrace();
-				}
+				table.setModel(Database.resultSetToTableModel(rs));
+				
+			
+			}catch(Exception e1) {
+				
+				e1.printStackTrace();
+			}
 			}
 		});
 		btnNewButton.setBounds(413, 159, 135, 35);
@@ -123,17 +120,25 @@ public class UnconfirmedSales extends KTab {
 		getContentPane().add(scrollPane);
 		scrollPane.setViewportView(table);
 		
-		//tableLoad();
+		tableLoad();
 
 	}
 	
-	/*public void tableLoad(){
-		try {
-			String sql = "select * from items where status = 'unconfirmed'";
-			PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
-			
-			table.setModel(Database.resultSetToTableModel(rs));
-		}catch(Exception e){}
-	}*/
+	public void tableLoad(){
+		        
+				
+				try {
+					String sql = "SELECT * FROM items WHERE Status='Sold' ";
+							
+					PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+					ResultSet rs = stmt.executeQuery();
+					
+					table.setModel(Database.resultSetToTableModel(rs));
+					
+				
+				}catch(Exception e1) {
+					
+					e1.printStackTrace();
+				}
+	}
 }

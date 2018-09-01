@@ -106,7 +106,7 @@ public class PendingSales extends KTab {
 	
 	public void tableLoad(){
         try{
-            String sql = "select * from items where status = 'pending'";
+            String sql = "select * from order_confirmation WHERE Status='Activated'";
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
