@@ -7,6 +7,7 @@ import utils.common.database.Database;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
@@ -108,6 +109,10 @@ public class ManagePackages extends KTab {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				int x = JOptionPane.showConfirmDialog(null,"Do you want to add this");
+		        
+		        if(x == 0){
+				
 				
 				String pid = MPackageID.getText();
 				String nam = PackageName.getText();
@@ -137,7 +142,7 @@ public class ManagePackages extends KTab {
 				}
 				LoadTable();
 			}
-		});
+			}});
 		btnAdd.setBounds(257, 547, 93, 37);
 		getContentPane().add(btnAdd);
 		
@@ -145,6 +150,10 @@ public class ManagePackages extends KTab {
 		btnUpdate.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				int x = JOptionPane.showConfirmDialog(null,"Do you want to update this");
+		        
+		        if(x == 0){
 				
 				
 				String pid = MPackageID.getText();
@@ -172,7 +181,7 @@ public class ManagePackages extends KTab {
 				}
 				LoadTable();
 			}
-		});
+			}});
 		btnUpdate.setBounds(140, 546, 93, 38);
 		getContentPane().add(btnUpdate);
 		
@@ -180,6 +189,10 @@ public class ManagePackages extends KTab {
 		btnDelete.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				int x = JOptionPane.showConfirmDialog(null,"Do you want to delete this");
+		        
+		        if(x == 0){
 				
 				String pid = MPackageID.getText();
 				
@@ -197,7 +210,7 @@ public class ManagePackages extends KTab {
 				}
 				LoadTable();
 			}
-		});
+			}});
 		btnDelete.setBounds(33, 546, 85, 38);
 		getContentPane().add(btnDelete);
 		
@@ -389,6 +402,10 @@ public class ManagePackages extends KTab {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				int x = JOptionPane.showConfirmDialog(null,"Do you want to delete this");
+		        
+		        if(x == 0){
+				
 				String tpid = TvPackageID.getText();
 				
 				
@@ -409,7 +426,7 @@ public class ManagePackages extends KTab {
 				
 				
 			}
-		});
+			}});
 		button_1.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		button_1.setBounds(799, 109, 93, 38);
 		getContentPane().add(button_1);
@@ -417,6 +434,10 @@ public class ManagePackages extends KTab {
 		JButton button_3 = new JButton("Update");
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				int x = JOptionPane.showConfirmDialog(null,"Do you want to update this");
+		        
+		        if(x == 0){
 				
 				String tpid = TvPackageID.getText();
 				String tnam = PackageNames.getText();
@@ -437,7 +458,7 @@ public class ManagePackages extends KTab {
 				}
 				LoadTables();
 			}
-		});
+			}});
 		button_3.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		button_3.setBounds(799, 173, 93, 38);
 		getContentPane().add(button_3);
@@ -445,6 +466,10 @@ public class ManagePackages extends KTab {
 		JButton button_5 = new JButton("Add");
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				int x = JOptionPane.showConfirmDialog(null,"Do you want to add this");
+		        
+		        if(x == 0){
 				
 				String tpid = TvPackageID.getText();
 				String tnam = PackageNames.getText();
@@ -470,7 +495,7 @@ public class ManagePackages extends KTab {
 				
 				
 			}
-		});
+			}});
 		button_5.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		button_5.setBounds(799, 236, 93, 37);
 		getContentPane().add(button_5);

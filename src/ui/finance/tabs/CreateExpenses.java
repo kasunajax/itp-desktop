@@ -153,7 +153,7 @@ public class CreateExpenses extends KTab {
 				
 							
 
-				Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{4}||d{5}");
+				Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
 				Matcher matc1111 = patrn1111.matcher(empid);
 	            
 				 Pattern patrn = Pattern.compile("\\d{2}||\\d{3}||\\d{4}||\\d{5}");
@@ -169,7 +169,7 @@ public class CreateExpenses extends KTab {
 				
 				 
 				if(!matc.matches()||expensId.equals("")) {
-					JOptionPane.showMessageDialog(null,"Please enter a valid ExpensId");
+					JOptionPane.showMessageDialog(null,"Please enter a valid ExpensId");					
 				}else if(dscrp.equals("")) {
 					 JOptionPane.showMessageDialog(null,"Please Enter a valid Description");
 				}else if(dat==null) {

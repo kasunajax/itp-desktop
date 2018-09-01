@@ -9,6 +9,8 @@ import utils.common.database.Database;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -154,6 +156,10 @@ public class ManagePromotions extends KTab {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				int x = JOptionPane.showConfirmDialog(null,"Do you want to delete this");
+		        
+		        if(x == 0){
+				
 				int proid = Integer.parseInt(Promotion_Id.getText());
 				
 				
@@ -170,7 +176,7 @@ public class ManagePromotions extends KTab {
 				}
 				LoadTable();
 			}
-		});
+		}});
 		button.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		button.setBounds(123, 538, 85, 38);
 		getContentPane().add(button);
@@ -178,6 +184,12 @@ public class ManagePromotions extends KTab {
 		JButton button_1 = new JButton("Update");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				int x = JOptionPane.showConfirmDialog(null,"Do you really want to update");
+				 
+				 if(x==0) {
+					 
+					 
 				
 				int proid = Integer.parseInt(Promotion_Id.getText());
 				String proname = Name.getText();
@@ -209,7 +221,7 @@ public class ManagePromotions extends KTab {
 				}
 				LoadTable();
 			}
-		});
+		}});
 		button_1.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		button_1.setBounds(289, 538, 93, 38);
 		getContentPane().add(button_1);
@@ -217,6 +229,10 @@ public class ManagePromotions extends KTab {
 		JButton button_2 = new JButton("Add");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				int x = JOptionPane.showConfirmDialog(null,"Do you want to add this");
+		        
+		        if(x == 0){
 				
 				int proid = Integer.parseInt(Promotion_Id.getText());
 				String proname = Name.getText();
@@ -229,12 +245,41 @@ public class ManagePromotions extends KTab {
 				String proptype = Package_Type.getText();
 				String prodtype = Devise_Type.getText();
 				int properiod = Integer.parseInt(Valid_Period.getText());
+				//int typ = Promotion_Id.getText();
+				
 				
 //				DateFormat obj = new SimpleDateFormat("DD-MM-YYYY");
 //				String prodate = obj.format(prod);
 				
 				String prodate = new java.sql.Date(prod.getTime()).toString();
 				
+				if(proid != (int)proid) {
+					JOptionPane.showMessageDialog(null,"Please enter a valid Promotion ID");
+				}
+				else if(proname.equals("")){
+					JOptionPane.showMessageDialog(null,"Name field is empty");
+				}
+				else if(prodetails.equals("")){
+					JOptionPane.showMessageDialog(null,"Details field is empty");
+				}
+				else if(prodate.equals("")){
+					JOptionPane.showMessageDialog(null,"Date field is empty");
+				}
+				else if(provenue.equals("")){
+					JOptionPane.showMessageDialog(null,"Venue field is empty");
+				}
+				else if(proptype.equals("")){
+					JOptionPane.showMessageDialog(null,"Package Type field is empty");
+				}
+				else if(prodtype.equals("")){
+					JOptionPane.showMessageDialog(null,"Devise Type field is empty");
+				}
+				else if(String.valueOf(properiod).equals("")){
+					//JOptionPane.showMessageDialog(null,"Valid Period field is empty");
+				}
+				else {
+				//	String sql = "INSERT promotion SET Name = ? , Details = ?,Date=?, Venue=?,Package_Type=?,Devise_Type=?,Valid_Period=?  WHERE Promotion_Id = ?";
+				}
 				
 				try {
 				String query = "Insert INTO promotion(Promotion_Id,Name,Details,Date,Venue,Package_Type,Devise_Type,Valid_Period) values ('"+proid+"','"+proname+"','"+prodetails+"','"+prodate+"','"+provenue+"','"+proptype+"','"+prodtype+"','"+properiod+"')";
@@ -249,7 +294,7 @@ public class ManagePromotions extends KTab {
 				LoadTable();
 				
 			}
-		});
+			}});
 		button_2.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		button_2.setBounds(449, 538, 93, 37);
 		getContentPane().add(button_2);
