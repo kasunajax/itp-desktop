@@ -12,9 +12,5 @@ public class TabPane extends JDesktopPane {
 		panel.add(this);
 		
 	}
-	
-	public TabPane() {
-		setBounds(0, 0, 980, 600);
-	}
 
 }

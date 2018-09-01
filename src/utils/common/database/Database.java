@@ -53,12 +53,7 @@ public class Database {
                 rows.addElement(newRow);
             }
 
-            return new DefaultTableModel(rows, columnNames) {
-            	@Override
-    			public boolean isCellEditable(int row, int column) {
-    				return false;
-    			}
-            };
+            return new DefaultTableModel(rows, columnNames);
         } catch (Exception e) {
             e.printStackTrace();
 

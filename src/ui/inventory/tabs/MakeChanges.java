@@ -25,9 +25,6 @@ import ui.components.KTab;
 import utils.common.database.Database;
 
 import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Font;
 
 
 public class MakeChanges extends KTab {
@@ -39,11 +36,11 @@ public class MakeChanges extends KTab {
     private JTextField textField_3;
     private JTextField textField_4;
     private JTextField textField_5;
+    private JTextField textField_6;
     private JTextField textField_7;
     private JTextField textField_8;
     private JTextField textField_9;
     private JTextField textField_10;
-    private JTextField textField_6;
 
 	/**
 	 * Launch the application.
@@ -63,7 +60,7 @@ public class MakeChanges extends KTab {
 	
 	public void tableLoad(){
         try{
-            String sql = "select ItemID,Serial_Number,Name,Cost,Added_Date,Sold_Date,Status,Executive from items";
+            String sql = "select * from items";
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
@@ -72,131 +69,24 @@ public class MakeChanges extends KTab {
         
         }catch(Exception e){}
     }
-	
-	public boolean isEmpty(String id,String name,String serial,String cost,String ex,String status,Date pd) {
-		if(id.equals("")||name.equals("")||serial.equals("")||cost.equals("")||ex.equals("")||status.equals("")||pd == null||status.equals("Select a Status")) {
-			JOptionPane.showMessageDialog(null, "One or more Required fields are empty!!");
-			return false;
-		}
-		else
-			return true;
-	}
-	
-	public boolean isEmpty2(String id) {
-		if(id.equals("")) {
-			JOptionPane.showMessageDialog(null, "Item Id required!!");
-			return false;
-		}
-		else
-			return true;
-	}
-	
-	public boolean isSerial(String num) {
-		String patternNum = "\\d+";
-		
-		if(num.matches(patternNum))
-			return true;
-		else
-			return false;
-	}
-	
-	public boolean isFloat(String num) {
-		String patternNum = "([+-]?\\d*\\.\\d+)(?![-+0-9\\.])";
-		
-		if(num.matches(patternNum))
-			return true;
-		else
-			return false;
-	}
-	
-	public boolean isId(String id) {
-		String patternId = "[A-Z][A-Z][A-Z]\\d\\d\\d";
-		
-		if(id.matches(patternId))
-			return true;
-		else
-			return false;
-	}
-	
-	public boolean isVarchar(String text) {
-		String patternTxt = "\\w+";
-		
-		if(text.matches(patternTxt))
-			return true;
-		else {
-			return false;
-		}
-	}
-	
-	public boolean validation(String id,String name,String serial,String cost,String ex,String status,Date pd) {
-		
-		if(isEmpty(id,name,serial,cost,ex,status,pd))
-			if(isId(id))
-				if(isVarchar(name))
-					if(isSerial(serial))
-						if(isFloat(cost))
-							if(isId(ex))
-								return true;
-							else {
-								JOptionPane.showMessageDialog(null, "Enter valid Executive ID!!");
-								return false;
-							}
-						else {
-							JOptionPane.showMessageDialog(null, "Enter valid Cost!!");
-							return false;
-						}
-					else {
-						JOptionPane.showMessageDialog(null, "Enter valid Serial Number!!");
-						return false;
-					}
-				else {
-					JOptionPane.showMessageDialog(null, "Enter valid Name!!");
-					return false;
-				}
-			else {
-				JOptionPane.showMessageDialog(null, "Enter valid Item ID!!");
-				return false;
-			}
-		else
-			return false;
-
-	}
-	
-	public boolean validation2(String id) {
-		if(isEmpty2(id))
-			if(isId(id))
-				return true;
-			else{
-				JOptionPane.showMessageDialog(null, "Enter valid Item Id!!");
-				return false;
-			}
-		else
-			return false;
-				
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	public MakeChanges() {
-		super("Make Changes");
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Select a Status", "Initial", "Sold"}));
-		comboBox.setBounds(477, 409, 116, 21);
-		getContentPane().add(comboBox);
+		super("Changes");
 		
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(196, 441, 116, 22);
+		dateChooser.setBounds(755, 358, 116, 22);
 		getContentPane().add(dateChooser);
 		
 		
 		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(196, 473, 116, 22);
+		dateChooser_1.setBounds(755, 389, 116, 22);
 		getContentPane().add(dateChooser_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(27, 62, 868, 242);
+		scrollPane.setBounds(110, 188, 434, 228);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -207,20 +97,18 @@ public class MakeChanges extends KTab {
 				int r = table.getSelectedRow();
 		        
 		        String id = table.getValueAt(r, 0).toString();
-		        String se = table.getValueAt(r, 1).toString(); 
-		        String name = table.getValueAt(r, 2).toString();
-		        String c =  table.getValueAt(r, 3).toString();
-		        String status =  table.getValueAt(r, 6).toString();
-		        String ex = table.getValueAt(r, 7).toString();
-		        Date pd = (Date) table.getValueAt(r, 4);
-		        Date sd = (Date) table.getValueAt(r, 5);
+		        String name = table.getValueAt(r, 1).toString();
+		        String c =  table.getValueAt(r, 2).toString();
+		        String ex = table.getValueAt(r, 3).toString();
+		        String br = table.getValueAt(r, 4).toString();
+		        Date pd = (Date) table.getValueAt(r, 5);
+		        Date sd = (Date) table.getValueAt(r, 6);
 		        
 		        textField_2.setText(id);
-		        textField_6.setText(se);
 		        textField_3.setText(name);
 		        textField_4.setText(c);
 		        textField_5.setText(ex);
-		        comboBox.setSelectedItem(status);
+		        textField_6.setText(br);
 		        dateChooser.setDate(pd);
 		        dateChooser_1.setDate(sd);
 		        
@@ -236,47 +124,56 @@ public class MakeChanges extends KTab {
 		getContentPane().add(lblMakeChangesTo);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(196, 346, 116, 22);
+		textField_2.setBounds(755, 185, 116, 22);
 		getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(477, 346, 116, 22);
+		textField_3.setBounds(755, 220, 116, 22);
 		getContentPane().add(textField_3);
 		
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
-		textField_4.setBounds(477, 378, 116, 22);
+		textField_4.setBounds(755, 255, 116, 22);
 		getContentPane().add(textField_4);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
-		textField_5.setBounds(196, 409, 116, 22);
+		textField_5.setBounds(755, 290, 116, 22);
 		getContentPane().add(textField_5);
 		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(755, 325, 116, 22);
+		getContentPane().add(textField_6);
+		
 		JLabel lblItemId = new JLabel("Item Id");
-		lblItemId.setBounds(93, 345, 70, 22);
+		lblItemId.setBounds(566, 185, 150, 22);
 		getContentPane().add(lblItemId);
 		
 		JLabel lblName = new JLabel("Name");
-		lblName.setBounds(373, 345, 70, 22);
+		lblName.setBounds(566, 220, 150, 22);
 		getContentPane().add(lblName);
 		
 		JLabel lblCost = new JLabel("Cost");
-		lblCost.setBounds(373, 377, 70, 22);
+		lblCost.setBounds(566, 255, 150, 22);
 		getContentPane().add(lblCost);
 		
 		JLabel lblExecutive = new JLabel("Executive");
-		lblExecutive.setBounds(93, 409, 81, 22);
+		lblExecutive.setBounds(566, 290, 150, 22);
 		getContentPane().add(lblExecutive);
 		
+		JLabel lblBranch = new JLabel("Branch");
+		lblBranch.setBounds(566, 325, 150, 22);
+		getContentPane().add(lblBranch);
+		
 		JLabel lblPurchasedDate = new JLabel("Purchased Date");
-		lblPurchasedDate.setBounds(93, 441, 99, 22);
+		lblPurchasedDate.setBounds(566, 363, 150, 22);
 		getContentPane().add(lblPurchasedDate);
 		
 		JLabel lblSoldDate = new JLabel("Sold Date");
-		lblSoldDate.setBounds(93, 473, 99, 22);
+		lblSoldDate.setBounds(566, 394, 150, 22);
 		getContentPane().add(lblSoldDate);
 		
 		
@@ -288,97 +185,75 @@ public class MakeChanges extends KTab {
 			        textField_4.setText(null);
 			        textField_5.setText(null);
 			        textField_6.setText(null);
-			        comboBox.setSelectedItem("Select an Status");
 			        dateChooser.setDate(null);
 			        dateChooser_1.setDate(null);
 			}
 		});
-		btnReset.setBounds(93, 555, 99, 25);
+		btnReset.setBounds(110, 467, 99, 25);
 		getContentPane().add(btnReset);
 		
 		JButton btnAddEntry = new JButton("Add Entry");
 		btnAddEntry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String q;
-				int se;
 				float cc = 0;
-				int count = 0;
 				String id = textField_2.getText();
 				String name = textField_3.getText();
-				String serial = textField_6.getText();
 				String c = textField_4.getText();
 				String ex  = textField_5.getText();
-				String status = comboBox.getSelectedItem().toString();
+				String br = textField_6.getText();
 				Date pd = dateChooser.getDate();
 				Date sd = dateChooser_1.getDate();
 				
-				if(validation(id,name,serial,c,ex,status,pd)) {
+				if(id == null||name == null||ex == null||br == null||pd == null||c == null)
+		            JOptionPane.showMessageDialog(null, "One or more Required fields are empty!!");
+				else{
 		            cc = Float.valueOf(c);
-		            se = Integer.parseInt(serial);
 		            DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
 		            String ppdate = df.format(pd);
 		            String ssdate = null;
 		            if(sd != null)
 		                ssdate = df.format(sd);
+
+		            if(sd == null)
+		                q = "insert into items values( '"+id+"','"+name+"','"+cc+"','"+ex+"','"+br+"','"+ppdate+"',null)";
+		            else
+		                q = "insert into items values( '"+id+"','"+name+"','"+cc+"','"+ex+"','"+br+"','"+ppdate+"','"+ssdate+"')";
 		            
-		            q = "select count(*) from items where ItemID = '"+id+"'";
-                    
-                    try {
+		            
+					try {
 						PreparedStatement stmt = Database.getConnection().prepareStatement(q);
-						ResultSet rs = stmt.executeQuery();
-						if(rs.next())
-							count = rs.getInt(1);
-					} catch (SQLException exp) {
-						exp.printStackTrace();
-					}
-                    
-                    if(count == 1)
-                    	JOptionPane.showMessageDialog(null, "Item Id '"+id+"' already exist!!");
-                    else {
-                    	if(sd == null)
-                    		q = "insert into items(ItemID,Serial_Number,Name,Added_Date,Sold_Date,Status,Executive,cost) values( '"+id+"','"+se+"','"+name+"','"+ppdate+"',null,'"+status+"','"+ex+"','"+cc+"')";    
-                    	else
-                    		q = "insert into items(ItemID,Serial_Number,Name,Added_Date,Sold_Date,Status,Executive,cost) values( '"+id+"','"+se+"','"+name+"','"+ppdate+"','"+ssdate+"','"+status+"','"+ex+"','"+cc+"')";
-		            
-		            
-                    	try {
-                    		PreparedStatement stmt = Database.getConnection().prepareStatement(q);
-                    		stmt.execute();
-                    	} catch (SQLException e) {
-                    		e.printStackTrace();
-                    	}
+						stmt.execute();
+					} catch (SQLException e) {}
 		           
-                    	tableLoad();
-                    }
-                    	
+		            tableLoad();
 		            
 		        }
 				
 			}
 		});
-		btnAddEntry.setBounds(258, 555, 99, 25);
+		btnAddEntry.setBounds(341, 467, 99, 25);
 		getContentPane().add(btnAddEntry);
 		
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String q;
-				int se;
 				float cc = 0;
 				String id = textField_2.getText();
 				String name = textField_3.getText();
-				String serial = textField_6.getText();
 				String c = textField_4.getText();
 				String ex  = textField_5.getText();
-				String status = comboBox.getSelectedItem().toString();
+				String br = textField_6.getText();
 				Date pd = dateChooser.getDate();
 				Date sd = dateChooser_1.getDate();
 				
-				if(validation(id,name,serial,c,ex,status,pd)) {
+				if(id == null||name == null||ex == null||br == null||pd == null||c == null)
+		            JOptionPane.showMessageDialog(null, "One or more Required fields are empty!!");
+				else{
 	                int x = JOptionPane.showConfirmDialog(null, "Do you really want to Update?");
 	                if(x == 0){
 	                	cc = Float.valueOf( textField_4.getText());
-	                	se = Integer.parseInt(serial);
 	                    DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
 	                    String ppdate = df.format(pd);
 	                    String ssdate = null;
@@ -386,15 +261,14 @@ public class MakeChanges extends KTab {
 	                      ssdate = df.format(sd);
 	             
 	                    if(sd == null)
-	                    	q = "update items set Serial_Number = '"+se+"' ,Name = '"+name+"',Added_Date = '"+ppdate+"',Sold_Date = null,Status = '"+status+"',Executive = '"+ex+"',cost = '"+cc+"' where ItemID = '"+id+"'";  
-	                    else
-	                    	q = "update items set Serial_Number = '"+se+"' ,Name = '"+name+"',Added_Date = '"+ppdate+"',Sold_Date = '"+ssdate+"',Status = '"+status+"',Executive = '"+ex+"',cost = '"+cc+"' where ItemID = '"+id+"'";
+	                        q = "update items set Name = '"+name+"',Cost = '"+cc+"',Executive = '"+ex+"',Branch = '"+br+"',Purchased_Date = '"+ppdate+"',Sold_Date = null where Item_Id = '"+id+"'";
+	                    else  
+	                        q = "update items set Name = '"+name+"',Cost = '"+cc+"',Executive = '"+ex+"',Branch = '"+br+"',Purchased_Date = '"+ppdate+"',Sold_Date = '"+ssdate+"' where Item_Id = '"+id+"'";
+	                   
 						try {
 							PreparedStatement stmt = Database.getConnection().prepareStatement(q);
 							stmt.execute();
-						} catch (SQLException exp) {
-							exp.printStackTrace();
-						}
+						} catch (SQLException exp) {}
 	                    tableLoad();
 	                }
 	              } 
@@ -402,115 +276,31 @@ public class MakeChanges extends KTab {
 				
 			}
 		});
-		btnUpdate.setBounds(426, 555, 99, 25);
+		btnUpdate.setBounds(772, 467, 99, 25);
 		getContentPane().add(btnUpdate);
 		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-					int count = 0;
-					String sql;
-					String id = textField_2.getText();
-					
-					if(validation2(id)) {
-						
-						int x = JOptionPane.showConfirmDialog(null, "Do you really want to Delete?");
-						
-						if(x == 0){
-						
-							sql = "select count(*) from items where ItemID = '"+id+"'";
-						
-							try {
-								PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-								ResultSet rs = stmt.executeQuery();
-				            
-								if(rs.next())
-									count = rs.getInt(1);
-							
-							} catch (SQLException exp) {
-								exp.printStackTrace();
-							}
-					
-							if(count == 1) {
+				int x = JOptionPane.showConfirmDialog(null, "Do you really want to Delete?");
 		        
-								sql = "delete from items where ItemID = '"+id+"'";
-							
-								try {
-									PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-								stmt.execute();
-								} catch (SQLException exp) {
-									exp.printStackTrace();
-								}
-							
-								tableLoad();
-							}
-							else
-								JOptionPane.showMessageDialog(null, "No Item Id exist like '"+id+"'!!");
-						}
-					}
+		        if(x == 0){
+		        
+					String id = textField_2.getText();
+		        
+		            String sql = "delete from items where Item_Id = '"+id+"'";
+		           
+					try {
+						PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+						stmt.execute();
+					} catch (SQLException exp) {}
+					
+		            tableLoad();
+		        }
 			}
 		});
-		btnDelete.setBounds(616, 555, 99, 25);
+		btnDelete.setBounds(566, 467, 99, 25);
 		getContentPane().add(btnDelete);
-		
-		JLabel lblSerialNumber = new JLabel("Serial Number");
-		lblSerialNumber.setBounds(93, 377, 99, 22);
-		getContentPane().add(lblSerialNumber);
-		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(196, 377, 116, 22);
-		getContentPane().add(textField_6);
-		
-		JLabel lblStatus = new JLabel("Status");
-		lblStatus.setBounds(373, 408, 70, 22);
-		getContentPane().add(lblStatus);
-		
-		JLabel lblAstericFielsAre = new JLabel("Asteric(*) fiels are required");
-		lblAstericFielsAre.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblAstericFielsAre.setBounds(95, 314, 325, 22);
-		getContentPane().add(lblAstericFielsAre);
-		
-		JLabel label = new JLabel("*");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label.setBounds(318, 350, 45, 13);
-		getContentPane().add(label);
-		
-		JLabel label_1 = new JLabel("*");
-		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_1.setBounds(318, 382, 45, 13);
-		getContentPane().add(label_1);
-		
-		JLabel label_2 = new JLabel("*");
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_2.setBounds(318, 418, 45, 13);
-		getContentPane().add(label_2);
-		
-		JLabel label_3 = new JLabel("*");
-		label_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_3.setBounds(318, 450, 45, 13);
-		getContentPane().add(label_3);
-		
-		JLabel label_4 = new JLabel("*");
-		label_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_4.setBounds(604, 350, 45, 13);
-		getContentPane().add(label_4);
-		
-		JLabel label_5 = new JLabel("*");
-		label_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_5.setBounds(603, 382, 45, 13);
-		getContentPane().add(label_5);
-		
-		JLabel label_6 = new JLabel("*");
-		label_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_6.setBounds(603, 413, 45, 13);
-		getContentPane().add(label_6);
-		
-		JLabel lblMakeChangesTo_1 = new JLabel("Make Changes to Inventory Table");
-		lblMakeChangesTo_1.setFont(new Font("Tahoma", Font.PLAIN, 23));
-		lblMakeChangesTo_1.setBounds(27, 30, 553, 27);
-		getContentPane().add(lblMakeChangesTo_1);
 		
 
 		

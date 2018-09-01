@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -19,7 +18,6 @@ import ui.components.KTab;
 import utils.common.database.Database;
 
 import javax.swing.JScrollPane;
-import java.awt.Font;
 
 public class Home extends KTab { 
 
@@ -56,7 +54,7 @@ public class Home extends KTab {
 	
 	public void tableLoad(){
         try{
-        	String sql = "select ItemID,Serial_Number,Name,Cost,Added_Date,Sold_Date,Status,Executive from items";
+            String sql = "select * from items";
             PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
@@ -66,36 +64,6 @@ public class Home extends KTab {
         }catch(Exception e){}
     }
 	
-	public boolean isEmpty(String txt,String warning) {
-		if(txt.equals("")) {
-			JOptionPane.showMessageDialog(null, warning);
-			return false;
-		}
-		else
-			return true;
-	}
-	
-	public boolean isId(String id,String warning) {
-		String patternId = "[A-Z][A-Z][A-Z]\\d\\d\\d";
-		
-		if(id.matches(patternId))
-			return true;
-		else {
-			JOptionPane.showMessageDialog(null, warning);
-			return false;
-		}	
-	}
-	
-	public boolean validated(String txt,String warning,String warning2) {
-		if(isEmpty(txt,warning))
-			if(isId(txt,warning2))
-				return true;
-			else 
-				return false;
-		else 
-			return false;
-	}
-	
 	
 	/**
 	 * Create the frame.
@@ -104,7 +72,7 @@ public class Home extends KTab {
 		super("Home");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 88, 840, 313);
+		scrollPane.setBounds(163, 120, 532, 186);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -117,113 +85,91 @@ public class Home extends KTab {
 				  tableLoad();
 			}
 		});
-		button.setBounds(860, 162, 99, 25);
+		button.setBounds(740, 174, 99, 25);
 		getContentPane().add(button);
 		
-		JLabel lblToViewBranch = new JLabel("To view Branch vise details enter Office Id");
-		lblToViewBranch.setBounds(44, 411, 369, 16);
-		getContentPane().add(lblToViewBranch);
+		JLabel label = new JLabel("To view Branch vise details enter Branch Code");
+		label.setBounds(163, 317, 309, 16);
+		getContentPane().add(label);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(43, 449, 116, 22);
+		textField.setBounds(163, 346, 116, 22);
 		getContentPane().add(textField);
 		
 		JButton button_1 = new JButton("View");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String sql;	
-				String text1 = textField.getText();
-				int count = 0;
-				
-				if(validated(text1,"Enter Office Id","Enter Valid Office Id!!")){
-					try {
-						
-						sql = "select count(*) from items,sales_executives,office where items.Executive = sales_executives.EmployeeID and sales_executives.OfficeID = office.OfficeID and office.OfficeID = '"+text1+"'";
-						PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-						ResultSet rs = stmt.executeQuery();
-						if(rs.next())
-							count = rs.getInt(1);
-					}
-					catch(SQLException ex) {
-						ex.printStackTrace();
-					}
-					if(count == 1) {
-						try {
-							
-							sql = "select items.ItemID,items.Serial_Number,items.Name,items.Added_Date,items.Sold_Date,items.Status,items.Executive,items.cost,office.OfficeID,office.Reigon_Name from items,sales_executives,office where items.Executive = sales_executives.EmployeeID and sales_executives.OfficeID = office.OfficeID and office.OfficeID = '"+text1+"'";
-							PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-							ResultSet rs = stmt.executeQuery();
-							table.setModel(Database.resultSetToTableModel(rs));
-						}
-						catch(SQLException ex) {
-							ex.printStackTrace();
-						}
-					}
-					else
-						JOptionPane.showMessageDialog(null, "No Office Id exist like '"+text1+"'");
+
+				try {
+					String text = textField.getText();
+				 	String sql = "select * from items where Branch = '"+ text +"'";
+		            PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+		            ResultSet rs = stmt.executeQuery();
+		            table.setModel(Database.resultSetToTableModel(rs));
 				}
-				
+				catch(SQLException ex) {}
 
 		       
 			}
 		});
-		button_1.setBounds(201, 447, 99, 25);
+		button_1.setBounds(308, 345, 99, 25);
 		getContentPane().add(button_1);
 		
-		JLabel lblToViewExecutive = new JLabel("To view Executive vise details enter Executive Id");
-		lblToViewExecutive.setBounds(43, 494, 357, 16);
-		getContentPane().add(lblToViewExecutive);
+		JLabel label_1 = new JLabel("To view Executive vise details enter Executive Code");
+		label_1.setBounds(430, 315, 265, 16);
+		getContentPane().add(label_1);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(43, 534, 116, 22);
+		textField_1.setBounds(431, 346, 116, 22);
 		getContentPane().add(textField_1);
 		
 		JButton button_2 = new JButton("View");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String sql;	
-				String text = textField_1.getText();
-				int count = 0;
-				
-				if(validated(text,"Enter Executive Id","Enter Valid Executive Id!!")){
-					try {
-						
-						sql = "select count(*) from items where Executive = '"+ text +"'";
-						PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-						ResultSet rs = stmt.executeQuery();
-						if(rs.next())
-							count = rs.getInt(1);
-					}
-					catch(SQLException ex) {
-						ex.printStackTrace();
-					}
-					if(count == 1) {
-						try {
-							
-							sql = "select * from items where Executive = '"+ text +"'";
-							PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-							ResultSet rs = stmt.executeQuery();
-							table.setModel(Database.resultSetToTableModel(rs));
-						}
-						catch(SQLException ex) {
-							ex.printStackTrace();
-						}
-					}
-					else
-						JOptionPane.showMessageDialog(null, "No Executive Id exist like '"+text+"'");
+
+				try {
+					String text = textField_1.getText();
+				 	String sql = "select * from items where Executive = '"+ text +"'";
+		            PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+		            ResultSet rs = stmt.executeQuery();
+		            table.setModel(Database.resultSetToTableModel(rs));
 				}
+				catch(SQLException ex) {}
 				
 			}
 		});
-		button_2.setBounds(201, 532, 99, 25);
+		button_2.setBounds(596, 342, 99, 25);
 		getContentPane().add(button_2);
 		
-		JLabel lblInventoryDetails = new JLabel("Inventory Details");
-		lblInventoryDetails.setFont(new Font("Tahoma", Font.PLAIN, 23));
-		lblInventoryDetails.setBounds(10, 41, 637, 37);
-		getContentPane().add(lblInventoryDetails);
+		JLabel label_2 = new JLabel("Item Id");
+		label_2.setBounds(173, 93, 70, 16);
+		getContentPane().add(label_2);
+		
+		JLabel label_3 = new JLabel("Name");
+		label_3.setBounds(243, 93, 76, 16);
+		getContentPane().add(label_3);
+		
+		JLabel label_4 = new JLabel("Cost");
+		label_4.setBounds(318, 94, 76, 16);
+		getContentPane().add(label_4);
+		
+		JLabel label_5 = new JLabel("Executive");
+		label_5.setBounds(396, 94, 76, 16);
+		getContentPane().add(label_5);
+		
+		JLabel label_6 = new JLabel("Branch");
+		label_6.setBounds(471, 94, 76, 16);
+		getContentPane().add(label_6);
+		
+		JLabel label_7 = new JLabel("Purchased_Date");
+		label_7.setBounds(546, 94, 76, 16);
+		getContentPane().add(label_7);
+		
+		JLabel label_8 = new JLabel("Sold_Date");
+		label_8.setBounds(632, 93, 76, 16);
+		getContentPane().add(label_8);
 		
 		
 		

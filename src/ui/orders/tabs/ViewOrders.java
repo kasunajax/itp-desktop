@@ -39,7 +39,7 @@ public class ViewOrders extends KTab {
 	 * Create the frame.
 	 */
 	public ViewOrders() {
-		super("VIEW ORDERS");
+		super("View Orders");
 		
 		KButton btnViewOrders = new KButton("VIEW ORDERS");
 		btnViewOrders.setBounds(new Rectangle(188, 201, 102, 40));

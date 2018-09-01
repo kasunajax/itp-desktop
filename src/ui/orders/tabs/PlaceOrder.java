@@ -34,7 +34,8 @@ public class PlaceOrder extends KTab {
 	 * Create the frame.
 	 */
 	public PlaceOrder() {
-		super("PLACE ORDER");
+		super("Place Order");
+		
 		JButton btnPlaceOrder = new JButton("Place Order");
 		btnPlaceOrder.setBackground(new Color(0, 51, 102));
 		btnPlaceOrder.setBounds(251, 282, 195, 64);

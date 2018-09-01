@@ -32,15 +32,15 @@ public class ViewReports extends KTab {
 		super("View Reports");
 		
 		JButton btnNewButton = new JButton("Confirmed Sales");
-		btnNewButton.setBounds(351, 103, 206, 40);
+		btnNewButton.setBounds(340, 101, 250, 40);
 		getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Unconfirmed Sales");
-		btnNewButton_1.setBounds(351, 263, 206, 40);
+		btnNewButton_1.setBounds(340, 263, 250, 40);
 		getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Sales not yet entered to the system");
-		btnNewButton_2.setBounds(351, 424, 206, 40);
+		btnNewButton_2.setBounds(340, 419, 250, 40);
 		getContentPane().add(btnNewButton_2);
 
 	}
