@@ -65,7 +65,6 @@ public class OrdersFrame extends KFrame {
 		TabStruct[] ts = {
 				new TabStruct(ManageOrders.class, "MANAGE ORDERS"),
 				new TabStruct(ViewOrders.class, "VIEW ORDERS"),
-				new TabStruct(PlaceOrder.class, "PLACE ORDER"),
 				new TabStruct(ProcessOrders.class, "PROCESS ORDERS")
 		};
 		
