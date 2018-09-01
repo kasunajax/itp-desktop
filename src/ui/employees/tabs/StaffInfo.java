@@ -359,7 +359,7 @@ public class StaffInfo extends KTab {
 
 		loads()	;//calling method loads to get values from database and convert it to the jtable type values
 		
-		
+		 
 	}
 	public void Create() {
 		{

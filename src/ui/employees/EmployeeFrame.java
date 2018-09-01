@@ -17,7 +17,7 @@ import ui.orders.tabs.PlaceOrder;
 import ui.orders.tabs.ProcessOrders;
 import ui.orders.tabs.ViewOrders;
 import utils.common.database.Database;
-
+ 
 public class EmployeeFrame extends KFrame {
 
 	/**
