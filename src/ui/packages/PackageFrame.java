@@ -42,7 +42,6 @@ public class PackageFrame extends KFrame {
 		
 		
 		TabStruct[] ts = {
-				new TabStruct(CustomerFeedBack.class, "FEEDBACK"),
 				new TabStruct(Packages.class, "PACKAGES"),
 				new TabStruct(ManagePackages.class,"MANAGE PACKAGES"),
 				new TabStruct(Promotions.class,"PROMOTIONS"),
