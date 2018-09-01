@@ -108,10 +108,11 @@ public class ManagePackages extends KTab {
 		btnAdd.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				int x = JOptionPane.showConfirmDialog(null,"Do you want to add this");
 		        
 		        if(x == 0){
+		        	
+				
 				
 				
 				String pid = MPackageID.getText();
@@ -127,7 +128,39 @@ public class ManagePackages extends KTab {
 				
 				
 				
-				
+				if(pid.equals("")) {
+					JOptionPane.showMessageDialog(null,"Please enter a valid Mobile Package ID");
+				}
+				else if(nam.equals("")){
+					JOptionPane.showMessageDialog(null,"Name field is empty");
+				}
+				else if(pdetails.equals("")){
+					JOptionPane.showMessageDialog(null,"Package Details field is empty");
+				}
+				else if(String.valueOf(cfee).equals("")){
+					JOptionPane.showMessageDialog(null,"Connecting Fees field is empty");
+				}
+				else if(String.valueOf(ebox).equals("")){
+					JOptionPane.showMessageDialog(null,"Email_Boxes field is empty");
+				}
+				else if(ipconfig.equals("")){
+					JOptionPane.showMessageDialog(null,"Ip_Config field is empty");
+				}
+				else if(nquota.equals("")){
+					JOptionPane.showMessageDialog(null,"Night Time field is empty");
+				}
+				else if(wspace.equals("")){
+					JOptionPane.showMessageDialog(null,"Web field is empty");
+				}
+				else if(aquota.equals("")){
+					JOptionPane.showMessageDialog(null,"Any Time field is empty");
+				}
+				else if(tquota.equals("")){
+					JOptionPane.showMessageDialog(null,"Total Monthly field is empty");
+				}
+				else {
+					
+				}
 				
 				try {
 				String query = "Insert INTO mobile_package(MPackageID,PackageName,PackageDetails,ConnectingFees,Email_Boxes,IP_Config,Night_Time,Web,Any_Time,Total_Monthly) values ('"+pid+"','"+nam+"','"+pdetails+"','"+cfee+"','"+ebox+"','"+ipconfig+"','"+nquota+"','"+wspace+"','"+aquota+"','"+tquota+"')";
@@ -473,9 +506,29 @@ public class ManagePackages extends KTab {
 				
 				String tpid = TvPackageID.getText();
 				String tnam = PackageNames.getText();
-				int tcfee = Integer.parseInt(ConnectingFee.getText());
-				double rfee = Double.parseDouble(Rental_Fee.getText());
-				int nchannels = Integer.parseInt(No_Of_Channels.getText());
+				String tcfee = ConnectingFee.getText();
+				String rfee = Rental_Fee.getText();
+				String nchannels = No_Of_Channels.getText();
+				
+				if(tpid.equals("")) {
+					JOptionPane.showMessageDialog(null,"Please enter a valid TV Package ID");
+				}
+				else if(tnam.equals("")){
+					JOptionPane.showMessageDialog(null,"Package Name field is empty");
+				}
+				else if(tcfee.equals("")){
+					JOptionPane.showMessageDialog(null,"Connecting Fee field is empty");
+				}
+				else if(rfee.equals("")){
+					JOptionPane.showMessageDialog(null,"Rental Fee field is empty");
+				}
+				else if(nchannels.equals("")){
+					JOptionPane.showMessageDialog(null,"No.Of.Channels field is empty");
+				}
+				else {
+					
+				}
+				
 				
 				try {
 				String query = "Insert INTO tv_package(TvPackageID,PackageName,ConnectingFee,Rental_Fee,No_Of_Channels) values ('"+tpid+"','"+tnam+"','"+tcfee+"','"+rfee+"','"+nchannels+"')";
