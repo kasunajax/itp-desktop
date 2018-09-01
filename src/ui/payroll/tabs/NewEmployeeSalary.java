@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import utils.common.database.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JPanel;
 
 public class NewEmployeeSalary extends KTab {
 	private JTextField empid;
@@ -29,6 +30,12 @@ public class NewEmployeeSalary extends KTab {
 	private JTextField t_achv;
 	private JTextField t_exce;
 	private JTextField penalty;
+	
+	
+	String com = null;
+	String tarA = null;
+	String tarE = null;
+	String tarP = null;
 
 	/**
 	 * Launch the application.
@@ -54,125 +61,207 @@ public class NewEmployeeSalary extends KTab {
 		
 			
 		JLabel lblNewLabel = new JLabel("New Employee Payroll");
-		lblNewLabel.setBounds(32, 26, 123, 14);
+		lblNewLabel.setBounds(69, 61, 123, 14);
 		getContentPane().add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Employee ID");
-		lblNewLabel_1.setBounds(32, 111, 86, 14);
-		getContentPane().add(lblNewLabel_1);
-		
-		JTextPane msg = new JTextPane();
-		msg.setBounds(205, 127, 379, 20);
-		getContentPane().add(msg);
-		
-		JTextPane empn = new JTextPane();
-		empn.setBounds(205, 158, 267, 20);
-		getContentPane().add(empn);
-		
-		JTextPane empd = new JTextPane();
-		empd.setBounds(205, 185, 267, 20);
-		getContentPane().add(empd);
-		
-		empid = new JTextField();
-		empid.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				String empID = empid.getText();
-				
-				if (empID == null) {
-					msg.setText("Please enter a valid employee number");
-				}
-				else {
-					
-				try {
-					String sql = "select FirstName, LastName, Designation from employees where EmployeeID = '"+ empID +"'";
-		            PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-		            ResultSet rs = stmt.executeQuery();
-					
-		            if (rs.next()) {
-		            	String fname = rs.getString(0);
-			            String lname = rs.getString(1);
-			            String desig = rs.getString(2);
-			            
-			            String sql1 = "select * from payroll where EmpID = '"+ empID +"'";
-			            PreparedStatement stmt1 = Database.getConnection().prepareStatement(sql1);
-			            ResultSet rs1 = stmt1.executeQuery();
-			            
-			            if(rs1.next()) {
-			            	msg.setText("Employee salary profile already exists");
-			            }
-			            else {
-			            	msg.setText("Employee validated");
-			            	empn.setText(fname+" "+lname);
-			            	empd.setText(desig);
-			            }
-		            }
-		            else {
-		            	empid.setText(" ");
-		        		msg.setText("Employee details not found, please enter the correct ID");
-		            }
-		            
-		           
-				}catch (SQLException es) {
-					es.printStackTrace();
-				}
-				}
-			}
-		});
-		empid.setBounds(205, 108, 110, 20);
-		getContentPane().add(empid);
-		empid.setColumns(10);
-		
-		JLabel lblNewLabel_2 = new JLabel("Basic Salary");
-		lblNewLabel_2.setBounds(32, 274, 86, 14);
-		getContentPane().add(lblNewLabel_2);
 		
 		JTextPane txtpnFvhyugkkl = new JTextPane();
 		txtpnFvhyugkkl.setText("Add new employee payroll details below after validating the employee using employee ID");
-		txtpnFvhyugkkl.setBounds(32, 51, 536, 20);
+		txtpnFvhyugkkl.setBounds(69, 86, 536, 20);
 		getContentPane().add(txtpnFvhyugkkl);
 		
-		JLabel lblNewLabel_6 = new JLabel("Employee Name");
-		lblNewLabel_6.setBounds(32, 158, 86, 14);
-		getContentPane().add(lblNewLabel_6);
-		
-		JLabel lblNewLabel_8 = new JLabel("Designation");
-		lblNewLabel_8.setBounds(32, 185, 76, 14);
-		getContentPane().add(lblNewLabel_8);
-		         
-		
-		bsal = new JTextField();
-		bsal.setBounds(205, 271, 110, 20);
-		getContentPane().add(bsal);
-		bsal.setColumns(10);
-		
-		JLabel lblNewLabel_3 = new JLabel("Commission %");
-		lblNewLabel_3.setBounds(32, 309, 86, 14);
-		getContentPane().add(lblNewLabel_3);
-		
 		comm = new JTextField();
-		comm.setBounds(205, 306, 110, 20);
+		comm.setBounds(717, 217, 110, 20);
 		getContentPane().add(comm);
 		comm.setColumns(10);
 		
+		t_achv = new JTextField();
+		t_achv.setBounds(717, 266, 51, 20);
+		getContentPane().add(t_achv);
+		t_achv.setColumns(10);
+		
+		t_exce = new JTextField();
+		t_exce.setBounds(717, 303, 51, 20);
+		getContentPane().add(t_exce);
+		t_exce.setColumns(10);
+		
+		penalty = new JTextField();
+		penalty.setBounds(717, 341, 86, 20);
+		getContentPane().add(penalty);
+		penalty.setColumns(10);
+		
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(69, 106, 401, 180);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Employee ID");
+		lblNewLabel_1.setBounds(20, 23, 60, 14);
+		panel.add(lblNewLabel_1);
+		
+		JTextPane empn = new JTextPane();
+		empn.setBounds(130, 105, 172, 20);
+		panel.add(empn);
+		
+		JTextPane empd = new JTextPane();
+		empd.setBounds(130, 136, 172, 20);
+		panel.add(empd);
+		
+		JTextPane msg = new JTextPane();
+		msg.setBounds(20, 58, 337, 20);
+		panel.add(msg);
+		
+		empid = new JTextField();
+		empid.setBounds(132, 20, 86, 20);
+		panel.add(empid);
+		empid.setColumns(10);
+		
+		JLabel lblNewLabel_6 = new JLabel("Employee Name");
+		lblNewLabel_6.setBounds(20, 111, 86, 14);
+		panel.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_8 = new JLabel("Designation");
+		lblNewLabel_8.setBounds(20, 142, 76, 14);
+		panel.add(lblNewLabel_8);
+		
+		JButton add = new JButton("Add");
+		add.setEnabled(false);
+		
+		JButton validate = new JButton("Validate");
+		validate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String empID = empid.getText();
+				
+				if (empID.length() < 1 || empID.length() > 5)
+					msg.setText("Please enter a valid employee number");
+				
+				else {
+					
+					
+					
+					try {
+						String sql = "select * from employees where EmployeeID = '"+ empID +"'";
+			            PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+			            ResultSet rs = stmt.executeQuery();
+						
+			            if (rs.next()) {
+			            	String fname = rs.getString(2);
+				            String lname = rs.getString(3);
+				            String desig = rs.getString(8);
+				            
+				            String sql1 = "select * from payroll where EmpID = '"+ empID +"'";
+				            PreparedStatement stmt1 = Database.getConnection().prepareStatement(sql1);
+				            ResultSet rs1 = stmt1.executeQuery();
+				            
+				            if(rs1.next()) {
+				            	msg.setText("Employee salary profile already exists");
+				            }
+				            else {
+				            	msg.setText("Employee validated");
+				            	empn.setText(fname+" "+lname);
+				            	empd.setText(desig);
+				            	add.setEnabled(true);
+				            }
+			            }
+			            else {
+			            	empid.setText(" ");
+			        		msg.setText("Employee details not found, please enter the correct ID");
+			            }
+			            
+			           
+					}catch (SQLException es) {
+						es.printStackTrace();
+					}
+					}
+			}
+		});
+		validate.setBounds(265, 19, 89, 23);
+		panel.add(validate);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(69, 306, 401, 211);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JComboBox pymt = new JComboBox();
+		pymt.setBounds(195, 162, 91, 20);
+		panel_1.add(pymt);
+		pymt.setModel(new DefaultComboBoxModel(new String[] {"Bank Transfer", "Cheque", "Cash"}));
+		
+		JLabel lblNewLabel_7 = new JLabel("Payment Type");
+		lblNewLabel_7.setBounds(31, 163, 76, 18);
+		panel_1.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_12 = new JLabel("Category");
+		lblNewLabel_12.setBounds(31, 24, 99, 14);
+		panel_1.add(lblNewLabel_12);
+		
+		JRadioButton mgt = new JRadioButton("Management");
+		mgt.setBounds(150, 20, 111, 23);
+		panel_1.add(mgt);
+		JRadioButton sale = new JRadioButton("Sales");
+		sale.setBounds(281, 20, 76, 23);
+		panel_1.add(sale);
+		
+		
+		
+		
+		JTextPane txtpnepfEmployerContribution = new JTextPane();
+		txtpnepfEmployerContribution.setBounds(10, 131, 384, 20);
+		panel_1.add(txtpnepfEmployerContribution);
+		txtpnepfEmployerContribution.setText("**EPF Employer Contribution will be 12% and ETF will be 3% for all employees");
+		
 		JLabel lblNewLabel_4 = new JLabel("EPF Employee Contribution");
-		lblNewLabel_4.setBounds(32, 460, 149, 14);
-		getContentPane().add(lblNewLabel_4);
+		lblNewLabel_4.setBounds(31, 97, 135, 23);
+		panel_1.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_2 = new JLabel("Basic Salary");
+		lblNewLabel_2.setBounds(31, 61, 86, 14);
+		panel_1.add(lblNewLabel_2);
+		
+		bsal = new JTextField();
+		bsal.setBounds(194, 58, 110, 20);
+		panel_1.add(bsal);
+		bsal.setColumns(10);
 		
 		
 		//EPF employee radio buttons
-		JRadioButton min = new JRadioButton("8%");
-		JRadioButton max = new JRadioButton("9%");
+		JRadioButton min = new JRadioButton("8");
+		min.setBounds(195, 99, 51, 23);
+		panel_1.add(min);
 		
-		min.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (min.isSelected()) {
-					max.setSelected(false);
-				}
-			}
-		});
-		min.setBounds(205, 456, 51, 23);
-		getContentPane().add(min);
+		
+		
+		
+		JRadioButton max = new JRadioButton("9");
+		max.setBounds(281, 99, 46, 23);
+		panel_1.add(max);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(519, 188, 346, 189);
+		getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblNewLabel_3 = new JLabel("Commission %");
+		lblNewLabel_3.setBounds(26, 25, 69, 14);
+		panel_2.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_9 = new JLabel("Achieved");
+		lblNewLabel_9.setBounds(141, 73, 46, 14);
+		panel_2.add(lblNewLabel_9);
+		
+		JLabel lblNewLabel_10 = new JLabel("Exceeded");
+		lblNewLabel_10.setBounds(137, 109, 61, 14);
+		panel_2.add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Target Bonus %");
+		lblNewLabel_5.setBounds(26, 73, 86, 14);
+		panel_2.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_11 = new JLabel("Target Penalty %");
+		lblNewLabel_11.setBounds(26, 150, 99, 14);
+		panel_2.add(lblNewLabel_11);
 		
 		max.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -181,63 +270,27 @@ public class NewEmployeeSalary extends KTab {
 				}
 			}
 		});
-		max.setBounds(312, 456, 46, 23);
-		getContentPane().add(max);
 		
-		JLabel lblNewLabel_7 = new JLabel("Payment Type");
-		lblNewLabel_7.setBounds(32, 516, 76, 14);
-		getContentPane().add(lblNewLabel_7);
+		min.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (min.isSelected()) {
+					max.setSelected(false);
+				}
+			}
+		});
 		
-		JComboBox pymt = new JComboBox();
-		pymt.setModel(new DefaultComboBoxModel(new String[] {"Bank Transfer", "Cheque", "Cash"}));
-		pymt.setBounds(205, 512, 110, 22);
-		getContentPane().add(pymt);
-		
-		
-		
-		
-		JTextPane txtpnepfEmployerContribution = new JTextPane();
-		txtpnepfEmployerContribution.setText("**EPF Employer Contribution will be 12% and ETF will be 3% for all employees");
-		txtpnepfEmployerContribution.setBounds(32, 485, 472, 20);
-		getContentPane().add(txtpnepfEmployerContribution);
-		
-		JLabel lblNewLabel_5 = new JLabel("Target Bonus %");
-		lblNewLabel_5.setBounds(32, 345, 86, 14);
-		getContentPane().add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_9 = new JLabel("Achieved");
-		lblNewLabel_9.setBounds(135, 345, 46, 14);
-		getContentPane().add(lblNewLabel_9);
-		
-		JLabel lblNewLabel_10 = new JLabel("Exceeded");
-		lblNewLabel_10.setBounds(135, 376, 66, 14);
-		getContentPane().add(lblNewLabel_10);
-		
-		t_achv = new JTextField();
-		t_achv.setBounds(205, 342, 51, 20);
-		getContentPane().add(t_achv);
-		t_achv.setColumns(10);
-		
-		t_exce = new JTextField();
-		t_exce.setBounds(205, 373, 51, 20);
-		getContentPane().add(t_exce);
-		t_exce.setColumns(10);
-		
-		JLabel lblNewLabel_11 = new JLabel("Target Penalty %");
-		lblNewLabel_11.setBounds(32, 416, 99, 14);
-		getContentPane().add(lblNewLabel_11);
-		
-		penalty = new JTextField();
-		penalty.setBounds(204, 413, 86, 20);
-		getContentPane().add(penalty);
-		penalty.setColumns(10);
-		
-		JLabel lblNewLabel_12 = new JLabel("Category");
-		lblNewLabel_12.setBounds(32, 239, 46, 14);
-		getContentPane().add(lblNewLabel_12);
-		
-		JRadioButton mgt = new JRadioButton("Management");
-		JRadioButton sale = new JRadioButton("Sales");
+		//action listener for category radio button sale
+		sale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (sale.isSelected()) {
+					mgt.setSelected(false);
+					comm.setEditable(true);
+					t_achv.setEditable(true);
+					t_exce.setEditable(true);
+					penalty.setEditable(true);
+				}
+			}
+		});
 		
 		
 		//action listener for category radio button mgt
@@ -252,37 +305,30 @@ public class NewEmployeeSalary extends KTab {
 				}
 			}
 		});
-		mgt.setBounds(206, 235, 109, 23);
-		getContentPane().add(mgt);
-		
-		//action listener for category radio button sale
-		sale.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (sale.isSelected()) {
-					mgt.setSelected(false);
-				}
-			}
-		});
-		sale.setBounds(346, 235, 109, 23);
-		getContentPane().add(sale);
 		
 		
-		JButton add = new JButton("Add");
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				String emp = empid.getText();
 				String bas = bsal.getText();
 				String cat;
-				String com = comm.getText();
-				String tarA = t_achv.getText();
-				String tarE = t_exce.getText();
-				String tarP = penalty.getText();
+				double basic;
+				double epfcon;
+				double commission;
+				double tarAchv;
+				double tarExce;
+				double pen;
 				
 				if (mgt.isSelected())
 					cat = mgt.getText();
-					else if (sale.isSelected())
+					else if (sale.isSelected()) {
 						cat = sale.getText();
+						com = comm.getText();
+						tarA = t_achv.getText();
+						tarE = t_exce.getText();
+						tarP = penalty.getText();
+					}
 					else cat = null;
 				
 				String epf;
@@ -305,8 +351,8 @@ public class NewEmployeeSalary extends KTab {
 						JOptionPane.showMessageDialog(null, "One or more required information is not entered. Please check!");
 					}
 					else {
-						double basic = Double.parseDouble(bas);
-						double epfcon = Double.parseDouble(epf);
+						basic = Double.parseDouble(bas);
+						epfcon = Double.parseDouble(epf);
 						
 						sql = "insert into payroll (EmpID, Category, Basic_Sal, EPF_Employee, Payment_Type) values('"+emp+"','"+cat+"','"+basic+"','"+epfcon+"','"+pyt+"')";
 					}
@@ -316,31 +362,32 @@ public class NewEmployeeSalary extends KTab {
 						JOptionPane.showMessageDialog(null, "One or more required information is not entered. Please check!");
 					}
 					else {
-						double basic = Double.parseDouble(bas);
-						double commission = Double.parseDouble(com);
-						double tarAchv = Double.parseDouble(tarA);
-						double tarExce =  Double.parseDouble(tarE);
-						double pen =  Double.parseDouble(tarP);
-						double epfcon = Double.parseDouble(epf);
+						basic = Double.parseDouble(bas);
+						commission = Double.parseDouble(com);						
+						tarAchv = Double.parseDouble(tarA);
+						tarExce =  Double.parseDouble(tarE);
+						pen =  Double.parseDouble(tarP);
+						epfcon = Double.parseDouble(epf);
 
-						sql = "insert into payroll (EmpID, Category, Basic_Sal,Comm, Target_Achieved_Bonus, Target_Exceeded_Bonus, Target_Penalty, EPF_Employee, EPF_Employer, ETF, Payment_Type) values('"+emp+"','"+cat+"','"+basic+"','"+commission+"','"+tarAchv+"','"+tarExce+"','"+pen+"','"+epfcon+"','"+pyt+"')";
-					}
+						sql = "insert into payroll (EmpID, Category, Basic_Sal,Comm, Target_Achieved_Bonus, Target_Exceeded_Bonus, Target_Penalty, EPF_Employee, Payment_Type) values('"+emp+"','"+cat+"','"+basic+"','"+commission+"','"+tarAchv+"','"+tarExce+"','"+pen+"','"+epfcon+"','"+pyt+"')";
+					} 
+					
 				}
-				
+				 
 				try {
             		PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             		stmt.execute();
-            		JOptionPane.showConfirmDialog(null, "Details added");
+            		JOptionPane.showMessageDialog(null, "Details added");
             	} catch (SQLException es) {
             		es.printStackTrace();
             	}
 			}
 		});
-		add.setBounds(269, 574, 89, 23);
+		add.setBounds(714, 455, 89, 23);
 		getContentPane().add(add);
 		
 		JButton clr = new JButton("Clear");
-		clr.setBounds(434, 574, 89, 23);
+		clr.setBounds(714, 489, 89, 23);
 		getContentPane().add(clr);
 		
 	}
