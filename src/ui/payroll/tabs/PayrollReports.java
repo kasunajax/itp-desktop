@@ -37,7 +37,7 @@ public class PayrollReports extends KTab {
 		super("Payroll Reports");
 		
 		JLabel lblNewLabel = new JLabel("Payroll Reports");
-		lblNewLabel.setBounds(28, 31, 85, 14);
+		lblNewLabel.setBounds(67, 70, 85, 23);
 		getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("Generate Report");
@@ -45,23 +45,23 @@ public class PayrollReports extends KTab {
 		getContentPane().add(btnNewButton);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Monthly Payroll Report");
-		chckbxNewCheckBox.setBounds(28, 92, 138, 23);
+		chckbxNewCheckBox.setBounds(84, 127, 138, 23);
 		getContentPane().add(chckbxNewCheckBox);
 		
 		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Commission Report");
-		chckbxNewCheckBox_1.setBounds(28, 153, 138, 23);
+		chckbxNewCheckBox_1.setBounds(84, 181, 138, 23);
 		getContentPane().add(chckbxNewCheckBox_1);
 		
 		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Target Bonus Report");
-		chckbxNewCheckBox_2.setBounds(28, 219, 138, 23);
+		chckbxNewCheckBox_2.setBounds(84, 238, 138, 23);
 		getContentPane().add(chckbxNewCheckBox_2);
 		
 		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Employee Payroll Report");
-		chckbxNewCheckBox_3.setBounds(28, 283, 153, 23);
+		chckbxNewCheckBox_3.setBounds(84, 295, 153, 23);
 		getContentPane().add(chckbxNewCheckBox_3);
 		
 		JMonthChooser monthChooser = new JMonthChooser();
-		monthChooser.setBounds(203, 92, 99, 20);
+		monthChooser.setBounds(306, 127, 99, 20);
 		getContentPane().add(monthChooser);
 		
 
