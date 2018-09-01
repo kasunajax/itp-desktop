@@ -144,7 +144,10 @@ public class regionAdmin extends KTab {
 					
 					String officeId = txtOfficeId.getText();
 					
-					if(officeId.equals("")) {
+					Pattern pattern1 = Pattern.compile("OFC\\d\\d\\d");
+					Matcher match1 = pattern1.matcher(officeId);
+					
+					if(!match1.matches() && officeId.equals("")) {
 		            	JOptionPane.showMessageDialog(null,"Please enter the office ID");
 				}
 					else {
@@ -184,13 +187,13 @@ public class regionAdmin extends KTab {
 					String regionType = (String) comboRegionType.getSelectedItem();
 				
 					
-					Pattern pattern1 = Pattern.compile("\\d{3}");
+					Pattern pattern1 = Pattern.compile("OFC\\d\\d\\d");
 					Matcher match1 = pattern1.matcher(officeId);
 		            
 					Pattern pattern2 = Pattern.compile("\\d{3}-\\d{7}");
 					Matcher match2 = pattern2.matcher(contact);
 					
-					if(officeId.equals("")) {
+					if(!match1.matches() || officeId.equals("")) {
 						JOptionPane.showMessageDialog(null,"Please enter a valid office id");
 					}
 					else if(regionName.equals("")){
@@ -259,15 +262,14 @@ public class regionAdmin extends KTab {
 				String regionName = txtRegionName.getText();
 				String regionType = (String) comboRegionType.getSelectedItem();
 				
-				officeId = "REG_" + officeId;
 				
-				Pattern pattern1 = Pattern.compile("\\d{3}");
+				Pattern pattern1 = Pattern.compile("OFC\\d\\d\\d");
 				Matcher match1 = pattern1.matcher(officeId);
 	            
 				Pattern pattern2 = Pattern.compile("\\d{3}-\\d{7}");
 				Matcher match2 = pattern2.matcher(contact);
 				
-				if(officeId.equals("")) {
+				if(!match1.matches() || officeId.equals("")) {
 					JOptionPane.showMessageDialog(null,"Please enter a valid office id");
 				}
 				else if(regionName.equals("")){
