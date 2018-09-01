@@ -12,7 +12,6 @@ import ui.components.TabStruct;
 import ui.employees.tabs.Attendance;
 import ui.employees.tabs.DealerInfo;
 import ui.employees.tabs.Executive;
-import ui.employees.tabs.ManageEmployees;
 import ui.employees.tabs.StaffInfo;
 import ui.orders.tabs.PlaceOrder;
 import ui.orders.tabs.ProcessOrders;
@@ -51,7 +50,6 @@ public class EmployeeFrame extends KFrame {
 	public EmployeeFrame() {
 		
 		TabStruct[] ts = {
-				new TabStruct(ManageEmployees.class, "Employees"),
 				new TabStruct(StaffInfo.class, "StaffInfo"),
 				new TabStruct(DealerInfo.class, "DealerInfo"),
 				new TabStruct(Attendance.class, "Attendance"),
