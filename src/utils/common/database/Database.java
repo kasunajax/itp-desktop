@@ -2,6 +2,7 @@ package utils.common.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -27,6 +28,16 @@ public class Database {
 		
 		return null;
 		
+	}
+	
+	public static PreparedStatement get(String sql) {
+		try {
+			return getConnection().prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static TableModel resultSetToTableModel(ResultSet rs) {
