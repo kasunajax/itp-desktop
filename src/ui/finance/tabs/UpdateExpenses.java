@@ -190,7 +190,7 @@ public class UpdateExpenses extends KTab {
 						
 						
 
-			Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{4}||d{5}");
+			Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
 			Matcher matc1111 = patrn1111.matcher(empid);
             
 			 Pattern patrn = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
