@@ -7,9 +7,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -343,6 +346,8 @@ public class StaffInfo extends KTab {
 				cmbType.setSelectedItem(Type.toString());
 				txtEmpID.setText(EmpID.toString());
 				SDate.setDate(Sdate);
+				
+				
 				EDate.setDate(Edate);
 				txtOfficeID.setText(OfficeID.toString());
 				txtPayrollID.setText(PayrollID.toString());
@@ -354,9 +359,74 @@ public class StaffInfo extends KTab {
 
 		loads()	;//calling method loads to get values from database and convert it to the jtable type values
 		
-		
+		 
 	}
 	public void Create() {
+		{
+		String EmpID = txtEmpID.getText();
+		String FName = txtFName.getText();
+		String LName = txtLName.getText();
+		String NIC = txtNIC.getText();
+		String Address = txtAddress.getText();
+		String Designation = txtDesignation.getText();
+		String UName = txtUserName.getText();
+		String PWord = txtPassword.getText();
+		String PayrollID = txtPayrollID.getText();
+		String OfficeID = txtOfficeID.getText();		
+	
+		String MobNo = txtMobNo.getText();
+		
+		
+		Pattern pattern1 = Pattern.compile("\\d{10}");
+		Matcher mobile = pattern1.matcher(MobNo);
+        
+		String FixedNo = txtFixedL.getText();
+		Pattern pattern2 = Pattern.compile("\\d{10}");
+		Matcher match2 = pattern2.matcher(FixedNo);
+		
+		 if(!mobile.matches() || mobile.equals("")) {
+			JOptionPane.showMessageDialog(null,"Please enter a valid Mobile no");
+		}
+		
+		else if(!match2.matches() || match2.equals("")) {
+			JOptionPane.showMessageDialog(null,"Please enter a valid Fixed Line no");
+		}
+		else if(EmpID.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter EmployeeID");
+			}
+		else if(FName.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter First Name");
+			}
+		else if(LName.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter Last Name");
+			}
+		else if(NIC.equals("")){
+			JOptionPane.showMessageDialog(null,"NIC");
+			}
+		else if(Address.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter Address");
+			}
+		else if(Designation.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter Designation");
+			}
+		else if(UName.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter UserName");
+			}
+		else if(PWord.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter Password");
+			}
+		else if(PayrollID.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter PayrollID");
+			}
+		else if(OfficeID.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter OfficeID");
+			}
+		
+		 
+		else {
+		
+		
+		
 		
 		String sql = "INSERT INTO `employees` (`EmployeeID`, `FirstName`, `LastName`, `Gender`, `DOB`, `NIC`, `Address`, `Designation`,`Username`, `Password`, `Type`, `StartDate`, `EndDate`, `SalaryProfileID`, `OfficeID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -409,7 +479,7 @@ public class StaffInfo extends KTab {
 		catch(SQLException e1){
 			e1.printStackTrace();
 		}
-
+		}}
 	}
 	
 	
