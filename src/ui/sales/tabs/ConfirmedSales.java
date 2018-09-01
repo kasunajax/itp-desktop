@@ -31,6 +31,7 @@ public class ConfirmedSales extends KTab {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					ConfirmedSales frame = new ConfirmedSales();
 					frame.setVisible(true);
 				} catch (Exception e) {

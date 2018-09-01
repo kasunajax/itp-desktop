@@ -33,6 +33,7 @@ public class PendingSales extends KTab {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+				
 					PendingSales frame = new PendingSales();
 					frame.setVisible(true);
 				} catch (Exception e) {

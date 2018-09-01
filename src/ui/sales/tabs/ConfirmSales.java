@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,8 +73,7 @@ public class ConfirmSales extends KTab {
 		getContentPane().add(btnNewButton);
 		
 		
-		textField = new JTextField();
-		
+		textField = new JTextField();		
 		textField.setBounds(96, 148, 400, 40);
 		getContentPane().add(textField);
 		textField.setColumns(10);
@@ -85,11 +87,10 @@ public class ConfirmSales extends KTab {
 		JButton btnNewButton_1 = new JButton("Add Report");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String sql;
 				
-				String csvFile = jfc.getSelectedFile().getAbsolutePath();
-				System.out.println(csvFile);
-						//"C:\\Users\\User\\Documents\\SLIIT\\Year 2\\Semester 2\\ITP\\DialogSRT1.csv";
-		        BufferedReader br = null;
+				String csvFile = textField.getText();
+			    BufferedReader br = null;
 		        String line = "";
 		        String cvsSplitBy = ",";
 		        
@@ -126,13 +127,23 @@ public class ConfirmSales extends KTab {
 		            	String cost = sale[7];
 		            	String status = sale[8];
 		            	
-		            
-		                try {		                	                	
-		                	String sql = "INSERT INTO order_confirmation(Serial_Number,Name,Confirmed_Date,Customer_Name,Customer_Address,NIC,Customer_ContactNo,Cost,Status)"
+		            			            
+		                try {			                	
+		                	sql = "INSERT INTO order_confirmation(Serial_Number,Name,Confirmed_Date,Customer_Name,Customer_Address,NIC,Customer_ContactNo,Cost,Status)"
 		                			+ "Values('"+serialNumber+"','"+name+"','"+confirmedDate+"','"+customerName+"','"+customerAddress+"','"+nic+"','"+customerContactNo+"','"+cost+"','"+status+"')";
 		                			
 		                	PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
 							stmt.execute();
+		                }catch(SQLIntegrityConstraintViolationException e1) {
+		                        	sql = "UPDATE order_confirmation SET Name = '"+name+"',Confirmed_Date = '"+confirmedDate+"',Customer_Name = '"+customerName+"',"
+		                			+ "Customer_Address = '"+customerAddress+"',NIC = '"+nic+"' ,Customer_ContactNo = '"+customerContactNo+"',Cost = '"+cost+"',Status = '"+status+"' WHERE Serial_Number='"+serialNumber+"'";
+		                			
+		                	try {
+		                	PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+							stmt.execute();
+		                	}catch(Exception e11) {
+		                		e11.printStackTrace();
+		                	}
 		                }catch(Exception e1) {
 		                	e1.printStackTrace();
 		                }         
@@ -160,7 +171,20 @@ public class ConfirmSales extends KTab {
 		JButton btnNewButton_2 = new JButton("Confirm Sales");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
 				
+					
+				
+					String sql = "UPDATE order_confirmation o, items i SET o.Status='Confirmed', i.Status='Confirmed' WHERE o.Serial_Number=i.Serial_Number";
+					PreparedStatement stmt = Database.getConnection().prepareStatement(sql);	 
+			        stmt.executeQuery();
+			        
+				   
+			        
+				}catch(Exception e1) {
+					e1.printStackTrace();
+				
+				}
 			}
 		});
 		btnNewButton_2.setBounds(425, 416, 125, 40);

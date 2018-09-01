@@ -98,7 +98,8 @@ public class UnconfirmedSales extends KTab {
 				
 				try {
 					String sql = "SELECT * FROM items";
-							  /*WHERE EmployeeID = '+EmpId' AND 	ProcessedDate BETWEEN 'dateFrom' AND 'dateTo' AND Status = 'Unconfirmed'";*/
+							
+					/*WHERE EmployeeID = '+EmpId' AND 	ProcessedDate BETWEEN 'dateFrom' AND 'dateTo' AND Status = 'Unconfirmed'";*/
 					PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
 					ResultSet rs = stmt.executeQuery();
 					
