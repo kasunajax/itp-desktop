@@ -5,21 +5,28 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 
 import ui.components.KTab;
+import utils.common.database.Database;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JPanel;
 
 public class ViewPayslip extends KTab {
-	private JTextField textField;
+	private JTextField empID;
 	private JTable table;
 
 	/**
@@ -45,71 +52,70 @@ public class ViewPayslip extends KTab {
 		super("View Payslip");
 		
 		JLabel lblNewLabel = new JLabel("View Monthly Payslip");
-		lblNewLabel.setBounds(70, 65, 126, 14);
+		lblNewLabel.setBounds(80, 78, 126, 14);
 		getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Employee ID");
-		lblNewLabel_1.setBounds(70, 102, 93, 14);
-		getContentPane().add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Month");
-		lblNewLabel_2.setBounds(70, 150, 46, 14);
-		getContentPane().add(lblNewLabel_2);
-		
-		textField = new JTextField();
-		textField.setBounds(184, 99, 104, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}));
-		comboBox.setBounds(184, 146, 104, 22);
-		getContentPane().add(comboBox);
-		
-		JButton btnNewButton = new JButton("Display");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(476, 98, 89, 23);
-		getContentPane().add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Clear");
-		btnNewButton_1.setBounds(476, 196, 89, 23);
-		getContentPane().add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("Print");
-		btnNewButton_2.setBounds(476, 146, 89, 23);
-		getContentPane().add(btnNewButton_2);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(80, 295, 739, 229);
+		getContentPane().add(panel_1);
 		
 		table = new JTable();
-		table.setCellSelectionEnabled(true);
-		table.setColumnSelectionAllowed(true);
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Employee ID", null},
-				{"Employee Name", null},
-				{"Designation", null},
-				{"Payroll Month", null},
-				{"Number of working days", null},
-				{"Basic Salary", null},
-				{"EPF Employee", null},
-				{"EPF Employer", null},
-				{"ETF", null},
-				{"Commission paid", null},
-				{"Target Bonus", null},
-				{"Target Penalty", null},
-				{"Net Salary", null},
-			},
-			new String[] {
-				"Title", "Value"
+		panel_1.add(table);
+		
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(80, 99, 438, 171);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JComboBox month = new JComboBox();
+		month.setBounds(203, 63, 73, 19);
+		panel.add(month);
+		month.setModel(new DefaultComboBoxModel(new String[] {"", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}));
+		
+		empID = new JTextField();
+		empID.setBounds(203, 25, 104, 20);
+		panel.add(empID);
+		empID.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Employee ID");
+		lblNewLabel_1.setBounds(56, 25, 93, 14);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Month");
+		lblNewLabel_2.setBounds(56, 65, 46, 14);
+		panel.add(lblNewLabel_2);
+		
+		JButton display = new JButton("Display");
+		display.setBounds(247, 109, 89, 23);
+		panel.add(display);
+		
+		
+		
+		display.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String EmpID = empID.getText();
+				String mon = (String)month.getSelectedItem();
+				
+				
+				String sql = "select * from monthly_pay where Salary_Month = '"+mon+"' and Payroll_ID IN (select PayrollID from payroll where EmpID = '"+EmpID+"')";
+				try {
+					PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+            		ResultSet rs = stmt.executeQuery();
+            		
+            		if (rs.next()) {
+                       table.setModel(Database.resultSetToTableModel(rs));
+            			
+            		}
+            		else {
+            			JOptionPane.showMessageDialog(null, "Could not find any records.");
+            			
+            		}
+				}catch (SQLException es) {
+					
+				}
 			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(147);
-		table.getColumnModel().getColumn(1).setPreferredWidth(145);
-		table.setBounds(42, 598, 453, -313);
-		getContentPane().add(table);
+		});
 
 	}
 }
