@@ -208,7 +208,7 @@ public class Home extends KTab {
 					if(check) {
 						try {
 							
-							sql = "select * from items where Executive = '"+ text +"'";
+							sql = "select items.ItemID,items.Serial_Number,items.Name,items.Added_Date,items.Sold_Date,items.Status,items.Executive,items.cost from items where Executive = '"+ text +"'";
 							PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
 							ResultSet rs = stmt.executeQuery();
 							table.setModel(Database.resultSetToTableModel(rs));
