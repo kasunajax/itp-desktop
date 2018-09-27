@@ -26,7 +26,7 @@ import utils.common.database.Database;
 import javax.swing.JScrollPane;
 import java.awt.Font;
 
-import java.io.File;
+import java.io.*;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -252,7 +252,7 @@ public class Home extends KTab {
 				}
 
 				JFileChooser c = new JFileChooser();
-				c.setSelectedFile(new File("CW_"+new SimpleDateFormat("ddMMyyyyHHmmss").format(new java.util.Date()) + ".xlsx"));
+				c.setSelectedFile(new File("CW_"+new SimpleDateFormat("ddMMyyyyHHmmss").format(new java.util.Date()) + ".xls"));
 			    int rVal = c.showSaveDialog(Home.this);
 			    if (rVal == JFileChooser.APPROVE_OPTION) {
 			    	toExcel(table, c.getSelectedFile());
@@ -280,7 +280,10 @@ public class Home extends KTab {
 
 	        for(int i=0; i< model.getRowCount(); i++) {
 	            for(int j=0; j < model.getColumnCount(); j++) {
-	                excel.write(model.getValueAt(i,j).toString()+"\t");
+	            	if (model.getValueAt(i,j) == null)
+	            		excel.write("   "+"\t");
+	            	else
+	            		excel.write(model.getValueAt(i,j).toString()+"\t");
 	            }
 	            excel.write("\n");
 	        }
