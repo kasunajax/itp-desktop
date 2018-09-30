@@ -37,7 +37,6 @@ import javax.swing.DefaultComboBoxModel;
 
 public class UpdateExpenses extends KTab {
 	private JTextField search;
-	private JTextField t1;
 	private JTable jtable1;
 	private JTextField t2;
 	private JTextField t4;
@@ -111,6 +110,10 @@ public class UpdateExpenses extends KTab {
 		t5.setBounds(602, 347, 147, 24);
 		getContentPane().add(t5);
 		
+		JLabel t1 = new JLabel("");
+		t1.setBounds(250, 352, 74, 19);
+		getContentPane().add(t1);
+		
 		
 		JLabel lblNewLabel = new JLabel("Search by Type");
 		lblNewLabel.setBounds(166, 38, 114, 14);
@@ -165,11 +168,6 @@ public class UpdateExpenses extends KTab {
 		lblAdministrativeExpenses.setBounds(488, 351, 56, 14);
 		getContentPane().add(lblAdministrativeExpenses);
 		
-		t1 = new JTextField();
-		t1.setBounds(250, 346, 147, 24);
-		getContentPane().add(t1);
-		t1.setColumns(10);
-		
 		JButton btnNewButton_1 = new JButton("Update");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -193,8 +191,8 @@ public class UpdateExpenses extends KTab {
 			Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
 			Matcher matc1111 = patrn1111.matcher(empid);
             
-			 Pattern patrn = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
-			Matcher matc = patrn.matcher(expensId);
+		//	 Pattern patrn = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
+		//	Matcher matc = patrn.matcher(expensId);
             
 		
 				
@@ -205,9 +203,9 @@ public class UpdateExpenses extends KTab {
 			 
 			
 			 
-			if(!matc.matches()||expensId.equals("")) {
+			/*if(expensId.equals("")) {
 				JOptionPane.showMessageDialog(null,"Please enter a valid ExpensId");
-			}else if(dscrp.equals("")) {
+			}else*/ if(dscrp.equals("")) {
 				 JOptionPane.showMessageDialog(null,"Please Enter a valid Description");
 			}else if(dat==null) {
 				JOptionPane.showMessageDialog(null,"Date field is empty");
@@ -326,7 +324,7 @@ public class UpdateExpenses extends KTab {
 		        t5.setSelectedItem(typ);
 		        t6.setText(empid);
 		     
-				
+				 
 			}
 		});
 		scrollPane.setViewportView(jtable1);
@@ -364,6 +362,8 @@ public class UpdateExpenses extends KTab {
 		t6.setColumns(10);
 		t6.setBounds(602, 403, 147, 23);
 		getContentPane().add(t6);
+		
+	
 		
 		
 

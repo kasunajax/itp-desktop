@@ -45,25 +45,25 @@ public class ViewPayslip extends KTab {
 		super("View Payslip");
 		
 		JLabel lblNewLabel = new JLabel("View Monthly Payslip");
-		lblNewLabel.setBounds(29, 31, 126, 14);
+		lblNewLabel.setBounds(70, 65, 126, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Employee ID");
-		lblNewLabel_1.setBounds(29, 85, 93, 14);
+		lblNewLabel_1.setBounds(70, 102, 93, 14);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Month");
-		lblNewLabel_2.setBounds(29, 131, 46, 14);
+		lblNewLabel_2.setBounds(70, 150, 46, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		textField = new JTextField();
-		textField.setBounds(147, 82, 104, 20);
+		textField.setBounds(184, 99, 104, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}));
-		comboBox.setBounds(147, 127, 104, 22);
+		comboBox.setBounds(184, 146, 104, 22);
 		getContentPane().add(comboBox);
 		
 		JButton btnNewButton = new JButton("Display");
@@ -71,15 +71,15 @@ public class ViewPayslip extends KTab {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(64, 207, 89, 23);
+		btnNewButton.setBounds(476, 98, 89, 23);
 		getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Clear");
-		btnNewButton_1.setBounds(334, 207, 89, 23);
+		btnNewButton_1.setBounds(476, 196, 89, 23);
 		getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Print");
-		btnNewButton_2.setBounds(199, 207, 89, 23);
+		btnNewButton_2.setBounds(476, 146, 89, 23);
 		getContentPane().add(btnNewButton_2);
 		
 		table = new JTable();
