@@ -24,7 +24,7 @@ public class Packages extends KTab {
 	
 	public void LoadTable() {
 		try {
-		String query = "Select * from promotion";
+		String query = "Select * from mobile_package";
 		
 		PreparedStatement pst= Database.getConnection().prepareStatement(query);
 		ResultSet rs = pst.executeQuery();
