@@ -14,7 +14,6 @@ import ui.inventory.tabs.MakeChanges;
 import ui.payroll.tabs.MonthlyPayroll;
 import ui.payroll.tabs.NewEmployeeSalary;
 import ui.payroll.tabs.PayrollReports;
-import ui.payroll.tabs.UpdateRemoveSalary;
 import ui.payroll.tabs.ViewPayslip;
 
 public class PayrollFrame extends KFrame {
@@ -47,7 +46,6 @@ public class PayrollFrame extends KFrame {
 		
 		TabStruct[] ts = {
 				new TabStruct(NewEmployeeSalary.class, "ADD SALARY"),
-				new TabStruct(UpdateRemoveSalary.class, "UPDATE SALARY"),
 				new TabStruct(MonthlyPayroll.class, "PAYROLL"),
 				new TabStruct(ViewPayslip.class, "PAYSLIPS"),
 				new TabStruct(PayrollReports.class, "REPORTS")
