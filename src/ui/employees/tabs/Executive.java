@@ -47,6 +47,7 @@ public class Executive extends KTab{
 
 	private JDateChooser dob;
 	private JTextField textField;
+	private JTable table_1;
 	
 	/**
 	 * Launch the application.
@@ -69,17 +70,50 @@ public class Executive extends KTab{
 			try {
 				ResultSet rs = Database.getConnection().prepareStatement("SELECT * FROM sales_executives e, contact_no c WHERE e.EmployeeID = c.EmployeeID").executeQuery();
 				
-				
 				table.setModel(Database.resultSetToTableModel(rs));
-				
 
+				 ResultSet rs2 = Database.getConnection().prepareStatement("SELECT * FROM sales_executives").executeQuery();
+				 table_1.setModel(Database.resultSetToTableModel(rs2));
+				
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();}
-			}
+	 }
+			/* public void loads2() {	
+	 
+	 try {
+		 ResultSet rs2 = Database.getConnection().prepareStatement("SELECT * FROM sales_executives").executeQuery();
+		 table_1.setModel(Database.resultSetToTableModel(rs2));
+			
+	} catch (SQLException e) {e.printStackTrace();}
+	 }
+			 
+			 /*public void loads() {	
+				 
+				 try {
+					 ResultSet rs = Database.getConnection().prepareStatement("SELECT * FROM sales_executives").executeQuery();
+					 table.setModel(Database.resultSetToTableModel(rs));
+						
+				} catch (SQLException e) {e.printStackTrace();}
+				 }
+	 */
+	 
+	 
+
+//		try {
+//			String sql = "SELECT ItemID, Serial_Number, Executive, Package FROM items WHERE Executive = 'EMP001' AND Status = 'INITIAL'";
+//			PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+//			ResultSet res = stmt.executeQuery();
+//			table.setModel(Database.resultSetToTableModel(res));
+//			
 
 	public Executive() {
+		
+		
+		
+		super("EXECUTIVE DETAILS");
+	
 		setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
 		
@@ -224,12 +258,12 @@ public class Executive extends KTab{
 		getContentPane().add(txtPayrollID);
 		
 		JButton button = new JButton("Create");
+		button.setBounds(855, 44, 89, 31);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 			}
 		});
-		button.setBounds(855, 44, 89, 31);
 		getContentPane().add(button);
 		
 		JButton button_1 = new JButton("Update");
@@ -245,7 +279,7 @@ public class Executive extends KTab{
 		getContentPane().add(button_3);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 246, 959, 271);
+		scrollPane.setBounds(26, 245, 958, 99);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -262,8 +296,25 @@ public class Executive extends KTab{
 		getContentPane().add(txtPassword);
 		
 		JComboBox cmbType = new JComboBox();
+		cmbType.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtIVRNo.setEnabled(false); 
+		        lblIvrNo.setEnabled(false); 
+
+		        if(cmbType.getSelectedItem().equals("Sales Executive"))
+		        {
+		        txtIVRNo.setEnabled(true);
+		        lblIvrNo.setEnabled(true);
+		        }
+		        else 
+		        {
+		    	  txtIVRNo.setEnabled(false);
+			       lblIvrNo.setEnabled(false);
+		        }
+			}
+		});
 		cmbType.setBounds(342, 200, 110, 20);
-		cmbType.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "DEPARTMENT_EMPLOYEE", "DEPARTMENT_MANAGER", "REGIONAL_MANAGER", "REGIONAL_STAFF", "COORDINATOR"}));
+		cmbType.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "DEPARTMENT_EMPLOYEE", "DEPARTMENT_MANAGER", "REGIONAL_MANAGER", "REGIONAL_STAFF", "COORDINATOR", "Sales Executive"}));
 		getContentPane().add(cmbType);
 		
 		txtIVRNo = new JTextField();
@@ -275,11 +326,78 @@ public class Executive extends KTab{
 		textField.setBounds(343, 44, 110, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(26, 355, 955, 141);
+		getContentPane().add(scrollPane_1);
+		
+		table_1 = new JTable();
+		scrollPane_1.setViewportView(table_1);
+		
+		/*private void wtdlActionPerformed(java.awt.event.ActionEvent evt) {                                     
 
+	        txt_reason.setEnabled(false); //txt_reason is jTextField
+	        lab.setEnabled(false); //lab is jLabel
+
+	        if(wtdl.getSelectedItem().equals("Active")) //wtdl is jConobbox
+	        {
+	        txt_reason.setEnabled(false);
+	        lab.setEnabled(false);
+	        }
+	      else if(wtdl.getSelectedItem().equals("Droped"))
+	        {
+	        txt_reason.setEnabled(true); 
+	        lab.setEnabled(true);
+	        }
+	    }*/
+table_1.addMouseListener(new MouseAdapter() {
+	public void mouseClicked(MouseEvent e) {
+		int r = table_1.getSelectedRow();
+		
+		String EmpID = table.getValueAt(r, 0).toString();
+		String FName = table.getValueAt(r, 1).toString();
+		String LName = table.getValueAt(r, 2).toString();
+		String Gender = table.getValueAt(r, 3).toString();
+		Date DOB = Date.valueOf(table.getValueAt(r , 4).toString());
+		String NIC = table.getValueAt(r, 5).toString();
+		String Address = table.getValueAt(r, 6).toString();
+		String Designation = table.getValueAt(r, 7).toString();
+		String UName = table.getValueAt(r, 8).toString();
+		String PWord = table.getValueAt(r, 9).toString();
+		String Type = table.getValueAt(r, 10).toString();
+		String IVR = table.getValueAt(r, 11).toString();
+		Date Sdate = Date.valueOf(table.getValueAt(r, 13).toString());
+		Date Edate = Date.valueOf(table.getValueAt(r, 14).toString());
+		String PayrollID = table.getValueAt(r, 15).toString();
+		String OfficeID = table.getValueAt(r, 16).toString();
+		
+		/*txtFName.setText(FName);
+		txtLName.setText(LName);
+		txtGender.setSelectedItem(Gender.toString());
+		dob.setDate(DOB);
+		txtNIC.setText(NIC);
+		txtAddress.setText(Address.toString());
+		txtUserName.setText(UName.toString());
+		txtPassword.setText(PWord.toString());
+		txtDesignation.setText(Designation.toString());
+		cmbType.setSelectedItem(Type.toString());
+		txtEmpID.setText(EmpID.toString());
+		SDate.setDate(Sdate);
+		EDate.setDate(Edate);
+		txtIVRNo.setText(IVR.toString());
+		txtOfficeID.setText(OfficeID.toString());
+		txtPayrollID.setText(PayrollID.toString());*/
+		
+		
+	}
+
+
+});
 table.addMouseListener(new MouseAdapter() {
 			
 			public void mouseClicked(MouseEvent e) {
-			int r = table.getSelectedRow();				
+			int r = table.getSelectedRow();			
+			
 				
 				String EmpID = table.getValueAt(r, 0).toString();
 				String FName = table.getValueAt(r, 1).toString();
@@ -327,7 +445,7 @@ table.addMouseListener(new MouseAdapter() {
 				
 
 		loads()	;//calling method loads to get values from database and convert it to the jtable type values
-		
+		//loads2();
 		
 		
 		
