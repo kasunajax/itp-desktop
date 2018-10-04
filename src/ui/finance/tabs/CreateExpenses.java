@@ -24,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.awt.event.ActionEvent;
 import java.awt.Choice;
 import java.awt.ScrollPane;
@@ -37,7 +38,6 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class CreateExpenses extends KTab {
-	private JTextField t1;
 	private JTextField t2;
 	private JTextField t4;
 	private JTextField t6;
@@ -95,7 +95,7 @@ public class CreateExpenses extends KTab {
 		
 		
 		JDateChooser t3 = new JDateChooser();
-		t3.setBounds(221, 240, 183, 32);
+		t3.setBounds(221, 217, 183, 32);
 		getContentPane().add(t3);
 		
 		
@@ -103,27 +103,17 @@ public class CreateExpenses extends KTab {
 		t5.setModel(new DefaultComboBoxModel(new String[] {"Select the Type", "", "Administration", "Financial", "Sales and Distribution", "Others"}));
 		t5.setBounds(221, 408, 183, 32);
 		getContentPane().add(t5);
-
-		
-		t1 = new JTextField();
-		t1.setBounds(221, 80, 183, 32);
-		getContentPane().add(t1);
-		t1.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Expense Id");
-		lblNewLabel.setBounds(78, 89, 97, 14);
-		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Description ");
-		lblNewLabel_1.setBounds(78, 165, 97, 14);
+		lblNewLabel_1.setBounds(78, 140, 97, 14);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblDate = new JLabel("Date");
-		lblDate.setBounds(78, 248, 69, 14);
+		lblDate.setBounds(78, 228, 69, 14);
 		getContentPane().add(lblDate);
 		
 		JLabel lblNewLabel_2 = new JLabel("NetAmount");
-		lblNewLabel_2.setBounds(78, 330, 97, 14);
+		lblNewLabel_2.setBounds(78, 319, 97, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Type");
@@ -132,32 +122,32 @@ public class CreateExpenses extends KTab {
 		
 		t2 = new JTextField();
 		t2.setColumns(10);
-		t2.setBounds(221, 156, 183, 32);
+		t2.setBounds(221, 131, 183, 32);
 		getContentPane().add(t2);
 		
 		t4 = new JTextField();
 		t4.setColumns(10);
-		t4.setBounds(221, 321, 183, 32);
+		t4.setBounds(221, 310, 183, 32);
 		getContentPane().add(t4);
 		
 		JButton btnNewButton_1 = new JButton("Save");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String expensId = t1.getText();
+				//String expensId = t1.getText();
 				String dscrp = t2.getText();
 				Date dat = t3.getDate();
 				String Netexpens = t4.getText();
 				String Types = t5.getSelectedItem().toString();
 				String empid = t6.getText();
 				
-							
+				int count = 0;			
 
 				Pattern patrn1111 = Pattern.compile("\\d{3}||\\d{4}||\\d{5}");
 				Matcher matc1111 = patrn1111.matcher(empid);
 	            
-				 Pattern patrn = Pattern.compile("\\d{2}||\\d{3}||\\d{4}||\\d{5}");
-				Matcher matc = patrn.matcher(expensId);
+			//	 Pattern patrn = Pattern.compile("\\d{2}||\\d{3}||\\d{4}||\\d{5}");
+				//Matcher matc = patrn.matcher(expensId);
 	            
 										
 					
@@ -168,9 +158,9 @@ public class CreateExpenses extends KTab {
 				 
 				
 				 
-				if(!matc.matches()||expensId.equals("")) {
+				/*if(!matc.matches()||expensId.equals("")) {
 					JOptionPane.showMessageDialog(null,"Please enter a valid ExpensId");					
-				}else if(dscrp.equals("")) {
+				}else*/ if(dscrp.equals("")) {
 					 JOptionPane.showMessageDialog(null,"Please Enter a valid Description");
 				}else if(dat==null) {
 					JOptionPane.showMessageDialog(null,"Date field is empty");
@@ -186,11 +176,11 @@ public class CreateExpenses extends KTab {
 				 	
 				
 				else {	
-				
+				/*
 					DateFormat fmt = new SimpleDateFormat("YYYY-MM-dd");
 		            String expdate = fmt.format(dat);
 					
-					String sql = "INSERT INTO expenses(ExpenseID,NetExpense,Date,Description,EmployeeID,Type) Values ('"+expensId+"','"+Netexpens+"','"+expdate+"','"+dscrp+"','"+empid+"','"+Types+"')";
+					String sql = "INSERT INTO expenses(NetExpense,Date,Description,EmployeeID,Type) Values ('"+Netexpens+"','"+expdate+"','"+dscrp+"','"+empid+"','"+Types+"')";
 					
 				try {
 					
@@ -199,19 +189,65 @@ public class CreateExpenses extends KTab {
 					
 				tableLoad(); 
 				
-				t1.setText(null);
+				//t1.setText(null);
 				t2.setText(null);
 				t3.setDate(null);
 				t4.setText(null);
 				t5.setSelectedItem("Select the Type");
 				t6.setText(null);
 				
+				}catch(SQLIntegrityConstraintViolationException e1) {
+					
+					JOptionPane.showMessageDialog(null, "Enter a valid Employye id","ERROR!",JOptionPane.ERROR_MESSAGE);
+					//e1.printStackTrace();
+				
 				}catch(Exception e1) {
 					
 					e1.printStackTrace();
 				
 					
-				}
+				}*/
+					
+					DateFormat fmt = new SimpleDateFormat("YYYY-MM-dd");
+		            String expdate = fmt.format(dat);
+		            
+					String query = "select count(*) from employees where EmployeeID='"+empid+"'";
+					
+					try {
+						PreparedStatement stmt = Database.getConnection().prepareStatement(query);
+						ResultSet rs = stmt.executeQuery();
+						if(rs.next())
+							count = rs.getInt(1);
+						
+					}catch(Exception e1) {
+						e1.printStackTrace();
+					}
+					
+					if(count != 1) {
+						JOptionPane.showMessageDialog(null, "Enter a valid Employye id","ERROR!",JOptionPane.ERROR_MESSAGE);
+					}else {
+						String sql = "INSERT INTO expenses(NetExpense,Date,Description,EmployeeID,Type) Values ('"+Netexpens+"','"+expdate+"','"+dscrp+"','"+empid+"','"+Types+"')";
+					
+						
+						t2.setText(null);
+						t3.setDate(null);
+						t4.setText(null);
+						t5.setSelectedItem("Select the Type");
+						t6.setText(null);
+					
+						try {
+							PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+                    		ps.execute();
+                    		
+                    		tableLoad();
+							
+						}catch(Exception e1) {
+							e1.printStackTrace();
+						}
+						
+					}
+					
+					
 				}
 				
 			}

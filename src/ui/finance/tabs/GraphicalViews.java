@@ -72,6 +72,15 @@ public class GraphicalViews extends KTab {
 		t1.setBounds(181, 116, 139, 22);
 		getContentPane().add(t1);
 		
+		JComboBox year1 = new JComboBox();
+		year1.setModel(new DefaultComboBoxModel(new String[] {"select the year", "", "2016", "2017", "2018", "2019", "2019", "2020"}));
+		year1.setBounds(407, 116, 96, 22);
+		getContentPane().add(year1);
+		
+		JLabel nam = new JLabel("Year");
+		nam.setBounds(351, 120, 46, 14);
+		getContentPane().add(nam);
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(128, 188, 740, 387);
 		getContentPane().add(panel);
@@ -86,6 +95,7 @@ public class GraphicalViews extends KTab {
 				
 				
 				String typ = t1.getSelectedItem().toString();
+				String yr = year1.getSelectedItem().toString();
 				
 				int month1 = 0;
 			
@@ -102,7 +112,7 @@ public class GraphicalViews extends KTab {
 				
 				
 				for(int x=1;x<=Month2;++x) {
-					String query = "Select sum(NetExpense) from expenses where Type='"+typ+"' and Month(Date) ='"+x+"'";
+					String query = "Select sum(NetExpense) from expenses where Type='"+typ+"' and Month(Date) ='"+x+"'and Year(Date)='"+yr+"'";
 					
 					try {
 						
@@ -266,13 +276,17 @@ public class GraphicalViews extends KTab {
 				
 			}
 		});
-		btnNewButton.setBounds(380, 115, 133, 23);
+		btnNewButton.setBounds(537, 116, 133, 23);
 		getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel("Monthly Costs for the Selected Type");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_1.setBounds(220, 22, 306, 34);
 		getContentPane().add(lblNewLabel_1);
+		
+	
+		
+		
 		
 		
 		
