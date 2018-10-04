@@ -28,6 +28,8 @@ import javax.swing.JPanel;
 public class ViewPayslip extends KTab {
 	private JTextField empID;
 	private JTable table;
+	
+	//notes
 
 	/**
 	 * Launch the application.
@@ -98,7 +100,7 @@ public class ViewPayslip extends KTab {
 				String mon = (String)month.getSelectedItem();
 				
 				
-				String sql = "select * from monthly_pay where Salary_Month = '"+mon+"' and Payroll_ID IN (select PayrollID from payroll where EmpID = '"+EmpID+"')";
+				String sql = "Select * from monthly_pay where Salary_Month = '"+mon+"' and Payroll_ID IN (select PayrollID from payroll where EmpID = '"+EmpID+"')";
 				try {
 					PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
             		ResultSet rs = stmt.executeQuery();

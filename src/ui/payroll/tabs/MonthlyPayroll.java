@@ -1,6 +1,7 @@
 package ui.payroll.tabs;
 
 import java.awt.EventQueue;
+import java.text.*;
 
 import javax.swing.JInternalFrame;
 
@@ -83,10 +84,18 @@ public class MonthlyPayroll extends KTab {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				//common for all records
-				Date sDate, eDate;
+				//Date sDate, eDate;
 				int numOfDays = Integer.parseInt(days.getText());
-				sDate = dateChooser.getDate();
-				eDate = dateChooser_1.getDate();
+				//sDate = dateChooser.getDate();
+				//eDate = dateChooser_1.getDate();
+				
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String sDate = sdf.format(dateChooser.getDate());
+				
+				String eDate = sdf.format(dateChooser_1.getDate());
+				
+				
 				payday = new Date();
 				String sql = "select * from payroll";
 				
@@ -131,7 +140,7 @@ public class MonthlyPayroll extends KTab {
 	            		
 	            	}
 	            	else if (cat == "Sales") {
-	            		sql1 = "select sum(cost) from item where Executive = '"+empID+"' and Sold_Date >='"+ sDate +"'and Sold_Date <= '"+eDate+"'";
+	            		sql1 = "select sum(cost) from items where Executive = '"+empID+"' and Sold_Date >='"+ sDate +"'and Sold_Date <= '"+eDate+"'";
 		            	stmt1 = Database.getConnection().prepareStatement(sql1);
 			            rs1 = stmt1.executeQuery();
 		            	

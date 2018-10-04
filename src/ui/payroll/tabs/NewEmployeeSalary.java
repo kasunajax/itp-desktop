@@ -30,13 +30,16 @@ public class NewEmployeeSalary extends KTab {
 	private JTextField t_achv;
 	private JTextField t_exce;
 	private JTextField penalty;
-	
+	 //notes
 	String empID = null;
 	String fname = null;
     String lname = null;
     String desig = null;
     String cat = null;
     String bas = null;
+    
+    
+    
     String epf = null;    
     String pyt = null;
 	
