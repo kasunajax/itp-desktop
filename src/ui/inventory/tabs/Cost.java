@@ -269,6 +269,18 @@ public class Cost extends KTab {
 					dataset.setValue(aug, "", "August");
 					dataset.setValue(sep, "", "September");
 				}
+				else if(Month == 10) {
+					dataset.setValue(jan, "", "January");
+					dataset.setValue(feb, "", "February");
+					dataset.setValue(mar, "", "March");
+					dataset.setValue(apr, "", "April");
+					dataset.setValue(may, "", "May");
+					dataset.setValue(jun, "", "June");
+					dataset.setValue(jul, "", "July");
+					dataset.setValue(aug, "", "August");
+					dataset.setValue(sep, "", "September");
+					dataset.setValue(sep, "", "Octomber");
+				}
 				
 				JFreeChart chart = ChartFactory.createBarChart("Total Cost of '"+item+"' in Each Month", "", "", dataset,PlotOrientation.VERTICAL,false,false,false);
 				CategoryPlot catplot = chart.getCategoryPlot();
