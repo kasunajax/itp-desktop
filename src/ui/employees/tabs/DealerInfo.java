@@ -111,6 +111,7 @@ public class DealerInfo extends KTab {
 		btnupdate.setBounds(848, 108, 89, 31);
 		getContentPane().add(btnupdate);
 
+		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -120,6 +121,7 @@ public class DealerInfo extends KTab {
 		btnDelete.setBounds(848, 150, 89, 31);
 		getContentPane().add(btnDelete);
 
+		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Dealer Details", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(Color.WHITE);
