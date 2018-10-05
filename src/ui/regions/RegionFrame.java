@@ -12,7 +12,6 @@ import ui.orders.tabs.ViewOrders;
 import ui.payroll.tabs.MonthlyPayroll;
 import ui.payroll.tabs.NewEmployeeSalary;
 import ui.payroll.tabs.PayrollReports;
-import ui.payroll.tabs.UpdateRemoveSalary;
 import ui.payroll.tabs.ViewPayslip;
 import ui.regions.tabs.regionAdmin;
 import ui.regions.tabs.regionReport;
