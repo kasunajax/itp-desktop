@@ -29,6 +29,7 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class StaffInfo extends KTab {
 	private JTable table;
@@ -92,7 +93,7 @@ public class StaffInfo extends KTab {
    public void loads() {
 		
 		try {
-			ResultSet rs = Database.getConnection().prepareStatement("SELECT * FROM employees e, contact_no c WHERE e.EmployeeID = c.EmployeeID").executeQuery();
+			ResultSet rs = Database.getConnection().prepareStatement("SELECT e.EmployeeID, e.FirstName, e.LastName, e.Gender, e.DOB, e.NIC, e.Address, c.Telephone_No, c.FIXED_NO FROM employees e, contact_no c WHERE e.EmployeeID = c.EmployeeID ").executeQuery();
 			
 			
 			table.setModel(Database.resultSetToTableModel(rs));
@@ -306,7 +307,7 @@ public class StaffInfo extends KTab {
 		getContentPane().add(txtNIC);
 		
 		
-		
+		//Adding a mouse clicked event, where upon clicking the row the values of the row get assigned to the relevant cages.
 		table.addMouseListener(new MouseAdapter() {
 			
 			public void mouseClicked(MouseEvent e) {
@@ -363,7 +364,7 @@ public class StaffInfo extends KTab {
 	}
 	public void Create() {
 		{
-		String EmpID = txtEmpID.getText();
+		/*String EmpID = txtEmpID.getText();
 		String FName = txtFName.getText();
 		String LName = txtLName.getText();
 		String NIC = txtNIC.getText();
@@ -373,38 +374,42 @@ public class StaffInfo extends KTab {
 		String PWord = txtPassword.getText();
 		String PayrollID = txtPayrollID.getText();
 		String OfficeID = txtOfficeID.getText();		
-	
 		String MobNo = txtMobNo.getText();
-		
+		String FixedNo = txtFixedL.getText();
 		
 		Pattern pattern1 = Pattern.compile("\\d{10}");
 		Matcher mobile = pattern1.matcher(MobNo);
-        
-		String FixedNo = txtFixedL.getText();
+		
 		Pattern pattern2 = Pattern.compile("\\d{10}");
 		Matcher match2 = pattern2.matcher(FixedNo);
 		
-		 if(!mobile.matches() || mobile.equals("")) {
-			JOptionPane.showMessageDialog(null,"Please enter a valid Mobile no");
-		}
+		 if(FName.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter First Name");
+			}
 		
-		else if(!match2.matches() || match2.equals("")) {
-			JOptionPane.showMessageDialog(null,"Please enter a valid Fixed Line no");
-		}
-		else if(EmpID.equals("")){
-			JOptionPane.showMessageDialog(null,"Enter EmployeeID");
-			}
-		else if(FName.equals("")){
-			JOptionPane.showMessageDialog(null,"Enter First Name");
-			}
 		else if(LName.equals("")){
 			JOptionPane.showMessageDialog(null,"Enter Last Name");
 			}
 		else if(NIC.equals("")){
 			JOptionPane.showMessageDialog(null,"NIC");
 			}
+		else if(!mobile.matches() || mobile.equals("")) {
+			JOptionPane.showMessageDialog(null,"Please enter a valid Mobile no");
+			}
+		else if(!match2.matches() || match2.equals("")) {
+			JOptionPane.showMessageDialog(null,"Please enter a valid Fixed Line no");
+			}
 		else if(Address.equals("")){
 			JOptionPane.showMessageDialog(null,"Enter Address");
+			}
+		else if(EmpID.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter EmployeeID");
+			}
+		else if(OfficeID.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter OfficeID");
+			}	
+		else if(PayrollID.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter PayrollID");
 			}
 		else if(Designation.equals("")){
 			JOptionPane.showMessageDialog(null,"Enter Designation");
@@ -415,16 +420,9 @@ public class StaffInfo extends KTab {
 		else if(PWord.equals("")){
 			JOptionPane.showMessageDialog(null,"Enter Password");
 			}
-		else if(PayrollID.equals("")){
-			JOptionPane.showMessageDialog(null,"Enter PayrollID");
-			}
-		else if(OfficeID.equals("")){
-			JOptionPane.showMessageDialog(null,"Enter OfficeID");
-			}
-		
-		 
+	 
 		else {
-		
+		*/
 		
 		
 		
@@ -480,7 +478,6 @@ public class StaffInfo extends KTab {
 			e1.printStackTrace();
 		}
 		}}
-	}
 	
 	
 	public void Refresh() {
@@ -502,11 +499,76 @@ public class StaffInfo extends KTab {
 		EDate.setDate(null);
 		txtOfficeID.setText(null);
 		txtPayrollID.setText(null);
+		
 		loads()	;
 	}
 	
 	public void Update(){
-			String sql = "UPDATE `employees` SET `FirstName` = ?, `LastName` = ?, `Gender` = ?, `DOB` = ?, `NIC` = ?, `Address` = ?, `Designation` = ?, `Username` = ?, `Password` = ?, `Type` = ?, `StartDate` = ?, `EndDate` = ?, `SalaryProfileID` = ?, `OfficeID` = ? WHERE `employees`.`EmployeeID` = ?"; 
+		{
+			String EmpID = txtEmpID.getText();
+			String FName = txtFName.getText();
+			String LName = txtLName.getText();
+			String NIC = txtNIC.getText();
+			String Address = txtAddress.getText();
+			String Designation = txtDesignation.getText();
+			String UName = txtUserName.getText();
+			String PWord = txtPassword.getText();
+			String PayrollID = txtPayrollID.getText();
+			String OfficeID = txtOfficeID.getText();		
+		
+			String MobNo = txtMobNo.getText(); 
+			
+			
+			Pattern pattern1 = Pattern.compile("\\d{10}");
+			Matcher mobile = pattern1.matcher(MobNo);
+	        
+			String FixedNo = txtFixedL.getText();
+			Pattern pattern2 = Pattern.compile("\\d{10}");
+			Matcher match2 = pattern2.matcher(FixedNo);
+			
+			 if(FName.equals("")){
+					JOptionPane.showMessageDialog(null,"Enter First Name");
+				}
+			
+			else if(LName.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter Last Name");
+				}
+			else if(NIC.equals("")){
+				JOptionPane.showMessageDialog(null,"NIC");
+				}
+			else if(!mobile.matches() || mobile.equals("")) {
+				JOptionPane.showMessageDialog(null,"Please enter a valid Mobile no");
+				}
+			else if(!match2.matches() || match2.equals("")) {
+				JOptionPane.showMessageDialog(null,"Please enter a valid Fixed Line no");
+				}
+			else if(Address.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter Address");
+				}
+			else if(EmpID.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter EmployeeID");
+				}
+			else if(OfficeID.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter OfficeID");
+				}	
+			else if(PayrollID.equals("")){
+					JOptionPane.showMessageDialog(null,"Enter PayrollID");
+				}
+			else if(Designation.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter Designation");
+				}
+			else if(UName.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter UserName");
+				}
+			else if(PWord.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter Password");
+				}
+		 
+			else {
+		}
+		
+		
+		String sql = "UPDATE `employees` SET `FirstName` = ?, `LastName` = ?, `Gender` = ?, `DOB` = ?, `NIC` = ?, `Address` = ?, `Designation` = ?, `Username` = ?, `Password` = ?, `Type` = ?, `StartDate` = ?, `EndDate` = ?, `SalaryProfileID` = ?, `OfficeID` = ? WHERE `employees`.`EmployeeID` = ?"; 
 			
 		try { 
 						PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
@@ -523,7 +585,7 @@ public class StaffInfo extends KTab {
 			stmt.setString(9, txtPassword.getText());
 			stmt.setString(10, cmbType.getSelectedItem().toString());
 			stmt.setDate(11, new Date(SDate.getDate().getTime()));
-			stmt.setDate(12, new Date(SDate.getDate().getTime()));
+			stmt.setDate(12, new Date(EDate.getDate().getTime()));
 			stmt.setString(13, txtPayrollID.getText());
 			stmt.setString(14, txtOfficeID.getText());
 			
@@ -554,7 +616,7 @@ public class StaffInfo extends KTab {
 		
 		catch(SQLException e1){
 			e1.printStackTrace();
-		}
+		}}
 
 		
 
@@ -594,6 +656,5 @@ public class StaffInfo extends KTab {
 		e1.printStackTrace();
 	}
 }
-	
 }
 	

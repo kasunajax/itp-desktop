@@ -107,7 +107,7 @@ public class Attendance extends KTab {
 		getContentPane().add(lblOfficeId);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 244, 959, 275);
+		scrollPane.setBounds(26, 241, 959, 275);
 		getContentPane().add(scrollPane);
 		
 		JButton button = new JButton("Create");
