@@ -259,7 +259,7 @@ public class Home extends KTab {
 			    }
 			}
 		});
-		btnExportExcel.setBounds(413, 449, 99, 25);
+		btnExportExcel.setBounds(413, 449, 128, 25);
 		getContentPane().add(btnExportExcel);
 
 

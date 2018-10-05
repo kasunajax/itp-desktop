@@ -250,6 +250,18 @@ public class Forcast extends KTab {
 					dataset.setValue(aug, "", "August");
 					dataset.setValue(sep, "", "September");
 				}
+				else if(month == 10) {
+					dataset.setValue(jan, "", "January");
+					dataset.setValue(feb, "", "February");
+					dataset.setValue(mar, "", "March");
+					dataset.setValue(apr, "", "April");
+					dataset.setValue(may, "", "May");
+					dataset.setValue(jun, "", "June");
+					dataset.setValue(jul, "", "July");
+					dataset.setValue(aug, "", "August");
+					dataset.setValue(sep, "", "September");
+					dataset.setValue(sep, "", "Octomber");
+				}
 				
 				JFreeChart chart = ChartFactory.createBarChart("Demand for '"+item+"' in each Month in Reigon '"+br+"'", "", "", dataset,PlotOrientation.VERTICAL,false,false,false);
 				CategoryPlot catplot = chart.getCategoryPlot();
@@ -388,6 +400,18 @@ public class Forcast extends KTab {
 					dataset.setValue(jul, "", "July");
 					dataset.setValue(aug, "", "August");
 					dataset.setValue(sep, "", "September");
+				}
+				else if(month == 10) {
+					dataset.setValue(jan, "", "January");
+					dataset.setValue(feb, "", "February");
+					dataset.setValue(mar, "", "March");
+					dataset.setValue(apr, "", "April");
+					dataset.setValue(may, "", "May");
+					dataset.setValue(jun, "", "June");
+					dataset.setValue(jul, "", "July");
+					dataset.setValue(aug, "", "August");
+					dataset.setValue(sep, "", "September");
+					dataset.setValue(sep, "", "Octomber");
 				}
 				
 				JFreeChart chart = ChartFactory.createBarChart("Number of '"+item+"' items released to Executive '"+ex+"' in each Month", "", "", dataset,PlotOrientation.VERTICAL,false,false,false);
