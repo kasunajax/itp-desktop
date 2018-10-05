@@ -3,7 +3,6 @@ package ui.employees;
 import java.awt.EventQueue;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import ui.components.KFrame;
 import ui.components.KTab;
 import ui.components.TabNavPanel;
