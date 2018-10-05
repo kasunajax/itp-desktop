@@ -73,7 +73,7 @@ public class GraphicalViews extends KTab {
 		getContentPane().add(t1);
 		
 		JComboBox year1 = new JComboBox();
-		year1.setModel(new DefaultComboBoxModel(new String[] {"select the year", "", "2016", "2017", "2018", "2019", "2019", "2020"}));
+		year1.setModel(new DefaultComboBoxModel(new String[] {"select the year", "", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 		year1.setBounds(407, 116, 96, 22);
 		getContentPane().add(year1);
 		

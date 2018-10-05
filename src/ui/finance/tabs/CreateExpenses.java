@@ -8,6 +8,7 @@ import ui.components.KTab;
 import utils.common.database.Database;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 
@@ -208,8 +209,11 @@ public class CreateExpenses extends KTab {
 					
 				}*/
 					
+					
 					DateFormat fmt = new SimpleDateFormat("YYYY-MM-dd");
 		            String expdate = fmt.format(dat);
+		            
+		           
 		            
 					String query = "select count(*) from employees where EmployeeID='"+empid+"'";
 					
@@ -297,6 +301,37 @@ public class CreateExpenses extends KTab {
 		r1.setBounds(505, 494, 117, 32);
 		getContentPane().add(r1);
 		
+		/*JButton btnNewButton = new JButton("Demo");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				try {
+				String d1 = "2018-01-13";
+				
+				
+				
+				Date Date1 = new SimpleDateFormat("YYYY-MM-DD").parse(d1);
+				
+				
+				
+				t2.setText("Bank Loans");
+				t3.setDate(Date1);
+				t4.setText("11500");
+				t5.setSelectedItem("Financial");
+				t6.setText("0002");
+				
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
+		btnNewButton.setBounds(843, 494, 97, 32);
+		getContentPane().add(btnNewButton);
+		*/
 		
 		tableLoad();
 
