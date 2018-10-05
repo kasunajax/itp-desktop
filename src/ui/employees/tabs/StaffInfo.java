@@ -499,6 +499,7 @@ public class StaffInfo extends KTab {
 		EDate.setDate(null);
 		txtOfficeID.setText(null);
 		txtPayrollID.setText(null);
+		
 		loads()	;
 	}
 	
@@ -584,7 +585,7 @@ public class StaffInfo extends KTab {
 			stmt.setString(9, txtPassword.getText());
 			stmt.setString(10, cmbType.getSelectedItem().toString());
 			stmt.setDate(11, new Date(SDate.getDate().getTime()));
-			stmt.setDate(12, new Date(SDate.getDate().getTime()));
+			stmt.setDate(12, new Date(EDate.getDate().getTime()));
 			stmt.setString(13, txtPayrollID.getText());
 			stmt.setString(14, txtOfficeID.getText());
 			
