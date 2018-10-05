@@ -137,17 +137,17 @@ public void tableLoad(){
 		getContentPane().add(totex);
 		
 		JComboBox year1 = new JComboBox();
-		year1.setModel(new DefaultComboBoxModel(new String[] {"select the year", "", "2016", "2017", "2018", "2019", "2019", "2020"}));
+		year1.setModel(new DefaultComboBoxModel(new String[] {"select the year", "", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 		year1.setBounds(139, 79, 98, 22);
 		getContentPane().add(year1);
 		
 		JComboBox year2 = new JComboBox();
-		year2.setModel(new DefaultComboBoxModel(new String[] {"select the year", "", "2016", "2017", "2018", "2019", "2019", "2020"}));
+		year2.setModel(new DefaultComboBoxModel(new String[] {"select the year", "", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 		year2.setBounds(139, 227, 98, 22);
 		getContentPane().add(year2);
 		
 		JComboBox year3 = new JComboBox();
-		year3.setModel(new DefaultComboBoxModel(new String[] {"select the year", "", "2016", "2017", "2018", "2019", "2019", "2020"}));
+		year3.setModel(new DefaultComboBoxModel(new String[] {"select the year", "", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"}));
 		year3.setBounds(139, 385, 98, 22);
 		getContentPane().add(year3);
 		
@@ -444,6 +444,10 @@ public void tableLoad(){
 						
 					}
 					
+				}catch(NullPointerException e1){
+					
+					JOptionPane.showInternalMessageDialog(FinanceCalculation.this, "You cant keep fields Empty");
+					//e1.printStackTrace();
 				}catch(Exception e1){
 					e1.printStackTrace();
 				}
