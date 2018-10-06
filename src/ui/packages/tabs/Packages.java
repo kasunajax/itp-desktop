@@ -1,21 +1,31 @@
 package ui.packages.tabs;
 
+import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import ui.components.KTab;
+import ui.orders.tabs.ManageOrders;
 import utils.common.database.Database;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Packages extends KTab {
 	private JTable table;
@@ -24,7 +34,7 @@ public class Packages extends KTab {
 	
 	public void LoadTable() {
 		try {
-		String query = "Select * from promotion";
+		String query = "Select * from mobile_package";
 		
 		PreparedStatement pst= Database.getConnection().prepareStatement(query);
 		ResultSet rs = pst.executeQuery();
@@ -143,7 +153,124 @@ public class Packages extends KTab {
 		lblTvPackage.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		lblTvPackage.setBounds(405, 304, 129, 37);
 		getContentPane().add(lblTvPackage);
+		
+		JButton btnNewButton = new JButton("Export excel");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getRowCount() == 0) {
+					
+					JOptionPane.showInternalMessageDialog(Packages.this, "There're no rows to be exported");
+					
+					return;
+					
+				}
+
+				JFileChooser c = new JFileChooser();
+				c.setSelectedFile(new File("CW_"+new SimpleDateFormat("ddMMyyyyHHmmss").format(new java.util.Date()) + ".xls"));
+			    int rVal = c.showSaveDialog(Packages.this);
+			    if (rVal == JFileChooser.APPROVE_OPTION) {
+			    	toExcel(table, c.getSelectedFile());
+			    }
+			}
+		});
+		btnNewButton.setBounds(70, 282, 112, 21);
+		getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Export excel");
+		btnNewButton_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					if(table.getRowCount() == 0) {
+						
+						JOptionPane.showInternalMessageDialog(Packages.this, "There're no rows to be exported");
+						
+						return;
+						
+					}
+
+					JFileChooser c = new JFileChooser();
+					c.setSelectedFile(new File("CW_"+new SimpleDateFormat("ddMMyyyyHHmmss").format(new java.util.Date()) + ".xls"));
+				    int rVal = c.showSaveDialog(Packages.this);
+				    if (rVal == JFileChooser.APPROVE_OPTION) {
+				    	toExcel_1(table, c.getSelectedFile());
+				    }
+				}
+			});
+		btnNewButton_1.setBounds(70, 527, 112, 21);
+		getContentPane().add(btnNewButton_1);
 		//setBounds(100, 100, 450, 300);
 
+	}
+	
+    public void toExcel(JTable table, File file){
+		
+		
+	    try{
+	        TableModel model = table.getModel();
+	        FileWriter excel = new FileWriter(file);
+
+	        for(int i = 0; i < model.getColumnCount(); i++){
+	            excel.write(model.getColumnName(i) + "\t");
+	        }
+
+	        excel.write("\n");
+
+	        for(int i=0; i< model.getRowCount(); i++) {
+	            for(int j=0; j < model.getColumnCount(); j++) {
+	            	if(model.getValueAt(i,j)== null)
+	            		excel.write("     "+"\t");
+	            	else
+	            		excel.write(model.getValueAt(i,j).toString()+"\t");
+	            }
+	            excel.write("\n");
+	        }
+
+	        excel.close();
+	        
+	        if(!Desktop.isDesktopSupported()){
+	            return;
+	        }
+	        
+	        Desktop desktop = Desktop.getDesktop();
+	        if(file.exists()) 
+	        	desktop.open(file);
+	
+
+	    }catch(IOException e){  }
+	}
+ public void toExcel_1(JTable table, File file){
+		
+		
+	    try{
+	        TableModel model = table_1.getModel();
+	        FileWriter excel = new FileWriter(file);
+
+	        for(int i = 0; i < model.getColumnCount(); i++){
+	            excel.write(model.getColumnName(i) + "\t");
+	        }
+
+	        excel.write("\n");
+
+	        for(int i=0; i< model.getRowCount(); i++) {
+	            for(int j=0; j < model.getColumnCount(); j++) {
+	            	if(model.getValueAt(i,j)== null)
+	            		excel.write("     "+"\t");
+	            	else
+	            		excel.write(model.getValueAt(i,j).toString()+"\t");
+	            }
+	            excel.write("\n");
+	        }
+
+	        excel.close();
+	        
+	        if(!Desktop.isDesktopSupported()){
+	            return;
+	        }
+	        
+	        Desktop desktop = Desktop.getDesktop();
+	        if(file.exists()) 
+	        	desktop.open(file);
+	
+
+	    }catch(IOException e){  }
 	}
 }

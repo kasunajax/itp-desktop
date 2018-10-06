@@ -40,16 +40,16 @@ public class PackageFrame extends KFrame {
 	 */
 	public PackageFrame() {
 		
+			TabStruct[] ts = {
+					new TabStruct(Packages.class, "PACKAGES"),
+					new TabStruct(ManagePackages.class,"MANAGE PACKAGES"),
+					new TabStruct(Promotions.class,"PROMOTIONS"),
+					new TabStruct(ManagePromotions.class,"MANAGE PROMOTION")
+			};
+			
+			setStruct(ts);
 		
-		TabStruct[] ts = {
-				new TabStruct(Packages.class, "PACKAGES"),
-				new TabStruct(ManagePackages.class,"MANAGE PACKAGES"),
-				new TabStruct(Promotions.class,"PROMOTIONS"),
-				new TabStruct(ManagePromotions.class,"MANAGE PROMOTION")
-		};
 		
-		setStruct(ts);
-
 	}
 
 }
