@@ -175,6 +175,28 @@ public class Packages extends KTab {
 		});
 		btnNewButton.setBounds(70, 282, 112, 21);
 		getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Export excel");
+		btnNewButton_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					if(table.getRowCount() == 0) {
+						
+						JOptionPane.showInternalMessageDialog(Packages.this, "There're no rows to be exported");
+						
+						return;
+						
+					}
+
+					JFileChooser c = new JFileChooser();
+					c.setSelectedFile(new File("CW_"+new SimpleDateFormat("ddMMyyyyHHmmss").format(new java.util.Date()) + ".xls"));
+				    int rVal = c.showSaveDialog(Packages.this);
+				    if (rVal == JFileChooser.APPROVE_OPTION) {
+				    	toExcel_1(table, c.getSelectedFile());
+				    }
+				}
+			});
+		btnNewButton_1.setBounds(70, 527, 112, 21);
+		getContentPane().add(btnNewButton_1);
 		//setBounds(100, 100, 450, 300);
 
 	}
@@ -184,6 +206,42 @@ public class Packages extends KTab {
 		
 	    try{
 	        TableModel model = table.getModel();
+	        FileWriter excel = new FileWriter(file);
+
+	        for(int i = 0; i < model.getColumnCount(); i++){
+	            excel.write(model.getColumnName(i) + "\t");
+	        }
+
+	        excel.write("\n");
+
+	        for(int i=0; i< model.getRowCount(); i++) {
+	            for(int j=0; j < model.getColumnCount(); j++) {
+	            	if(model.getValueAt(i,j)== null)
+	            		excel.write("     "+"\t");
+	            	else
+	            		excel.write(model.getValueAt(i,j).toString()+"\t");
+	            }
+	            excel.write("\n");
+	        }
+
+	        excel.close();
+	        
+	        if(!Desktop.isDesktopSupported()){
+	            return;
+	        }
+	        
+	        Desktop desktop = Desktop.getDesktop();
+	        if(file.exists()) 
+	        	desktop.open(file);
+	
+
+	    }catch(IOException e){  }
+	}
+ public void toExcel_1(JTable table, File file){
+		
+		
+	    try{
+	        TableModel model = table_1.getModel();
 	        FileWriter excel = new FileWriter(file);
 
 	        for(int i = 0; i < model.getColumnCount(); i++){
