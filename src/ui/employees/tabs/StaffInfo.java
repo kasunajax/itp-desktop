@@ -3,14 +3,20 @@ package ui.employees.tabs;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JDateChooser;
 
 import ui.components.KTab;
 import utils.common.database.Database;
@@ -23,17 +29,14 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class StaffInfo extends KTab {
 	private JTable table;
 	private JLabel lblEmployeeID;
 	private JTextField txtEmpID;
-	private JLabel lblIVRNo;
-	private JTextField txtIVRNo;
 	private JLabel lblStartDate;
-	private JTextField txtStartDate;
 	private JLabel lblEndDate;
-	private JTextField txtEndDate;
 	private JLabel lblOfficeID;
 	private JTextField txtOfficeID;
 	private JLabel lblPayrollID;
@@ -52,21 +55,24 @@ public class StaffInfo extends KTab {
 	private JComboBox cmbType;
 	private JLabel lblFirstName;
 	private JTextField txtFName;
-	private JLabel lblMiddleName;
-	private JTextField txtMName;
 	private JLabel lblLastName;
 	private JTextField txtLName;
 	private JLabel lblGender;
 	private JComboBox txtGender;
 	private JLabel lblDOB;
-	private JComboBox cmbDOB;
 	private JLabel lblMobile;
 	private JTextField txtMobNo;
 	private JButton button;
 	private JButton button_1;
 	private JButton button_2;
 	private JButton button_3;
+	
+	private JDateChooser dob;
+	
+	private JDateChooser SDate;
 
+	private JDateChooser EDate;
+	private JTextField txtNIC;
 	/**
 	 * Launch the application.
 	 */
@@ -87,7 +93,7 @@ public class StaffInfo extends KTab {
    public void loads() {
 		
 		try {
-			ResultSet rs = Database.getConnection().prepareStatement("SELECT * FROM employees").executeQuery();
+			ResultSet rs = Database.getConnection().prepareStatement("SELECT e.EmployeeID, e.FirstName, e.LastName, e.Gender, e.DOB, e.NIC, e.Address, c.Telephone_No, c.FIXED_NO FROM employees e, contact_no c WHERE e.EmployeeID = c.EmployeeID ").executeQuery();
 			
 			
 			table.setModel(Database.resultSetToTableModel(rs));
@@ -107,22 +113,23 @@ public class StaffInfo extends KTab {
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 245, 959, 271);
+		scrollPane.setBounds(10, 246, 959, 271);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
-
-		table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"First Name", "Middle Name", "Last Name", "Gender", "D.O.B", "Mobile No.", "Fixed Line", "Address", "User Name", "Password", "Designation", "Type", "EmployeeID", "IVR No.", "Start Date", "OfficeID", "PayrollID"
-				}
-				));
-		
 		scrollPane.setViewportView(table);
 		
+		dob = new JDateChooser();
+		dob.setBounds(571, 75, 110, 20);
+		getContentPane().add(dob);
 		
+		SDate = new JDateChooser();
+		SDate.setBounds(571, 106, 110, 20);
+		getContentPane().add(SDate);
+		
+		EDate = new JDateChooser();
+		EDate.setBounds(116, 137, 110, 20);
+		getContentPane().add(EDate);
 		
 		lblEmployeeID = new JLabel("EmployeeID    :");
 		lblEmployeeID.setBounds(481, 44, 89, 20);
@@ -133,49 +140,30 @@ public class StaffInfo extends KTab {
 		txtEmpID.setBounds(571, 44, 110, 20);
 		getContentPane().add(txtEmpID);
 		
-		lblIVRNo = new JLabel("IVR No            :");
-		lblIVRNo.setBounds(481, 75, 89, 20);
-		getContentPane().add(lblIVRNo);
-		
-		txtIVRNo = new JTextField();
-		txtIVRNo.setColumns(10);
-		txtIVRNo.setBounds(571, 75, 110, 20);
-		getContentPane().add(txtIVRNo);
-		
 		lblStartDate = new JLabel("Start Date      :");
-		lblStartDate.setBounds(481, 106, 89, 20);
+		lblStartDate.setBounds(481, 75, 89, 20);
 		getContentPane().add(lblStartDate);
 		
-		txtStartDate = new JTextField();
-		txtStartDate.setColumns(10);
-		txtStartDate.setBounds(571, 106, 110, 20);
-		getContentPane().add(txtStartDate);
-		
 		lblEndDate = new JLabel("End Date        :");
-		lblEndDate.setBounds(481, 137, 89, 20);
+		lblEndDate.setBounds(481, 106, 89, 20);
 		getContentPane().add(lblEndDate);
 		
-		txtEndDate = new JTextField();
-		txtEndDate.setColumns(10);
-		txtEndDate.setBounds(571, 137, 110, 20);
-		getContentPane().add(txtEndDate);
-		
 		lblOfficeID = new JLabel(" OfficeID        :");
-		lblOfficeID.setBounds(481, 168, 89, 20);
+		lblOfficeID.setBounds(481, 137, 89, 20);
 		getContentPane().add(lblOfficeID);
 		
 		txtOfficeID = new JTextField();
 		txtOfficeID.setColumns(10);
-		txtOfficeID.setBounds(571, 168, 110, 20);
+		txtOfficeID.setBounds(571, 137, 110, 20);
 		getContentPane().add(txtOfficeID);
 		
 		lblPayrollID = new JLabel("PayrollID        :");
-		lblPayrollID.setBounds(481, 199, 89, 20);
+		lblPayrollID.setBounds(481, 168, 89, 20);
 		getContentPane().add(lblPayrollID);
 		
 		txtPayrollID = new JTextField();
 		txtPayrollID.setColumns(10);
-		txtPayrollID.setBounds(571, 199, 110, 20);
+		txtPayrollID.setBounds(571, 168, 110, 20);
 		getContentPane().add(txtPayrollID);
 		
 		lblFixedLine = new JLabel("Fixed Line       :");
@@ -228,7 +216,7 @@ public class StaffInfo extends KTab {
 		getContentPane().add(lblType);
 		
 		cmbType = new JComboBox();
-		cmbType.setModel(new DefaultComboBoxModel(new String[] {"DEPARTMENT_EMPLOYEE", "DEPARTMENT_MANAGER", "REGIONAL_MANAGER", "REGIONAL_STAFF", "COORDINATOR", "SALES_EXECUTIVE"}));
+		cmbType.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "DEPARTMENT_EMPLOYEE", "DEPARTMENT_MANAGER", "REGIONAL_MANAGER", "REGIONAL_STAFF", "COORDINATOR"}));
 		cmbType.setBounds(343, 199, 110, 20);
 		getContentPane().add(cmbType);
 		
@@ -241,40 +229,27 @@ public class StaffInfo extends KTab {
 		txtFName.setBounds(116, 44, 110, 20);
 		getContentPane().add(txtFName);
 		
-		lblMiddleName = new JLabel("Middle Name   :");
-		lblMiddleName.setBounds(26, 75, 89, 20);
-		getContentPane().add(lblMiddleName);
-		
-		txtMName = new JTextField();
-		txtMName.setColumns(10);
-		txtMName.setBounds(116, 75, 110, 20);
-		getContentPane().add(txtMName);
-		
 		lblLastName = new JLabel("Last Name       :");
-		lblLastName.setBounds(26, 106, 89, 20);
+		lblLastName.setBounds(26, 75, 89, 20);
 		getContentPane().add(lblLastName);
 		
 		txtLName = new JTextField();
 		txtLName.setColumns(10);
-		txtLName.setBounds(116, 106, 110, 20);
+		txtLName.setBounds(116, 75, 110, 20);
 		getContentPane().add(txtLName);
 		
 		lblGender = new JLabel("Gender            :");
-		lblGender.setBounds(26, 137, 89, 20);
+		lblGender.setBounds(26, 106, 89, 20);
 		getContentPane().add(lblGender);
 		
 		txtGender = new JComboBox();
-		txtGender.setModel(new DefaultComboBoxModel(new String[] {"MALE", "FEMALE"}));
-		txtGender.setBounds(116, 137, 110, 20);
+		txtGender.setModel(new DefaultComboBoxModel(new String[] {"Select Gender", "MALE", "FEMALE"}));
+		txtGender.setBounds(116, 106, 110, 20);
 		getContentPane().add(txtGender);
 		
 		lblDOB = new JLabel("D.O.B              :");
-		lblDOB.setBounds(26, 168, 89, 20);
+		lblDOB.setBounds(26, 137, 89, 20);
 		getContentPane().add(lblDOB);
-		
-		cmbDOB = new JComboBox();
-		cmbDOB.setBounds(116, 167, 110, 20);
-		getContentPane().add(cmbDOB);
 		
 		lblMobile = new JLabel("Mobile No        :");
 		lblMobile.setBounds(26, 199, 89, 20);
@@ -286,212 +261,400 @@ public class StaffInfo extends KTab {
 		getContentPane().add(txtMobNo);
 		
 		button = new JButton("Create");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Create();
+			}
+		});
 		button.setBounds(855, 44, 89, 31);
 		getContentPane().add(button);
 		
 		button_1 = new JButton("Update");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				update();
+				Update();
 			}
 		});
 		button_1.setBounds(855, 85, 89, 31);
 		getContentPane().add(button_1);
 		
 		button_2 = new JButton("Delete");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Delete();
+			}
+		});
 		button_2.setBounds(855, 128, 89, 31);
 		getContentPane().add(button_2);
 		
-		button_3 = new JButton("Report");
+		button_3 = new JButton("Refresh");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Refresh();
+				
+			}
+		});
 		button_3.setBounds(855, 172, 89, 31);
 		getContentPane().add(button_3);
 		
+		JLabel lblNic = new JLabel("NIC                  :");
+		lblNic.setBounds(26, 168, 89, 20);
+		getContentPane().add(lblNic);
+		
+		txtNIC = new JTextField();
+		txtNIC.setColumns(10);
+		txtNIC.setBounds(116, 168, 110, 20);
+		getContentPane().add(txtNIC);
 		
 		
+		//Adding a mouse clicked event, where upon clicking the row the values of the row get assigned to the relevant cages.
 		table.addMouseListener(new MouseAdapter() {
 			
 			public void mouseClicked(MouseEvent e) {
-//				int r = table.getSelectedRow();
-//				
-//				
-//				String FName = table.getValueAt(r, 0).toString();
-//				String MName = table.getValueAt(r, 2).toString();
-//				String LName = table.getValueAt(r, 3).toString();
-//				String Gender = table.getValueAt(r, 3).toString();
-//				String DOB = table.getValueAt(r, 4).toString();
-//				String MobNo = table.getValueAt(r, 5).toString();
-//				String FixedNo = table.getValueAt(r, 6).toString();
-//				String Address = table.getValueAt(r, 7).toString();
-//				String UName = table.getValueAt(r, 8).toString();
-//				String PWord = table.getValueAt(r, 9).toString();
-//				String Designation = table.getValueAt(r, 10).toString();
-//				String Type = table.getValueAt(r, 11).toString();
-//				String EmpID = table.getValueAt(r, 12).toString();
-//				String IVRNo = table.getValueAt(r, 13).toString();
-//				String SDate = table.getValueAt(r, 14).toString();
-//				String EDate = table.getValueAt(r, 15).toString();
+			int r = table.getSelectedRow();				
 				
-				
-//				String OfficeID = table.getValueAt(r, 16).toString();
-//				String PayrollID = table.getValueAt(r, 17).toString();
-				
-				
-				int r = table.getSelectedRow();
-		        
-		        String empID = table.getValueAt(r, 0).toString();
-		        String fn = table.getValueAt(r, 1).toString(); 
-		        String ln = table.getValueAt(r, 2).toString();
-		        String mn =  table.getValueAt(r, 3).toString();
-		        String desig =  table.getValueAt(r, 4).toString();
-		        String add = table.getValueAt(r, 5).toString();
-		        String un = table.getValueAt(r, 6).toString();
-		        String pw =  table.getValueAt(r, 7).toString();
-		        
-		        //String dob = table.getValueAt(r, 8).toString();
-		        String type = table.getValueAt(r, 10).toString(); 
-		        String sdate = table.getValueAt(r, 11).toString();
-		        String edate = null;
-		        
-		        
-		        if(table.getValueAt(r, 12) != null)
-		        	 edate =  table.getValueAt(r, 12).toString();
-		        
-		        String sid = null;
-		        if(table.getValueAt(r, 13) != null)
-		        	 sid =  table.getValueAt(r, 13).toString();
-		        
-		        String ofc = null;
-		        if(table.getValueAt(r, 14) != null)
-		        	 ofc =  table.getValueAt(r, 14).toString();
-		        
-		        
-		        
-		        txtEmpID.setText(empID);
-		        txtFName.setText(fn);
-		        txtLName.setText(ln);
-		        txtMName.setText(mn);
-		        txtDesignation.setText(desig);
-		        txtAddress.setText(add);
-		        txtUserName.setText(un);
-		        txtPassword.setText(pw);
-		        cmbType.setSelectedItem(type.toString());
-		        txtStartDate.setText(sdate);
-		        
-		        
-		        if(edate != null)
-		        	txtEndDate.setText(edate);
-		        
-		        if(sid != null)
-		        	txtPayrollID.setText(sid);
-		        
-		        if(ofc != null) 
-		        	txtOfficeID.setText(ofc);
+				String EmpID = table.getValueAt(r, 0).toString();
+				String FName = table.getValueAt(r, 1).toString();
+				String LName = table.getValueAt(r, 2).toString();
+				String Gender = table.getValueAt(r, 3).toString();
+				Date DOB = Date.valueOf(table.getValueAt(r , 4).toString());
+				String NIC = table.getValueAt(r, 5).toString();
+				String Address = table.getValueAt(r, 6).toString();
+				String Designation = table.getValueAt(r, 7).toString();
+				String UName = table.getValueAt(r, 8).toString();
+				String PWord = table.getValueAt(r, 9).toString();
+				String Type = table.getValueAt(r, 10).toString();
+				Date Sdate = Date.valueOf(table.getValueAt(r, 11).toString());
+				Date Edate = Date.valueOf(table.getValueAt(r, 12).toString());
+				String PayrollID = table.getValueAt(r, 13).toString();
+				String OfficeID = table.getValueAt(r, 14).toString();
+				String MobNo = table.getValueAt(r, 16).toString();
+				String FixedNo = table.getValueAt(r, 17).toString();
 				
 				
 				
+				txtFName.setText(FName);
+				txtLName.setText(LName);
+				txtGender.setSelectedItem(Gender.toString());
+				dob.setDate(DOB);
+				txtNIC.setText(NIC);
+				txtMobNo.setText(MobNo.toString());
+				txtFixedL.setText(FixedNo.toString());
+				txtAddress.setText(Address.toString());
+				txtUserName.setText(UName.toString());
+				txtPassword.setText(PWord.toString());
+				txtDesignation.setText(Designation.toString());
+				cmbType.setSelectedItem(Type.toString());
+				txtEmpID.setText(EmpID.toString());
+				SDate.setDate(Sdate);
 				
 				
+				EDate.setDate(Edate);
+				txtOfficeID.setText(OfficeID.toString());
+				txtPayrollID.setText(PayrollID.toString());
 				
-				}
+			}//end of implementation of annonymous interface
 			
-			
-			
-			
-		});
-		
-	
-	
-	
-			
-			
-		loads();	
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		
-		
-		
-		
+		});//end of annonymous class
+				
 
+		loads()	;//calling method loads to get values from database and convert it to the jtable type values
+		
+		 
 	}
-	
-	public void update(){
-		String sql = "UPDATE `employees` SET `FirstName` = ?, `LastName` = ?, `MiddleName` = ?, `Designation` = ?, `Address` = ?, `Username` = ?, `Password` = ?, `DOB` = ?, `Type` = ?, `StartDate` = ?, `EndDate` = ?, `SalaryProfileID` = ?, `OfficeID` = ?, `Gender` = ? WHERE `EmployeeID` = ?";
+	public void Create() {
+		{
+		/*String EmpID = txtEmpID.getText();
+		String FName = txtFName.getText();
+		String LName = txtLName.getText();
+		String NIC = txtNIC.getText();
+		String Address = txtAddress.getText();
+		String Designation = txtDesignation.getText();
+		String UName = txtUserName.getText();
+		String PWord = txtPassword.getText();
+		String PayrollID = txtPayrollID.getText();
+		String OfficeID = txtOfficeID.getText();		
+		String MobNo = txtMobNo.getText();
+		String FixedNo = txtFixedL.getText();
+		
+		Pattern pattern1 = Pattern.compile("\\d{10}");
+		Matcher mobile = pattern1.matcher(MobNo);
+		
+		Pattern pattern2 = Pattern.compile("\\d{10}");
+		Matcher match2 = pattern2.matcher(FixedNo);
+		
+		 if(FName.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter First Name");
+			}
+		
+		else if(LName.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter Last Name");
+			}
+		else if(NIC.equals("")){
+			JOptionPane.showMessageDialog(null,"NIC");
+			}
+		else if(!mobile.matches() || mobile.equals("")) {
+			JOptionPane.showMessageDialog(null,"Please enter a valid Mobile no");
+			}
+		else if(!match2.matches() || match2.equals("")) {
+			JOptionPane.showMessageDialog(null,"Please enter a valid Fixed Line no");
+			}
+		else if(Address.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter Address");
+			}
+		else if(EmpID.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter EmployeeID");
+			}
+		else if(OfficeID.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter OfficeID");
+			}	
+		else if(PayrollID.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter PayrollID");
+			}
+		else if(Designation.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter Designation");
+			}
+		else if(UName.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter UserName");
+			}
+		else if(PWord.equals("")){
+			JOptionPane.showMessageDialog(null,"Enter Password");
+			}
+	 
+		else {
+		*/
+		
+		
+		
+		String sql = "INSERT INTO `employees` (`EmployeeID`, `FirstName`, `LastName`, `Gender`, `DOB`, `NIC`, `Address`, `Designation`,`Username`, `Password`, `Type`, `StartDate`, `EndDate`, `SalaryProfileID`, `OfficeID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		try { 
+						PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
 
-		try {
-			PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
-			stmt.setString(15, txtEmpID.getText());
-			stmt.setString(1, txtFName.getText());
-			stmt.setString(2, txtLName.getText());
-			stmt.setString(3, txtMName.getText());
-			stmt.setString(4, txtDesignation.getText());
-			stmt.setString(5, txtAddress.getText());
-			stmt.setString(6, txtUserName.getText());
-			stmt.setString(7, txtPassword.getText());
-			stmt.setString(8, "1993-02-12");
-			stmt.setString(9, cmbType.getSelectedItem().toString());
-			stmt.setString(10, txtStartDate.getText());
-			stmt.setString(11, txtEndDate.getText());
-			stmt.setString(12, txtPayrollID.getText());
-			stmt.setString(13, txtOfficeID.getText());
-			stmt.setString(14, txtGender.getSelectedItem().toString());
+			stmt.setString(1, txtEmpID.getText());
+			stmt.setString(2, txtFName.getText());
+			stmt.setString(3, txtLName.getText());
+			stmt.setString(4, txtGender.getSelectedItem().toString());
+			stmt.setDate(5, new Date(dob.getDate().getTime()));
+			stmt.setString(6, txtNIC.getText());
+			stmt.setString(7, txtAddress.getText());
+			stmt.setString(8, txtDesignation.getText());
+			stmt.setString(9, txtUserName.getText());
+			stmt.setString(10, txtPassword.getText());
+			stmt.setString(11, cmbType.getSelectedItem().toString());
+			stmt.setDate(12, new Date(SDate.getDate().getTime()));
+			stmt.setDate(13, new Date(SDate.getDate().getTime()));
+			stmt.setString(14, txtPayrollID.getText());
+			stmt.setString(15, txtOfficeID.getText());
 			
-			if(txtEndDate.getText().equals("")) {
-				stmt.setString(12, null);
-			}
-			
-			if(txtPayrollID.getText().equals("")) {
-				stmt.setString(13, null);
-			}
-			
-			if(txtOfficeID.getText().equals("")) {
-				stmt.setString(14, null);
-			}
-			
-			
+
 			stmt.execute();
+			loads()	;
 			
-			loads();
+			
+			
 			
 			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+			// TODO: handle exception
 			e1.printStackTrace();
+		}
+	
+		String sql1 = "INSERT INTO `contact_no` (`EmployeeID`, `Telephone_No`, `FIXED_NO`) VALUES (?, ?, ?)";
+		
+		try {
+			PreparedStatement stmt = Database.getConnection().prepareStatement(sql1);
+			
+			stmt.setString(1, txtEmpID.getText());
+			stmt.setString(2, txtMobNo.getText());
+			stmt.setString(3, txtFixedL.getText());
+			
+			stmt.execute();
+			loads()	;
+			
+		}
+		
+		catch(SQLException e1){
+			e1.printStackTrace();
+		}
+		}}
+	
+	
+	public void Refresh() {
+		
+		txtFName.setText(null);
+		txtLName.setText(null);
+		txtGender.setSelectedItem("Select Gender");
+		dob.setDate(null);
+		txtNIC.setText(null);
+		txtMobNo.setText(null);
+		txtFixedL.setText(null);
+		txtAddress.setText(null);
+		txtUserName.setText(null);
+		txtPassword.setText(null);
+		txtDesignation.setText(null);
+		cmbType.setSelectedItem("Select Type");
+		txtEmpID.setText(null);
+		SDate.setDate(null);
+		EDate.setDate(null);
+		txtOfficeID.setText(null);
+		txtPayrollID.setText(null);
+		
+		loads()	;
+	}
+	
+	public void Update(){
+		{
+			String EmpID = txtEmpID.getText();
+			String FName = txtFName.getText();
+			String LName = txtLName.getText();
+			String NIC = txtNIC.getText();
+			String Address = txtAddress.getText();
+			String Designation = txtDesignation.getText();
+			String UName = txtUserName.getText();
+			String PWord = txtPassword.getText();
+			String PayrollID = txtPayrollID.getText();
+			String OfficeID = txtOfficeID.getText();		
+		
+			String MobNo = txtMobNo.getText(); 
+			
+			
+			Pattern pattern1 = Pattern.compile("\\d{10}");
+			Matcher mobile = pattern1.matcher(MobNo);
+	        
+			String FixedNo = txtFixedL.getText();
+			Pattern pattern2 = Pattern.compile("\\d{10}");
+			Matcher match2 = pattern2.matcher(FixedNo);
+			
+			 if(FName.equals("")){
+					JOptionPane.showMessageDialog(null,"Enter First Name");
+				}
+			
+			else if(LName.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter Last Name");
+				}
+			else if(NIC.equals("")){
+				JOptionPane.showMessageDialog(null,"NIC");
+				}
+			else if(!mobile.matches() || mobile.equals("")) {
+				JOptionPane.showMessageDialog(null,"Please enter a valid Mobile no");
+				}
+			else if(!match2.matches() || match2.equals("")) {
+				JOptionPane.showMessageDialog(null,"Please enter a valid Fixed Line no");
+				}
+			else if(Address.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter Address");
+				}
+			else if(EmpID.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter EmployeeID");
+				}
+			else if(OfficeID.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter OfficeID");
+				}	
+			else if(PayrollID.equals("")){
+					JOptionPane.showMessageDialog(null,"Enter PayrollID");
+				}
+			else if(Designation.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter Designation");
+				}
+			else if(UName.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter UserName");
+				}
+			else if(PWord.equals("")){
+				JOptionPane.showMessageDialog(null,"Enter Password");
+				}
+		 
+			else {
 		}
 		
 		
-}
+		String sql = "UPDATE `employees` SET `FirstName` = ?, `LastName` = ?, `Gender` = ?, `DOB` = ?, `NIC` = ?, `Address` = ?, `Designation` = ?, `Username` = ?, `Password` = ?, `Type` = ?, `StartDate` = ?, `EndDate` = ?, `SalaryProfileID` = ?, `OfficeID` = ? WHERE `employees`.`EmployeeID` = ?"; 
+			
+		try { 
+						PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
 
-}
+			stmt.setString(15, txtEmpID.getText());
+			stmt.setString(1, txtFName.getText());
+			stmt.setString(2, txtLName.getText());
+			stmt.setString(3, txtGender.getSelectedItem().toString());
+			stmt.setDate(4, new Date(dob.getDate().getTime()));
+			stmt.setString(5, txtNIC.getText());
+			stmt.setString(6, txtAddress.getText());
+			stmt.setString(7, txtDesignation.getText());
+			stmt.setString(8, txtUserName.getText());
+			stmt.setString(9, txtPassword.getText());
+			stmt.setString(10, cmbType.getSelectedItem().toString());
+			stmt.setDate(11, new Date(SDate.getDate().getTime()));
+			stmt.setDate(12, new Date(EDate.getDate().getTime()));
+			stmt.setString(13, txtPayrollID.getText());
+			stmt.setString(14, txtOfficeID.getText());
+			
+
+			stmt.execute();
+			loads()	;
+			
+			
+			
+			
+			
+		} catch (SQLException e1) {
+			// TODO: handle exception
+			e1.printStackTrace();
+		}
+		String sql1 = "UPDATE `contact_no` SET `Telephone_No` = ?, `FIXED_NO` = ? WHERE EmployeeID = ? "; 
+		try {
+			PreparedStatement stmt = Database.getConnection().prepareStatement(sql1);
+			
+			stmt.setString(3, txtEmpID.getText());
+			stmt.setString(1, txtMobNo.getText());
+			stmt.setString(2, txtFixedL.getText());
+			
+			stmt.execute();
+			loads()	;
+			
+		}
+		
+		catch(SQLException e1){
+			e1.printStackTrace();
+		}}
+
+		
+
+			
+	}
 	
+	public void Delete() {
+		
+		String sql = "DELETE FROM `employees` WHERE `EmployeeID` = ?";
+		try {
+			PreparedStatement stmt = Database.getConnection().prepareStatement(sql);
+			
+			stmt.setString(1, txtEmpID.getText());
+			
+			stmt.execute();
+			loads()	;
+			
+		}
+		
+		catch(SQLException e1){
+			e1.printStackTrace();
+		}
+	
+	String sql1 = "DELETE FROM `contact_no` WHERE `EmployeeID` = ?";
 
+	try {
+		PreparedStatement stmt = Database.getConnection().prepareStatement(sql1);
+		
+		stmt.setString(1, txtEmpID.getText());
+		
+		stmt.execute();
+		loads()	;
+		
+	}
+	
+	catch(SQLException e1){
+		e1.printStackTrace();
+	}
+}
+}
 	

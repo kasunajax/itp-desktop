@@ -135,6 +135,7 @@ public class Home extends KTab {
 				String sql;	
 				String text1 = textField.getText();
 				int count = 0;
+				boolean check = false;
 				
 				if(validated(text1,"Enter Office Id","Enter Valid Office Id!!")){
 					try {
@@ -144,11 +145,13 @@ public class Home extends KTab {
 						ResultSet rs = stmt.executeQuery();
 						if(rs.next())
 							count = rs.getInt(1);
+						if(count > 0)
+							check = true;
 					}
 					catch(SQLException ex) {
 						ex.printStackTrace();
 					}
-					if(count == 1) {
+					if(check) {
 						try {
 							
 							sql = "select items.ItemID,items.Serial_Number,items.Name,items.Added_Date,items.Sold_Date,items.Status,items.Executive,items.cost,office.OfficeID,office.Reigon_Name from items,sales_executives,office where items.Executive = sales_executives.EmployeeID and sales_executives.OfficeID = office.OfficeID and office.OfficeID = '"+text1+"'";
@@ -186,6 +189,7 @@ public class Home extends KTab {
 				String sql;	
 				String text = textField_1.getText();
 				int count = 0;
+				boolean check = false;
 				
 				if(validated(text,"Enter Executive Id","Enter Valid Executive Id!!")){
 					try {
@@ -195,11 +199,13 @@ public class Home extends KTab {
 						ResultSet rs = stmt.executeQuery();
 						if(rs.next())
 							count = rs.getInt(1);
+						if(count > 0)
+							check = true;
 					}
 					catch(SQLException ex) {
 						ex.printStackTrace();
 					}
-					if(count == 1) {
+					if(check) {
 						try {
 							
 							sql = "select * from items where Executive = '"+ text +"'";

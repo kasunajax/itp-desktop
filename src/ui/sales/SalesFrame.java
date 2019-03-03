@@ -7,8 +7,11 @@ import ui.components.KTab;
 import ui.components.TabNavPanel;
 import ui.components.TabPanel;
 import ui.components.TabStruct;
-
+import ui.sales.tabs.ConfirmSale;
 import ui.sales.tabs.ConfirmSales;
+import ui.sales.tabs.ConfirmedSales;
+import ui.sales.tabs.PendingSales;
+import ui.sales.tabs.UnconfirmedSales;
 import ui.sales.tabs.ViewReports;
 
 
@@ -41,8 +44,10 @@ public class SalesFrame extends KFrame {
 	public SalesFrame() {
 		
 		TabStruct[] ts = {
-				new TabStruct(ConfirmSales.class, "CONFIRM SALES"),
-				new TabStruct(ViewReports.class, "VIEW REPORTS")
+				new TabStruct(ConfirmSale.class, "CONFIRM SALE"),
+				new TabStruct(ConfirmedSales.class, "CONFIRMED SALES"),
+				new TabStruct(PendingSales.class, "PENDING SALES"),
+				new TabStruct(UnconfirmedSales.class, "UNCONFIRMED SALES")
 		};
 		
 		setStruct(ts);
